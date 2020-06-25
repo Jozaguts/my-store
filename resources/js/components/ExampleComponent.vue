@@ -1,19 +1,18 @@
 <template>
-  <div>
-      <h1>{{data}}</h1>
-  </div>
+  <v-app>
+    <v-alert type="warning" :value="true">Vuetify was installed properly</v-alert>
+  </v-app>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-            data: 'Funciona'
-        }
-    }
-}
+  data() {
+    return {
+      data: "Funciona"
+    };
+  }
+};
 </script>
 
 <style>
-
 </style>
