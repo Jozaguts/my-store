@@ -4,13 +4,12 @@ window.Vue = require('vue');
 import vuetify from './plugins/vuetify'
 import store from './store/index'
 import router from './routes'
-
-
-Vue.component('example-component', require('./components/ExampleComponent').default);
+import App from './App.vue'
 
 const app = new Vue({
+    el: '#app',
     vuetify,
     store,
     router,
-    el: '#app'
+    render: h=>h(App)
 })

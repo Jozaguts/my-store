@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>Esta la pagina home</h1>
-  </div>
+  <h1>esta es la vista home</h1>
 </template>
 
 <script>
