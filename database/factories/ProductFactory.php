@@ -10,7 +10,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'name' => $faker->name,
         'slug' => $faker->unique()->slug,
         'description' => $faker->text(100),
-        'price' => $faker->randomFloat(null, 50, null),
+        'price' => $faker->randomFloat(2, 50, 5000),
         'status' => $faker->numberBetween(0, 1),
     ];
 });
