@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Home from './views/Home.vue'
+import Products from './views/Products.vue'
 import Error404 from './views/Errors/404.vue'
 
 Vue.use(VueRouter)
@@ -13,6 +14,12 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home
+
+        },
+        {
+            path: '/products',
+            name: 'products',
+            component: Products
 
         },
         {

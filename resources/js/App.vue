@@ -1,10 +1,9 @@
 <template>
   <v-app>
-    <NabBar app/>
+    <NabBar />
     <v-main>
-      <!-- Provides the application the proper gutter -->
       <v-container fluid>
-        <!-- If using vue-router -->
+        <Banner />
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -15,8 +14,9 @@
 
 <script>
 import NabBar from "./components/NabBar.vue";
+import Banner from "./components/Banner.vue";
 export default {
-  components: { NabBar }
+  components: { NabBar, Banner },
 };
 </script>
 

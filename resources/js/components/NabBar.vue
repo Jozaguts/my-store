@@ -1,5 +1,5 @@
 <template>
-  <nav class="d-flex">
+  <nav class="d-flex" :app="true">
     <v-toolbar color="cyan accent-4">
       <v-btn v-for="btn in buttons" :key="btn.title" text :class="btn.class" :to="btn.link">
         <v-badge v-if="btn.title === 'Checkout'" content="6" :inline="true"></v-badge>
