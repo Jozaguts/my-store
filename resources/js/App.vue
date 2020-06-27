@@ -1,7 +1,6 @@
 <template>
   <v-app>
-    <app-bar-component />
-
+    <NabBar app/>
     <v-main>
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
@@ -15,9 +14,9 @@
 </template>
 
 <script>
-import AppBarComponent from "./components/AppBar.vue";
+import NabBar from "./components/NabBar.vue";
 export default {
-  components: { AppBarComponent }
+  components: { NabBar }
 };
 </script>
 
