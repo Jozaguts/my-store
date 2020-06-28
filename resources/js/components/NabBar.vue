@@ -1,7 +1,16 @@
 <template>
-  <nav class="d-flex" :app="true">
-    <v-toolbar color="cyan accent-4">
-      <v-btn v-for="btn in buttons" :key="btn.title" text :class="btn.class" :to="btn.link">
+  <nav class="d-flex">
+    <v-toolbar color="primary">
+      <v-app-bar-nav-icon @click="toogleDrawer" class="d-flex d-sm-none"></v-app-bar-nav-icon>
+      <v-toolbar-title class="d-flex d-sm-none">MyStore</v-toolbar-title>
+      <v-btn
+        v-for="btn in menu"
+        :key="btn.title"
+        text
+        class="d-none d-sm-flex"  
+        :class="btn.class"
+        :to="btn.link"
+      >
         <v-badge v-if="btn.title === 'Checkout'" content="6" :inline="true"></v-badge>
         <v-icon left>{{btn.icon}}</v-icon>
         {{btn.title}}
@@ -11,42 +20,18 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 export default {
-  data() {
-    return {
-      buttons: [
-        {
-          title: "MyStore",
-          icon: "",
-          link: "/",
-          class: "order-first mr-auto"
-        },
-        {
-          title: "products",
-          icon: "mdi-bow-tie",
-          link: "products",
-          class: "order-2"
-        },
-        {
-          title: "contact",
-          icon: "mdi-account-box",
-          link: "contact",
-          class: "order-4"
-        },
-        {
-          title: "About Us",
-          icon: "mdi-information",
-          link: "about",
-          class: "order-3"
-        },
-        {
-          title: "Checkout",
-          icon: "mdi-cart",
-          link: "about",
-          class: "order-last ml-auto"
-        }
-      ]
-    };
+  methods: {
+    ...mapMutations({
+      toogleDrawer: "global/toggleDrawer"
+    })
+  },
+  computed: {
+    ...mapGetters({
+      drawer: "global/getDrawerStatus",
+      menu: "global/getMenu"
+    })
   }
 };
 </script>

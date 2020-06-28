@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <navigation-left />
     <NabBar />
     <v-main>
       <v-container fluid>
@@ -15,8 +16,9 @@
 <script>
 import NabBar from "./components/NabBar.vue";
 import Banner from "./components/Banner.vue";
+import NavigationLeft from "./components/NavigationLeft.vue";
 export default {
-  components: { NabBar, Banner },
+  components: { NabBar, Banner, NavigationLeft }
 };
 </script>
 
