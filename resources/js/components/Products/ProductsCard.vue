@@ -1,10 +1,11 @@
 <template>
   <v-card>
-    <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"></v-img>
+    <v-img :src="image"></v-img>
     <v-card-title v-text="name"></v-card-title>
-    <v-card-subtitle class="text-uppercase" v-text="price"></v-card-subtitle>
+    <v-card-subtitle class="text-uppercase" >{{price|money }}</v-card-subtitle>
     <v-card-actions>
       <v-btn color="primary" classe="text-capitalize" tile>add to cart</v-btn>
+      <v-btn color="secondary" classe="text-capitalize" tile>details</v-btn>
       <v-spacer></v-spacer>
       <v-btn icon @click="show = !show">
         <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
@@ -31,22 +32,25 @@ export default {
     };
   },
   props: {
-    img: {
+    image: {
       type: String,
       required: true,
       default: '"https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
     },
     name: {
       type: String,
-      required: true
+      required: true,
+      default: ""
     },
     price: {
       type: String,
-      required: true
+      required: true,
+      default: ""
     },
     description: {
       type: String,
-      required: true
+      required: true,
+      default: ""
     }
   }
 };

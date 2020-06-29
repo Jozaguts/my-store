@@ -12,8 +12,8 @@
         <products-card
           :name="product.name"
           :price="product.price"
-          :description="product.description
-      "
+          :description="product.description"
+          image="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
         ></products-card>
       </v-col>
     </v-row>
@@ -47,7 +47,7 @@ export default {
       this.changePage(page);
     }
   },
-  mounted() {
+  created() {
     this.getProducts();
   }
 };
