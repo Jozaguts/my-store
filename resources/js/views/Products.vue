@@ -11,6 +11,7 @@
       >
         <products-card
           :name="product.name"
+          :slug="product.slug"
           :price="product.price"
           :description="product.description"
           image="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"

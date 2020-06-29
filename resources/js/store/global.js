@@ -12,25 +12,25 @@ const auth = {
             {
                 title: "products",
                 icon: "mdi-bow-tie",
-                link: "products",
+                link: "/products",
                 class: "order-2"
             },
             {
                 title: "contact",
                 icon: "mdi-account-box",
-                link: "contact",
+                link: "/contact",
                 class: "order-4"
             },
             {
                 title: "About Us",
                 icon: "mdi-information",
-                link: "about",
+                link: "/about",
                 class: "order-3"
             },
             {
                 title: "Checkout",
                 icon: "mdi-cart",
-                link: "about",
+                link: "/about",
                 class: "order-last ml-auto"
             }
         ]

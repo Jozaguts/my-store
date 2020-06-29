@@ -2,10 +2,10 @@
   <v-card>
     <v-img :src="image"></v-img>
     <v-card-title v-text="name"></v-card-title>
-    <v-card-subtitle class="text-uppercase" >{{price|money }}</v-card-subtitle>
+    <v-card-subtitle class="text-uppercase">{{price|money }}</v-card-subtitle>
     <v-card-actions>
       <v-btn color="primary" classe="text-capitalize" tile>add to cart</v-btn>
-      <v-btn color="secondary" classe="text-capitalize" tile>details</v-btn>
+      <v-btn color="secondary" classe="text-capitalize" tile :to="`/products/${slug}`">details</v-btn>
       <v-spacer></v-spacer>
       <v-btn icon @click="show = !show">
         <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
@@ -36,6 +36,11 @@ export default {
       type: String,
       required: true,
       default: '"https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
+    },
+    slug: {
+      type: String,
+      required: true,
+      default: ""
     },
     name: {
       type: String,

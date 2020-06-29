@@ -39,7 +39,7 @@ const products = {
         async asyncGetProducts({ commit }) {
             try {
                 await axios.get('/api/products?page=1')
-                    .then((response) => {  
+                    .then((response) => {
                         commit('SET_PRODUCTS', response.data)
                     })
             } catch (error) {
@@ -52,10 +52,10 @@ const products = {
                     .then((response) => {
                         commit('SET_PRODUCTS', response.data)
                     })
-            } catch(error){
+            } catch (error) {
                 console.log(error)
             }
-            
+
 
         }
     },
@@ -68,6 +68,10 @@ const products = {
         },
         getLastPage(state) {
             return state.productsPaginated.paginate.last_page
+        },
+        getProductDetails: (state) => (slug) => {
+            const products = Array.from(state.productsPaginated.products).find(product => product.slug === slug)
+            return products
         }
     }
 }
