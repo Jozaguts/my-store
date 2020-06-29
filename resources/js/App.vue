@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <navigation-left />
+    <navigationLeft />
     <NabBar />
     <v-main>
       <v-container fluid>

@@ -1,38 +1,54 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" sm="12" md="4" lg="4">
-        <v-card>
-          <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"></v-img>
-          <v-card-title>Top western road trips</v-card-title>
-          <v-card-subtitle class="text-uppercase">price</v-card-subtitle>
-          <v-card-actions>
-            <v-btn color="primary" classe="text-capitalize" tile>add to cart</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="show = !show">
-              <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-            </v-btn>
-          </v-card-actions>
-          <v-expand-transition>
-            <div v-show="show">
-              <v-divider></v-divider>
-              <v-card-text>
-                <v-card-subtitle class="text-capitalize">description</v-card-subtitle>I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-              </v-card-text>
-            </div>
-          </v-expand-transition>
-        </v-card>
+      <v-col
+        cols="12"
+        sm="12"
+        md="4"
+        lg="4"
+        v-for="product in productsPaginated.products"
+        :key="product.id"
+      >
+        <products-card
+          :name="product.name"
+          :price="product.price"
+          :description="product.description
+      "
+        ></products-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-pagination :value="page" :length="length" @input="next"></v-pagination>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import ProductsCard from "../components/Products/ProductsCard";
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
-  data() {
-    return {
-      show: false
-    };
+  components: { ProductsCard },
+  computed: {
+    ...mapGetters({
+      productsPaginated: "products/getPaginatedProducts",
+      page: "products/getCurrentPage",
+      length: "products/getLastPage"
+    })
+  },
+  methods: {
+    ...mapActions({
+      getProducts: "products/asyncGetProducts",
+      changePage: "products/asyncChangePage"
+    }),
+    next(page) {
+      this.$store.commit("products/SET_CURRENT_PAGE", page);
+      this.changePage(page);
+    }
+  },
+  mounted() {
+    this.getProducts();
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <v-banner class="text-center py-16" app>
+  <v-banner class="text-center py-16">
     <h1 class="text--h1 text-capitalize font-weight-bold py-8" v-text="title"></h1>
   </v-banner>
 </template>
