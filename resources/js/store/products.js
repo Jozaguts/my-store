@@ -13,7 +13,7 @@ const products = {
                 slug: '',
                 description: '',
                 price: '',
-                status: ''
+                status: 0
             }
         }
         ,
@@ -36,14 +36,17 @@ const products = {
         }
     },
     actions: {
-        async asyncGetProducts({ commit }) {
-            try {
-                await axios.get('/api/products?page=1')
-                    .then((response) => {
-                        commit('SET_PRODUCTS', response.data)
-                    })
-            } catch (error) {
-                console.error(error)
+        async asyncGetProducts({ commit, state }) {
+            if (!state.productsPaginated.products.length) {
+                try {
+
+                    await axios.get('/api/products?page=1')
+                        .then((response) => {
+                            commit('SET_PRODUCTS', response.data)
+                        })
+                } catch (error) {
+                    console.error(error)
+                }
             }
         },
         async asyncChangePage({ commit, dispatch }, pageNumber) {

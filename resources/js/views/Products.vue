@@ -14,6 +14,7 @@
           :slug="product.slug"
           :price="product.price"
           :description="product.description"
+          :status="product.status"
           image="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
         ></products-card>
       </v-col>

@@ -4,7 +4,12 @@
     <v-card-title v-text="name"></v-card-title>
     <v-card-subtitle class="text-uppercase">{{price|money }}</v-card-subtitle>
     <v-card-actions>
-      <v-btn color="primary" classe="text-capitalize" tile>add to cart</v-btn>
+      <v-btn
+        color="primary"
+        classe="text-capitalize"
+        :disabled="status ? true: false"
+        tile
+      >add to cart</v-btn>
       <v-btn color="secondary" classe="text-capitalize" tile :to="`/products/${slug}`">details</v-btn>
       <v-spacer></v-spacer>
       <v-btn icon @click="show = !show">
@@ -56,6 +61,11 @@ export default {
       type: String,
       required: true,
       default: ""
+    },
+    status: {
+      type: Number,
+      required: true,
+      default: 0
     }
   }
 };
