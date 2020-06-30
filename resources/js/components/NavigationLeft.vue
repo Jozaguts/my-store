@@ -10,6 +10,10 @@
         </v-list-item-icon>
       </v-list-item>
     </v-list>
+    <v-btn class="order-last ml-auto" text>
+      <v-badge content="6" :inline="true"></v-badge>
+      <v-icon left>mdi-cart</v-icon>checkout
+    </v-btn>
   </v-navigation-drawer>
 </template>
 

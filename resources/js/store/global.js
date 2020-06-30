@@ -27,12 +27,12 @@ const auth = {
                 link: "/about",
                 class: "order-3"
             },
-            {
-                title: "Checkout",
-                icon: "mdi-cart",
-                link: "/about",
-                class: "order-last ml-auto"
-            }
+            // {
+            //     title: "Checkout",
+            //     icon: "mdi-cart",
+            //     link: "/about",
+            //     class: "order-last ml-auto"
+            // }
         ]
     },
     mutations: {
