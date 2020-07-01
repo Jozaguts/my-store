@@ -9,6 +9,7 @@
         classe="text-capitalize"
         :disabled="status ? true: false"
         tile
+        @click="addToCart"
       >add to cart</v-btn>
       <v-btn color="secondary" classe="text-capitalize" tile :to="`/products/${slug}`">details</v-btn>
       <v-spacer></v-spacer>
@@ -29,12 +30,23 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
       show: false
     };
+  },
+  methods: {
+    addToCart() {
+      const cartItem = {
+        id: this.id,
+        name: this.name,
+        price: this.price,
+        quantity: 1
+      };
+      this.$store.commit("cart/ADD_TO_CART", cartItem);
+    }
   },
   props: {
     image: {
@@ -66,6 +78,10 @@ export default {
       type: Number,
       required: true,
       default: 0
+    },
+    id: {
+      type: Number,
+      required: true
     }
   }
 };

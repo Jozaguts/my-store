@@ -1,14 +1,14 @@
 <template>
   <v-app>
-    <navigationLeft />
-    <navigationRight />
     <NabBar />
-    <v-main>
+    <navigationLeft  />
+    <navigationRight  />
+    <v-content>
       <v-container fluid>
         <Banner />
         <router-view></router-view>
       </v-container>
-    </v-main>
+    </v-content>
 
     <v-footer app>este es el footer</v-footer>
   </v-app>
