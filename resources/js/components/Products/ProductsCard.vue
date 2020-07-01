@@ -37,6 +37,7 @@ export default {
       show: false
     };
   },
+ 
   methods: {
     addToCart() {
       const cartItem = {

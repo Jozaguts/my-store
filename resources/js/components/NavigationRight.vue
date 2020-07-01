@@ -19,21 +19,41 @@
               <v-icon>mdi-trash-can</v-icon>
             </td>
           </tr>
+          <tr v-if="totalAmount && totalQuantity">
+            <td colspan="1" class="text-center text-capitalize text-bold">subtotals</td>
+            <td colspan="1" class="text-center text-capitalize">{{totalAmount|money}}</td>
+            <td colspan="1" class="text-center text-capitalize">{{totalQuantity}}</td>
+          </tr>
         </tbody>
       </template>
     </v-simple-table>
+    <section class="d-flex flex-column align-center justify-center">
+      <v-btn color="primary" class="text-capitalize mt-4" v-show="totalAmount && totalQuantity">
+        <v-icon left>mdi-check</v-icon>Check Out
+      </v-btn>
+      <v-btn class="text-capitalize mt-4" color="secondary" text @click="closeSidebar">
+        <v-icon left>mdi-close</v-icon>Close sidebar
+      </v-btn>
+    </section>
   </v-navigation-drawer>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapGetters({
       show: "cart/getToggleShow",
-      cartItems: "cart/getCartItems"
+      cartItems: "cart/getCartItems",
+      totalQuantity: "cart/getTotalQuantity",
+      totalAmount: "cart/getTotalAmount"
     })
   },
+  methods: {
+    ...mapMutations({
+      closeSidebar: "cart/TOGGLE_SHOW_CART"
+    })
+  }
 };
 </script>
 

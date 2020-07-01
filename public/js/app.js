@@ -2179,7 +2179,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     drawer: "global/getDrawerStatus"
   })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])({
-    showCart: "cart/TOGGLE_SHOW_CART"
+    showCart: "cart/TOGGLE_SHOW_CART",
+    hideSideBar: "global/TOGGLE_DRAWER",
+    showCartAndHideMenu: function showCartAndHideMenu() {
+      this.showCart();
+
+      if (this.drawer) {
+        this.hideSideBar();
+      }
+    }
   }))
 });
 
@@ -2228,11 +2236,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     show: "cart/getToggleShow",
-    cartItems: "cart/getCartItems"
+    cartItems: "cart/getCartItems",
+    totalQuantity: "cart/getTotalQuantity",
+    totalAmount: "cart/getTotalAmount"
+  })),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])({
+    closeSidebar: "cart/TOGGLE_SHOW_CART"
   }))
 });
 
@@ -6772,7 +6798,7 @@ var render = function() {
         {
           staticClass: "order-last ml-auto",
           attrs: { text: "" },
-          on: { click: _vm.showCart }
+          on: { click: _vm.showCartAndHideMenu }
         },
         [
           _c("v-badge", { attrs: { content: "6", inline: true } }),
@@ -6848,31 +6874,113 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.cartItems, function(item) {
-                    return _c("tr", { key: item.name }, [
-                      _c("td", { staticClass: "text-center text-capitalize" }, [
-                        _vm._v(_vm._s(item.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center text-capitalize" }, [
-                        _vm._v(_vm._s(item.price))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center text-capitalize" }, [
-                        _vm._v(_vm._s(item.quantity))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_c("v-icon", [_vm._v("mdi-trash-can")])], 1)
-                    ])
-                  }),
-                  0
+                  [
+                    _vm._l(_vm.cartItems, function(item) {
+                      return _c("tr", { key: item.name }, [
+                        _c(
+                          "td",
+                          { staticClass: "text-center text-capitalize" },
+                          [_vm._v(_vm._s(item.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "text-center text-capitalize" },
+                          [_vm._v(_vm._s(item.price))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "text-center text-capitalize" },
+                          [_vm._v(_vm._s(item.quantity))]
+                        ),
+                        _vm._v(" "),
+                        _c("td", [_c("v-icon", [_vm._v("mdi-trash-can")])], 1)
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _vm.totalAmount && _vm.totalQuantity
+                      ? _c("tr", [
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "text-center text-capitalize text-bold",
+                              attrs: { colspan: "1" }
+                            },
+                            [_vm._v("subtotals")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-center text-capitalize",
+                              attrs: { colspan: "1" }
+                            },
+                            [_vm._v(_vm._s(_vm._f("money")(_vm.totalAmount)))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-center text-capitalize",
+                              attrs: { colspan: "1" }
+                            },
+                            [_vm._v(_vm._s(_vm.totalQuantity))]
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  2
                 )
               ]
             },
             proxy: true
           }
         ])
-      })
+      }),
+      _vm._v(" "),
+      _c(
+        "section",
+        { staticClass: "d-flex flex-column align-center justify-center" },
+        [
+          _c(
+            "v-btn",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.totalAmount && _vm.totalQuantity,
+                  expression: "totalAmount && totalQuantity"
+                }
+              ],
+              staticClass: "text-capitalize mt-4",
+              attrs: { color: "primary" }
+            },
+            [
+              _c("v-icon", { attrs: { left: "" } }, [_vm._v("mdi-check")]),
+              _vm._v("Check Out\n    ")
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticClass: "text-capitalize mt-4",
+              attrs: { color: "secondary", text: "" },
+              on: { click: _vm.closeSidebar }
+            },
+            [
+              _c("v-icon", { attrs: { left: "" } }, [_vm._v("mdi-close")]),
+              _vm._v("Close sidebar\n    ")
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -68246,15 +68354,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/components/NavigationRight.vue ***!
   \*****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NavigationRight_vue_vue_type_template_id_557ce666___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavigationRight.vue?vue&type=template&id=557ce666& */ "./resources/js/components/NavigationRight.vue?vue&type=template&id=557ce666&");
 /* harmony import */ var _NavigationRight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavigationRight.vue?vue&type=script&lang=js& */ "./resources/js/components/NavigationRight.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _NavigationRight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _NavigationRight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -68284,7 +68391,7 @@ component.options.__file = "resources/js/components/NavigationRight.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/components/NavigationRight.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68712,6 +68819,20 @@ var cart = {
     },
     getCartChanged: function getCartChanged(state) {
       return state.cartChanged;
+    },
+    getTotalQuantity: function getTotalQuantity(state) {
+      if (state.cartItems.length) {
+        return state.cartItems.reduce(function (acc, el) {
+          return acc + el.quantity;
+        }, 0);
+      }
+    },
+    getTotalAmount: function getTotalAmount(state) {
+      if (state.cartItems.length) {
+        return state.cartItems.reduce(function (acc, el) {
+          return acc + Math.floor(Number(el.price * el.quantity));
+        }, 0);
+      }
     }
   }
 };

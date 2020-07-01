@@ -48,6 +48,17 @@ const cart = {
         },
         getCartChanged(state) {
             return state.cartChanged
+        },
+        getTotalQuantity(state) {
+            if (state.cartItems.length) {
+                return state.cartItems.reduce((acc, el) => acc + el.quantity, 0)
+            }
+
+        },
+        getTotalAmount(state) {
+            if (state.cartItems.length) {
+                return state.cartItems.reduce((acc, el) => acc + Math.floor(Number(el.price * el.quantity)), 0)
+            }
         }
     }
 }
