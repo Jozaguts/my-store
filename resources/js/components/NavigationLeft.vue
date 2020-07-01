@@ -10,7 +10,7 @@
         </v-list-item-icon>
       </v-list-item>
     </v-list>
-    <v-btn class="order-last ml-auto" text>
+    <v-btn class="order-last ml-auto" @click="showCartAndHideMenu" text>
       <v-badge content="6" :inline="true"></v-badge>
       <v-icon left>mdi-cart</v-icon>checkout
     </v-btn>
@@ -18,12 +18,24 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapGetters({
       menu: "global/getMenu",
       drawer: "global/getDrawerStatus"
+    })
+  },
+  methods: {
+    ...mapMutations({
+      showCart: "cart/TOGGLE_SHOW_CART",
+      hideSideBar: "global/TOGGLE_DRAWER",
+      showCartAndHideMenu() {
+        this.showCart();
+        if (this.drawer) {
+          this.hideSideBar();
+        }
+      }
     })
   }
 };
