@@ -2249,6 +2249,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -2257,9 +2259,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     totalQuantity: "cart/getTotalQuantity",
     totalAmount: "cart/getTotalAmount"
   })),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])({
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])({
     closeSidebar: "cart/TOGGLE_SHOW_CART"
-  }))
+  })), {}, {
+    deleteItem: function deleteItem(id) {
+      this.$store.commit("cart/DELETE_ITEM", id);
+    }
+  })
 });
 
 /***/ }),
@@ -6876,30 +6882,62 @@ var render = function() {
                   "tbody",
                   [
                     _vm._l(_vm.cartItems, function(item) {
-                      return _c("tr", { key: item.name }, [
-                        _c(
-                          "td",
-                          { staticClass: "text-center text-capitalize" },
-                          [_vm._v(_vm._s(item.name))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "text-center text-capitalize" },
-                          [_vm._v(_vm._s(item.price))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "text-center text-capitalize" },
-                          [_vm._v(_vm._s(item.quantity))]
-                        ),
-                        _vm._v(" "),
-                        _c("td", [_c("v-icon", [_vm._v("mdi-trash-can")])], 1)
-                      ])
+                      return _c(
+                        "tr",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: item.quantity > 0,
+                              expression: "(item.quantity > 0)"
+                            }
+                          ],
+                          key: item.name
+                        },
+                        [
+                          _c(
+                            "td",
+                            { staticClass: "text-center text-capitalize" },
+                            [_vm._v(_vm._s(item.name))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center text-capitalize" },
+                            [_vm._v(_vm._s(item.price))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "text-center text-capitalize" },
+                            [_vm._v(_vm._s(item.quantity))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { text: "" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-trash-can")])],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      )
                     }),
                     _vm._v(" "),
-                    _vm.totalAmount && _vm.totalQuantity
+                    _vm.totalAmount > 0 && _vm.totalQuantity
                       ? _c("tr", [
                           _c(
                             "td",
@@ -6951,8 +6989,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.totalAmount && _vm.totalQuantity,
-                  expression: "totalAmount && totalQuantity"
+                  value: _vm.totalAmount > 0,
+                  expression: "(totalAmount>0)"
                 }
               ],
               staticClass: "text-capitalize mt-4",
@@ -68643,7 +68681,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var vuexLocal = new vuex_persist__WEBPACK_IMPORTED_MODULE_0__["default"]({
   storage: window.localStorage,
-  modules: ['products']
+  modules: ['products', 'cart']
 });
 /* harmony default export */ __webpack_exports__["default"] = (vuexLocal);
 
@@ -68768,6 +68806,15 @@ var cart = {
     },
     CHANGE_STATUS_CART: function CHANGE_STATUS_CART(state, payload) {
       state.cartChanged = payload;
+    },
+    DELETE_ITEM: function DELETE_ITEM(state, id) {
+      var finned = state.cartItems.find(function (item) {
+        return item.id == id;
+      });
+
+      if (finned && finned.quantity > 0) {
+        finned.quantity--;
+      }
     }
   },
   actions: {

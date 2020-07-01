@@ -21,6 +21,12 @@ const cart = {
         },
         CHANGE_STATUS_CART(state, payload) {
             state.cartChanged = payload
+        },
+        DELETE_ITEM(state, id) {
+            const finned = state.cartItems.find(item => item.id == id)
+            if (finned && (finned.quantity > 0)) {
+                finned.quantity--
+            }
         }
     },
     actions: {

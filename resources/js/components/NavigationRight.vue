@@ -11,15 +11,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in cartItems" :key="item.name">
+          <tr v-for="item in cartItems" :key="item.name" v-show="(item.quantity > 0)">
             <td class="text-center text-capitalize">{{ item.name }}</td>
             <td class="text-center text-capitalize">{{ item.price }}</td>
             <td class="text-center text-capitalize">{{ item.quantity }}</td>
             <td>
-              <v-icon>mdi-trash-can</v-icon>
+              <v-btn text @click="deleteItem(item.id)">
+                <v-icon>mdi-trash-can</v-icon>
+              </v-btn>
             </td>
           </tr>
-          <tr v-if="totalAmount && totalQuantity">
+          <tr v-if="(totalAmount>0) && totalQuantity">
             <td colspan="1" class="text-center text-capitalize text-bold">subtotals</td>
             <td colspan="1" class="text-center text-capitalize">{{totalAmount|money}}</td>
             <td colspan="1" class="text-center text-capitalize">{{totalQuantity}}</td>
@@ -28,7 +30,7 @@
       </template>
     </v-simple-table>
     <section class="d-flex flex-column align-center justify-center">
-      <v-btn color="primary" class="text-capitalize mt-4" v-show="totalAmount && totalQuantity">
+      <v-btn color="primary" class="text-capitalize mt-4" v-show="(totalAmount>0)">
         <v-icon left>mdi-check</v-icon>Check Out
       </v-btn>
       <v-btn class="text-capitalize mt-4" color="secondary" text @click="closeSidebar">
@@ -52,7 +54,10 @@ export default {
   methods: {
     ...mapMutations({
       closeSidebar: "cart/TOGGLE_SHOW_CART"
-    })
+    }),
+    deleteItem(id) {
+      this.$store.commit("cart/DELETE_ITEM", id);
+    }
   }
 };
 </script>
