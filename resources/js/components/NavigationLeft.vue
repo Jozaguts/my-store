@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :temporary="true" app :value="drawer">
+  <v-navigation-drawer :temporary="true" :value="drawer" app>
     <v-list>
       <v-list-item v-for="btn in menu" :key="btn.title" :to="btn.link">
         <v-list-item-icon>
