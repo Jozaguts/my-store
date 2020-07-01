@@ -2114,6 +2114,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])({
@@ -2122,7 +2130,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     drawer: "global/getDrawerStatus",
-    menu: "global/getMenu"
+    menu: "global/getMenu",
+    showAlert: "cart/getCartChanged"
   }))
 });
 
@@ -2168,6 +2177,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     menu: "global/getMenu",
     drawer: "global/getDrawerStatus"
+  })),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])({
+    showCart: "cart/TOGGLE_SHOW_CART"
   }))
 });
 
@@ -2193,10 +2205,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    show: "cart/getToggleShow"
+    show: "cart/getToggleShow",
+    cartItems: "cart/getCartItems"
   }))
 });
 
@@ -2331,7 +2367,7 @@ __webpack_require__.r(__webpack_exports__);
         price: this.price,
         quantity: 1
       };
-      this.$store.commit("cart/ADD_TO_CART", cartItem);
+      this.$store.dispatch("cart/addToCart", cartItem);
     }
   },
   props: {
@@ -2533,7 +2569,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fixed {\r\n  position: fixed;\n}\r\n", ""]);
+exports.push([module.i, "\n.alert {\r\n  position: absolute;\r\n  top: 100%;\r\n  right: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -6658,6 +6694,21 @@ var render = function() {
           _vm._v("checkout\n  ")
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-alert",
+        {
+          staticClass: "alert",
+          attrs: {
+            type: "success",
+            dismissible: "",
+            dense: "",
+            transition: "scale-transition",
+            value: _vm.showAlert
+          }
+        },
+        [_vm._v("I'm a success alert.")]
       )
     ],
     2
@@ -6718,7 +6769,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-btn",
-        { staticClass: "order-last ml-auto", attrs: { text: "" } },
+        {
+          staticClass: "order-last ml-auto",
+          attrs: { text: "" },
+          on: { click: _vm.showCart }
+        },
         [
           _c("v-badge", { attrs: { content: "6", inline: true } }),
           _vm._v(" "),
@@ -6753,9 +6808,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-navigation-drawer", {
-    attrs: { temporary: true, value: _vm.show, right: true, app: "" }
-  })
+  return _c(
+    "v-navigation-drawer",
+    {
+      attrs: {
+        temporary: true,
+        value: _vm.show,
+        right: true,
+        width: "400px",
+        app: ""
+      }
+    },
+    [
+      _c("v-simple-table", {
+        scopedSlots: _vm._u([
+          {
+            key: "default",
+            fn: function() {
+              return [
+                _c("thead", [
+                  _c("tr", [
+                    _c("th", { staticClass: "text-center tex-capitalize" }, [
+                      _vm._v("name")
+                    ]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "text-center text-capitalize" }, [
+                      _vm._v("price")
+                    ]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "text-center text-capitalize" }, [
+                      _vm._v("quantity")
+                    ]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "text-center text-capitalize" }, [
+                      _vm._v("actions")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.cartItems, function(item) {
+                    return _c("tr", { key: item.name }, [
+                      _c("td", { staticClass: "text-center text-capitalize" }, [
+                        _vm._v(_vm._s(item.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center text-capitalize" }, [
+                        _vm._v(_vm._s(item.price))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center text-capitalize" }, [
+                        _vm._v(_vm._s(item.quantity))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_c("v-icon", [_vm._v("mdi-trash-can")])], 1)
+                    ])
+                  }),
+                  0
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -68126,14 +68246,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/components/NavigationRight.vue ***!
   \*****************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NavigationRight_vue_vue_type_template_id_557ce666___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavigationRight.vue?vue&type=template&id=557ce666& */ "./resources/js/components/NavigationRight.vue?vue&type=template&id=557ce666&");
 /* harmony import */ var _NavigationRight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavigationRight.vue?vue&type=script&lang=js& */ "./resources/js/components/NavigationRight.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _NavigationRight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _NavigationRight_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -68163,7 +68284,7 @@ component.options.__file = "resources/js/components/NavigationRight.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/components/NavigationRight.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68507,17 +68628,27 @@ var auth = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 var cart = {
   namespaced: true,
   state: {
     show: false,
-    cartItems: []
+    cartItems: [],
+    cartChanged: false
   },
   mutations: {
     TOGGLE_SHOW_CART: function TOGGLE_SHOW_CART(state) {
       state.show = !state.show;
     },
     ADD_TO_CART: function ADD_TO_CART(state, cartItem) {
+      state.cartChanged = false;
       var finned = state.cartItems.find(function (item) {
         return item.id === cartItem.id;
       });
@@ -68527,12 +68658,60 @@ var cart = {
       } else if (!finned && cartItem.id != '') {
         state.cartItems.push(cartItem);
       }
+    },
+    CHANGE_STATUS_CART: function CHANGE_STATUS_CART(state, payload) {
+      state.cartChanged = payload;
     }
   },
-  actions: {},
+  actions: {
+    addToCart: function addToCart(context, cartItem) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return context.commit('ADD_TO_CART', cartItem);
+
+              case 3:
+                _context.next = 5;
+                return context.commit('CHANGE_STATUS_CART', true);
+
+              case 5:
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+                console.error(_context.t0);
+
+              case 10:
+                _context.prev = 10;
+                setTimeout(function () {
+                  context.commit('CHANGE_STATUS_CART', false);
+                }, 2000);
+                return _context.finish(10);
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 7, 10, 13]]);
+      }))();
+    }
+  },
   getters: {
     getToggleShow: function getToggleShow(state) {
       return state.show;
+    },
+    getCartItems: function getCartItems(state) {
+      return state.cartItems;
+    },
+    getCartChanged: function getCartChanged(state) {
+      return state.cartChanged;
     }
   }
 };

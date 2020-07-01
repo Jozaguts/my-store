@@ -17,6 +17,14 @@
       <v-badge content="6" :inline="true"></v-badge>
       <v-icon left>mdi-cart</v-icon>checkout
     </v-btn>
+    <v-alert
+      class="alert"
+      type="success"
+      dismissible
+      dense
+      transition="scale-transition"
+      :value="showAlert"
+    >I'm a success alert.</v-alert>
   </v-app-bar>
 </template>
 
@@ -32,14 +40,17 @@ export default {
   computed: {
     ...mapGetters({
       drawer: "global/getDrawerStatus",
-      menu: "global/getMenu"
+      menu: "global/getMenu",
+      showAlert: "cart/getCartChanged"
     })
   }
 };
 </script>
 
 <style>
-.fixed {
-  position: fixed;
+.alert {
+  position: absolute;
+  top: 100%;
+  right: 0;
 }
 </style>

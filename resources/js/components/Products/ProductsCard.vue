@@ -45,7 +45,7 @@ export default {
         price: this.price,
         quantity: 1
       };
-      this.$store.commit("cart/ADD_TO_CART", cartItem);
+      this.$store.dispatch("cart/addToCart", cartItem);
     }
   },
   props: {
