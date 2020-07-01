@@ -16,7 +16,7 @@
               class="text-uppercase"
               :disabled="!productDetails.status"
             >add to cart</v-btn>
-            <v-btn color="secondary" class="text-uppercase">checkout</v-btn>
+            <v-btn color="secondary" class="text-uppercase" to="/checkout">checkout</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

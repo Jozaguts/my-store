@@ -1,5 +1,8 @@
 <template>
-  <v-navigation-drawer :temporary="true" :value="show" :right="true" width="400px" app>
+  <v-stepper-content step="1">
+    <header>
+      <h2 class="text-bold text-capitalize primary--text">Items in you cart</h2>
+    </header>
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -30,14 +33,16 @@
       </template>
     </v-simple-table>
     <section class="d-flex flex-column align-center justify-center">
-      <v-btn color="primary" class="text-capitalize mt-4" to="/checkout" v-show="(totalAmount>0)">
-        <v-icon left>mdi-check</v-icon>Check Out
-      </v-btn>
-      <v-btn class="text-capitalize mt-4" color="secondary" text @click="closeSidebar">
-        <v-icon left>mdi-close</v-icon>Close sidebar
+      <v-btn
+        color="primary"
+        class="text-capitalize mt-4"
+        @click="$emit('change-step',2)"
+        v-show="(totalAmount>0)"
+      >
+        <v-icon left>mdi-check</v-icon>Continue
       </v-btn>
     </section>
-  </v-navigation-drawer>
+  </v-stepper-content>
 </template>
 
 <script>

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Home from './views/Home.vue'
 import Products from './views/Products.vue'
+import CheckOut from "./views/CheckOut.vue"
 import Error404 from './views/Errors/404.vue'
 import ProductDetails from './components/Products/Details'
 
@@ -21,13 +22,18 @@ const router = new VueRouter({
             path: '/products',
             name: 'products',
             component: Products
-            
+
         },
         {
             path: '/products/:slug',
             name: 'productsDetails',
             component: ProductDetails
 
+        },
+        {
+            path: '/checkout',
+            name: "checkout",
+            component: CheckOut
         },
         {
             path: '*',
