@@ -7,10 +7,10 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-center tex-capitalize">name</th>
-            <th class="text-center text-capitalize">price</th>
-            <th class="text-center text-capitalize">quantity</th>
-            <th class="text-center text-capitalize">actions</th>
+            <th class="text-center black--text text-capitalize">Name</th>
+            <th class="text-center black--text text-capitalize">Price</th>
+            <th class="text-center black--text text-capitalize">Quantity</th>
+            <th class="text-center black--text text-capitalize">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -18,8 +18,8 @@
             <td class="text-center text-capitalize">{{ item.name }}</td>
             <td class="text-center text-capitalize">{{ item.price }}</td>
             <td class="text-center text-capitalize">{{ item.quantity }}</td>
-            <td>
-              <v-btn text @click="deleteItem(item.id)">
+            <td class="text-center text-capitalize">
+              <v-btn color="red" text @click="deleteItem(item.id)">
                 <v-icon>mdi-trash-can</v-icon>
               </v-btn>
             </td>
