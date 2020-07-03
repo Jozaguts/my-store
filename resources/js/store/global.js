@@ -1,6 +1,7 @@
 const auth = {
     namespaced: true,
     state: {
+        layout: 'MainLayout',
         drawer: false,
         menu: [
             {
@@ -38,6 +39,9 @@ const auth = {
     mutations: {
         TOGGLE_DRAWER(state) {
             state.drawer = !state.drawer
+        },
+        SET_LAYOUT(state, newLayout) {
+            state.layout = newLayout
         }
     },
     actions: {
