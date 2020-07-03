@@ -6,6 +6,7 @@ import Products from './views/Products.vue'
 import CheckOut from "./views/CheckOut.vue"
 import Error404 from './views/Errors/404.vue'
 import ProductDetails from './components/Products/Details'
+import Login from './components/Auth/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const router = new VueRouter({
             path: '/checkout',
             name: "checkout",
             component: CheckOut
+        },
+        {
+            path: '/login',
+            name: "login",
+            component: Login
         },
         {
             path: '*',
