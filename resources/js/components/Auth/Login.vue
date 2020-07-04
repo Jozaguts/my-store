@@ -36,7 +36,13 @@
                   </ValidationProvider>
                 </v-col>
                 <v-col cols="12">
-                  <v-btn color="primary" :block="true" height="50" :disabled="!valid">Login</v-btn>
+                  <v-btn
+                    color="primary"
+                    :block="true"
+                    height="50"
+                    @click="login(credentials)"
+                    :disabled="!valid"
+                  >Login</v-btn>
                 </v-col>
               </v-row>
             </v-container>
@@ -44,9 +50,22 @@
         </ValidationObserver>
       </v-col>
     </v-row>
+    <v-row justify="center">
+      <v-col align="center">
+        <small class="text-capitalize font-weight-bold">
+          user:
+          <span class="text-lowercase font-weight-light">admin@mystore.com</span>
+        </small>
+        <small class="text-capitalize font-weight-bold">
+          password:
+          <span class="text-lowercase font-weight-light">password</span>
+        </small>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -56,8 +75,13 @@ export default {
       }
     };
   },
+  methods: {
+    login(credentials) {
+      this.$store.dispatch("auth/login", credentials);
+    }
+  },
   created() {
-    this.$store.commit("global/SET_LAYOUT", "LoginLayout");
+    this.$store.commit("global/SET_LAYOUT", "AdminLayout");
   }
 };
 </script>

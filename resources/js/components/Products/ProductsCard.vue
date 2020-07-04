@@ -7,7 +7,7 @@
       <v-btn
         color="primary"
         classe="text-capitalize"
-        :disabled="status ? true: false"
+        :disabled="!status"
         tile
         @click="addToCart"
       >add to cart</v-btn>
@@ -37,7 +37,7 @@ export default {
       show: false
     };
   },
- 
+
   methods: {
     addToCart() {
       const cartItem = {

@@ -4,10 +4,10 @@
 
 <script>
 import MainLayout from "./Layouts/Main.vue";
-import LoginLayout from "./Layouts/Auth.vue";
+import AdminLayout from "./Layouts/Admin.vue";
 import { mapState } from "vuex";
 export default {
-  components: { MainLayout, LoginLayout },
+  components: { MainLayout, AdminLayout },
   computed: {
     ...mapState({
       layout(state) {

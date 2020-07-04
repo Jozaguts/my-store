@@ -1,7 +1,7 @@
 const auth = {
     namespaced: true,
     state: {
-        layout: 'MainLayout',
+        layout: 'AdminLayout',
         drawer: false,
         menu: [
             {

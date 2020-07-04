@@ -15,6 +15,7 @@
               color="primary"
               class="text-uppercase"
               :disabled="!productDetails.status"
+              @click="addToCart"
             >add to cart</v-btn>
             <v-btn color="secondary" class="text-uppercase" to="/checkout">checkout</v-btn>
           </v-card-actions>
@@ -49,6 +50,17 @@ export default {
   computed: {
     productDetails() {
       return this.$store.getters["products/getProductDetails"](this.slug);
+    }
+  },
+  methods: {
+    addToCart() {
+      const cartItem = {
+        id: this.productDetails.id,
+        name: this.productDetails.name,
+        price: this.productDetails.price,
+        quantity: 1
+      };
+      this.$store.dispatch("cart/addToCart", cartItem);
     }
   },
   mounted() {

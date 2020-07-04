@@ -10,6 +10,7 @@
         :key="product.id"
       >
         <products-card
+          v-if="product.id"
           :name="product.name"
           :slug="product.slug"
           :price="product.price"
@@ -52,6 +53,7 @@ export default {
   },
   created() {
     this.getProducts();
+    this.$store.commit("global/SET_LAYOUT", "MainLayout");
   }
 };
 </script>

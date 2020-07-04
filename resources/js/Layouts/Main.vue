@@ -3,12 +3,12 @@
     <NabBar />
     <navigationLeft />
     <navigationRight />
-    <v-content>
+    <v-main>
       <v-container fluid>
         <Banner />
         <router-view></router-view>
       </v-container>
-    </v-content>
+    </v-main>
     <v-footer app>este es el footer</v-footer>
   </v-app>
 </template>

@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store/index'
+
 
 import Home from './views/Home.vue'
+import Admin from './views/Admin.vue'
 import Products from './views/Products.vue'
 import CheckOut from "./views/CheckOut.vue"
 import Error404 from './views/Errors/404.vue'
@@ -17,6 +20,16 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home
+
+        },
+        {
+            path: '/admin',
+            name: 'admin',
+            component: Admin,
+            beforeEnter: (to, from, next) => {
+                if (!store.getters['auth/getAuthenticateStatus']) next({ name: 'Login' })
+                else next()
+            }
 
         },
         {
@@ -39,7 +52,14 @@ const router = new VueRouter({
         {
             path: '/login',
             name: "login",
-            component: Login
+            component: Login,
+            beforeEnter: (to, from, next) => {
+                if (!store.getters['auth/getAuthenticateStatus']) {
+                    next();
+                } else {
+                    router.go(-1)
+                }
+            }
         },
         {
             path: '*',

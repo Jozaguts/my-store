@@ -14,3 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('products/{page?}', 'ProductController@index');
+
+Route::group(['prefix' => '/users'], function () {
+    Route::post('', 'Auth\LoginController@login');
+});
