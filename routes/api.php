@@ -16,5 +16,5 @@ use Illuminate\Http\Request;
 Route::get('products/{page?}', 'ProductController@index');
 
 Route::group(['prefix' => '/users'], function () {
-    
+    Route::get('/', 'UserController@index')->middleware('auth:api');
 });

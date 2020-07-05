@@ -35,7 +35,7 @@ const auth = {
             }
 
         },
-        async logout({ commit }) {
+        async logout({ commit, state }) {
             await axios.post('/logout')
                 .then(response => {
                     if (response.data.success) {

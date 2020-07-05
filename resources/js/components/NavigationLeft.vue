@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :temporary="true" :value="drawer" app>
+  <v-navigation-drawer temporary v-model="showDrawer" app>
     <v-list>
       <v-list-item v-for="btn in menu" :key="btn.title" :to="btn.link">
         <v-list-item-icon>
@@ -20,11 +20,19 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  data: () => ({
+    showDrawer: false
+  }),
   computed: {
     ...mapGetters({
       menu: "global/getMenu",
-      drawer: "global/getDrawerStatus"
+      getDrawerStatus: "global/getDrawerStatus"
     })
+  },
+  watch: {
+    getDrawerStatus() {
+      this.showDrawer = !this.showDrawer;
+    }
   },
   methods: {
     ...mapMutations({

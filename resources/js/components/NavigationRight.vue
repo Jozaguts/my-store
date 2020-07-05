@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :temporary="true" :value="show" :right="true" width="400px" app>
+  <v-navigation-drawer :temporary="true" v-model="showDrawer" :right="true" width="400px" app>
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -43,13 +43,21 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  data: () => ({
+    showDrawer: false
+  }),
   computed: {
     ...mapGetters({
-      show: "cart/getToggleShow",
+      getStatusDrawer: "cart/getToggleShow",
       cartItems: "cart/getCartItems",
       totalQuantity: "cart/getTotalQuantity",
       totalAmount: "cart/getTotalAmount"
     })
+  },
+  watch: {
+    getStatusDrawer() {
+      this.showDrawer = !this.showDrawer;
+    }
   },
   methods: {
     ...mapMutations({

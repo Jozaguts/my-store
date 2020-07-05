@@ -2,14 +2,18 @@
   <v-container>
     <v-row>
       <v-col>
-        <h1>Admin page</h1>
+        <router-view></router-view>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-export default {};
+export default {
+  created() {
+    this.$store.commit("global/SET_LAYOUT", "AdminLayout");
+  }
+};
 </script>
 
 <style>

@@ -43,7 +43,7 @@ const auth = {
             state.layout = newLayout
         },
         SET_USER_NAME(state, userData) {
-           state.userName = userData.name
+            state.userName = userData.name
         }
     },
     actions: {
