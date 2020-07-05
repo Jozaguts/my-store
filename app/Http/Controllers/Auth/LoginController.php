@@ -7,8 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Passport\Client as PassportClient;
-use GuzzleHttp\Client;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -47,11 +46,23 @@ class LoginController extends Controller
 
         try {
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                $access_token = $this->getToken($request->email, $request->password);
-                return response()->json(
-                    ['access_token' => $access_token],
-                    200
-                );
+
+                $user = $request->user();
+
+                $tokenResult = $user->createToken('accessToken');
+
+                $token = $tokenResult->token;
+                if ($request->remember_me) {
+                    $token->expires_at = Carbon::now()->addWeeks(1);
+                }
+
+                $token->save();
+                return response()->json([
+                    'access_token' => $tokenResult->accessToken,
+                    'token_type'   => 'Bearer',
+                    'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
+                    'user' => $user->only(['name', 'id']),
+                ]);
             } else {
                 return response()->json(['error' => 'The credentials doesn\'t match with ours registers '], 400);
             }
@@ -62,25 +73,18 @@ class LoginController extends Controller
             );
         }
     }
-    public function getToken($email, $password)
-    {
-        $client = PassportClient::where('password_client', 1)->first();
-        $http = new Client(['base_uri' => url('/')]);
-      
-        $response = $http->post(
-            '/oauth/token',
-            [
-                'form_params' => [
-                    'grant_type' => 'password',
-                    'client_id' => $client->id,
-                    'client_secret' => $client->secret,
-                    'username' => $email,
-                    'password' => $password,
-                    'scope' => '',
-                ],
-            ]
-        );
 
-        return json_decode((string) $response->getBody(), true);
+    public function logout(Request $request)
+    {
+
+        try {
+            auth()->user()->tokens->each(function ($token, $key) {
+                $token->revoke();
+            });
+            Auth::logout();
+            return response()->json(['success' => 'logout was success']);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
     }
 }

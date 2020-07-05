@@ -27,7 +27,7 @@ const router = new VueRouter({
             name: 'admin',
             component: Admin,
             beforeEnter: (to, from, next) => {
-                if (!store.getters['auth/getAuthenticateStatus']) next({ name: 'Login' })
+                if (!store.getters['auth/getAuthenticateStatus']) next({ name: 'login' })
                 else next()
             }
 

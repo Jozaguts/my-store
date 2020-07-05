@@ -3,6 +3,8 @@ const auth = {
     state: {
         layout: 'AdminLayout',
         drawer: false,
+        adminDrawer: false,
+        userName: null,
         menu: [
             {
                 title: "MyStore",
@@ -27,32 +29,40 @@ const auth = {
                 icon: "mdi-information",
                 link: "/about",
                 class: "order-3"
-            },
-            // {
-            //     title: "Checkout",
-            //     icon: "mdi-cart",
-            //     link: "/about",
-            //     class: "order-last ml-auto"
-            // }
+            }
         ]
     },
     mutations: {
         TOGGLE_DRAWER(state) {
             state.drawer = !state.drawer
         },
+        TOGGLE_ADMIN_DRAWER(state) {
+            state.adminDrawer = !state.adminDrawer
+        },
         SET_LAYOUT(state, newLayout) {
             state.layout = newLayout
+        },
+        SET_USER_NAME(state, userData) {
+           state.userName = userData.name
         }
     },
     actions: {
-
+        setUserName(context) {
+            console.log(context)
+        }
     },
     getters: {
         getDrawerStatus(state) {
             return state.drawer
         },
+        getAdminDrawer(state) {
+            return state.adminDrawer
+        },
         getMenu(state) {
             return state.menu
+        },
+        getUserName(state) {
+            return state.userName
         }
     }
 }

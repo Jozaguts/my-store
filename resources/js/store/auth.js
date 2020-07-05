@@ -7,21 +7,22 @@ const auth = {
 
     },
     mutations: {
-        AUTHENTICATE(state) {
-            state.isAuthenticated = !state.isAuthenticated
+        AUTHENTICATE(state, payload) {
+            state.isAuthenticated = payload
         },
         SET_TOKEN(state, access_token) {
             state.access_token = access_token
-        }
+        },
     },
     actions: {
         async login({ commit, state }, credentials) {
             try {
-                await axios.post('/api/users', { email: credentials.email, password: credentials.password })
+                await axios.post('/login', { email: credentials.email, password: credentials.password })
                     .then(response => {
                         if (response.data.access_token) {
-                            commit('SET_TOKEN', response.data.access_token.access_token)
-                            commit('AUTHENTICATE')
+                            commit('global/SET_USER_NAME', response.data.user, { root: true })
+                            commit('SET_TOKEN', response.data.access_token)
+                            commit('AUTHENTICATE', true)
                             if (state.access_token) {
                                 router.push('/admin')
                             }
@@ -31,8 +32,21 @@ const auth = {
                     })
             } catch (error) {
                 console.error(error)
-            } 
+            }
 
+        },
+        async logout({ commit }) {
+            await axios.post('/logout')
+                .then(response => {
+                    if (response.data.success) {
+                        commit('global/SET_USER_NAME', { name: null }, { root: true })
+                        commit('SET_TOKEN', null)
+                        commit('AUTHENTICATE', false)
+                        router.push('/')
+                    } else {
+                        console.log('object');
+                    }
+                })
         }
     },
     getters: {
