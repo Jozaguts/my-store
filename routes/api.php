@@ -17,4 +17,5 @@ Route::get('products/{page?}', 'ProductController@index');
 
 Route::group(['prefix' => '/users'], function () {
     Route::get('/', 'UserController@index')->middleware('auth:api');
+    Route::post('/', 'UserController@create')->middleware('auth:api');
 });

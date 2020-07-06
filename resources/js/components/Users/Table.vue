@@ -5,7 +5,7 @@
         <v-toolbar-title>My CRUD</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New User</v-btn>
           </template>
@@ -28,14 +28,13 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
                       type="password"
-                      v-model="editedItem.password_confirm"
+                      v-model="editedItem.password_confirmation "
                       label="Confirm Password "
                     ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
-
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
@@ -56,7 +55,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   data: () => ({
@@ -71,19 +70,18 @@ export default {
       { text: "Email", value: "email" },
       { text: "Actions", value: "actions", sortable: false }
     ],
-    desserts: [],
     editedIndex: -1,
     editedItem: {
       name: "",
       email: "",
       password: "",
-      password_confirm: ""
+      password_confirmation: ""
     },
     defaultItem: {
       name: "",
       email: "",
       password: "",
-      password_confirm: ""
+      password_confirmation: ""
     }
   }),
 
@@ -108,7 +106,8 @@ export default {
 
   methods: {
     ...mapActions({
-      initialize: "users/asyncUsers"
+      initialize: "users/asyncUsers",
+      createUser: "users/createUser"
     }),
 
     editItem(item) {
@@ -132,14 +131,17 @@ export default {
     },
 
     save() {
-      console.log(this.editedIndex);
       if (this.editedIndex > -1) {
         Object.assign(this.users[this.editedIndex], this.editedItem);
       } else {
-        this.users.push(this.editedItem);
+        this.createUser(this.editedItem);
+        // this.users.push(this.editedItem);
       }
       this.close();
     }
   }
 };
 </script>
+<style scoped>
+</style>>
+
