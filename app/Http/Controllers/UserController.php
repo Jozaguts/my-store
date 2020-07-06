@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -50,6 +51,16 @@ class UserController extends Controller
                 $userData['password'] = Hash::make($userData['password']);
             }
             User::find($request->id)->update($userData);
+            return $this->index();
+        } catch (\Throwable $th) {
+            return response()->json(['errors' => $th->getMessage()], 400);
+        }
+    }
+    public function delete($id)
+    {
+        try {
+            $user = User::find($id);
+            $user->delete();
             return $this->index();
         } catch (\Throwable $th) {
             return response()->json(['errors' => $th->getMessage()], 400);

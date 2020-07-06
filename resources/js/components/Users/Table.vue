@@ -107,8 +107,9 @@ export default {
   methods: {
     ...mapActions({
       initialize: "users/asyncUsers",
-      createUser: "users/createUser",
-      editUser: "users/editUser"
+      userCreate: "users/userCreate",
+      userEdit: "users/userEdit",
+      userDelete: "users/userDelete"
     }),
 
     editItem(item) {
@@ -118,10 +119,8 @@ export default {
     },
 
     deleteItem(item) {
-      const index = this.users.indexOf(item);
-      console.log(item.id);
       confirm("Are you sure you want to delete this item?") &&
-        this.users.splice(index, 1);
+        this.userDelete({ id: item.id });
     },
 
     close() {
@@ -134,10 +133,10 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        this.editUser(this.editedItem);
+        this.userEdit(this.editedItem);
         // Object.assign(this.users[this.editedIndex], this.editedItem);
       } else {
-        this.createUser(this.editedItem);
+        this.userCreate(this.editedItem);
       }
       this.close();
       this.editedItem = Object.assign({}, this.defaultItem);

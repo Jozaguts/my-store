@@ -32,7 +32,7 @@ const users = {
                 console.log(console.log(error));
             }
         },
-        async createUser({ commit, rootState }, userData) {
+        async userCreate({ commit, rootState }, userData) {
             try {
                 await axios.post('/api/users', userData, {
                     headers: { Authorization: "Bearer " + rootState.auth.access_token }
@@ -57,7 +57,7 @@ const users = {
                 });
             }
         },
-        async editUser({ commit, rootState }, userData) {
+        async userEdit({ commit, rootState }, userData) {
             try {
                 await axios.put('/api/users', userData, {
                     headers: { Authorization: "Bearer " + rootState.auth.access_token }
@@ -67,6 +67,31 @@ const users = {
                         commit('SET_ALERT_MESSAGES', {
                             type: 'success',
                             messages: ['User was updated successfully']
+                        });
+                    })
+            } catch (error) {
+                let alertMessages = [];
+                for (const key in error.response.data.errors) {
+                    if (error.response.data.errors.hasOwnProperty(key)) {
+                        alertMessages.push(error.response.data.errors[key][0]);
+                    }
+                }
+                commit('SET_ALERT_MESSAGES', {
+                    type: 'error',
+                    messages: alertMessages
+                });
+            }
+        },
+        async userDelete({ commit, rootState }, userData) {
+            try {
+                await axios.delete(`/api/users/delete/${userData.id}`, {
+                    headers: { Authorization: "Bearer " + rootState.auth.access_token }
+                })
+                    .then(response => {
+                        commit('SET_USERS', response.data.users)
+                        commit('SET_ALERT_MESSAGES', {
+                            type: 'success',
+                            messages: ['User was deleted successfully']
                         });
                     })
             } catch (error) {
