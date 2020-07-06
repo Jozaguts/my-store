@@ -20,16 +20,19 @@ const users = {
 
     },
     actions: {
-        async asyncUsers({ commit, rootState }) {
-            try {
-                await axios.get('/api/users', {
-                    headers: { Authorization: "Bearer " + rootState.auth.access_token }
-                })
-                    .then((response) => {
-                        commit('SET_USERS', response.data.users)
+        async asyncUsers({ commit, state, rootState }) {
+            if (!state.users.length) {
+                console.log(state.users.length);
+                try {
+                    await axios.get('/api/users', {
+                        headers: { Authorization: "Bearer " + rootState.auth.access_token }
                     })
-            } catch (error) {
-                console.log(console.log(error));
+                        .then((response) => {
+                            commit('SET_USERS', response.data.users)
+                        })
+                } catch (error) {
+                    console.log(console.log(error));
+                }
             }
         },
         async userCreate({ commit, rootState }, userData) {
