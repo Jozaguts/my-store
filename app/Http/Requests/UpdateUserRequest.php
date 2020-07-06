@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class UpdateUserRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +24,13 @@ class UpdateUserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            //
+            'name' => ['string', 'max:255'],
+            'email' => ['string', 'email', 'max:255'],
+            'password' => ['string', 'min:8', 'confirmed'],
+
         ];
     }
 }

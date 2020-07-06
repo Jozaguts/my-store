@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\CreateUserRequest;
-use Http\Request\UpdateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -37,10 +37,22 @@ class UserController extends Controller
     {
         try {
             User::create($request->all())->save();
-            $users = User::all(['id', 'name', 'email']);
-            return response()->json(['users' => $users]);
+            return $this->index();
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+    public function update(UpdateUserRequest $request)
+    {
+        try {
+            $userData = $request->only(['email', 'name', 'password']);
+            if (isset($userData['password'])) {
+                $userData['password'] = Hash::make($userData['password']);
+            }
+            User::find($request->id)->update($userData);
+            return $this->index();
+        } catch (\Throwable $th) {
+            return response()->json(['errors' => $th->getMessage()], 400);
         }
     }
 }

@@ -56,7 +56,32 @@ const users = {
                     messages: alertMessages
                 });
             }
-        }
+        },
+        async editUser({ commit, rootState }, userData) {
+            try {
+                await axios.put('/api/users', userData, {
+                    headers: { Authorization: "Bearer " + rootState.auth.access_token }
+                })
+                    .then(response => {
+                        commit('SET_USERS', response.data.users)
+                        commit('SET_ALERT_MESSAGES', {
+                            type: 'success',
+                            messages: ['User was updated successfully']
+                        });
+                    })
+            } catch (error) {
+                let alertMessages = [];
+                for (const key in error.response.data.errors) {
+                    if (error.response.data.errors.hasOwnProperty(key)) {
+                        alertMessages.push(error.response.data.errors[key][0]);
+                    }
+                }
+                commit('SET_ALERT_MESSAGES', {
+                    type: 'error',
+                    messages: alertMessages
+                });
+            }
+        },
     },
     getters: {
         getUsers(state) {

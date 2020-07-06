@@ -107,17 +107,19 @@ export default {
   methods: {
     ...mapActions({
       initialize: "users/asyncUsers",
-      createUser: "users/createUser"
+      createUser: "users/createUser",
+      editUser: "users/editUser"
     }),
 
     editItem(item) {
-      this.editedIndex = this.users.indexOf(item.id);
+      this.editedIndex = this.users.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.users.indexOf(item.id);
+      const index = this.users.indexOf(item);
+      console.log(item.id);
       confirm("Are you sure you want to delete this item?") &&
         this.users.splice(index, 1);
     },
@@ -132,12 +134,14 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.users[this.editedIndex], this.editedItem);
+        this.editUser(this.editedItem);
+        // Object.assign(this.users[this.editedIndex], this.editedItem);
       } else {
         this.createUser(this.editedItem);
-        // this.users.push(this.editedItem);
       }
       this.close();
+      this.editedItem = Object.assign({}, this.defaultItem);
+      this.editedIndex = -1;
     }
   }
 };
