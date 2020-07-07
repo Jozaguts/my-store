@@ -13,8 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('products/{page?}', 'ProductController@index');
-
+Route::group(['prefix' => '/products'], function () {
+    Route::post('', 'ProductController@create')->middleware('auth:api');
+    Route::put('', 'ProductController@update')->middleware('auth:api');
+    Route::get('/{page?}', 'ProductController@index');
+});
 Route::group(['prefix' => '/users'], function () {
     Route::get('/', 'UserController@index')->middleware('auth:api');
     Route::post('/', 'UserController@create')->middleware('auth:api');
