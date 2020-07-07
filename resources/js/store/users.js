@@ -2,27 +2,16 @@ const users = {
     namespaced: true,
     state: {
         users: [],
-        alertMessages: {
-            type: null,
-            messages: []
-        }
     },
     mutations: {
         SET_USERS(state, users) {
             state.users = users
-        },
-        SET_ALERT_MESSAGES(state, alertMessages) {
-            state.alertMessages = alertMessages;
-        },
-        CLEAR_ALERT_MESSAGES(state) {
-            state.alertMessages.messages = [];
         }
 
     },
     actions: {
         async asyncUsers({ commit, state, rootState }) {
             if (!state.users.length) {
-                console.log(state.users.length);
                 try {
                     await axios.get('/api/users', {
                         headers: { Authorization: "Bearer " + rootState.auth.access_token }
@@ -42,10 +31,11 @@ const users = {
                 })
                     .then(response => {
                         commit('SET_USERS', response.data.users)
-                        commit('SET_ALERT_MESSAGES', {
+                        console.log(rootState.global);
+                        commit('global/SET_ALERT_MESSAGES', {
                             type: 'success',
                             messages: ['User was created successfully']
-                        });
+                        }, { root: true });
                     })
             } catch (error) {
                 let alertMessages = [];
@@ -54,10 +44,11 @@ const users = {
                         alertMessages.push(error.response.data.errors[key][0]);
                     }
                 }
-                commit('SET_ALERT_MESSAGES', {
+
+                commit('global/SET_ALERT_MESSAGES', {
                     type: 'error',
                     messages: alertMessages
-                });
+                }, { root: true });
             }
         },
         async userEdit({ commit, rootState }, userData) {
@@ -67,10 +58,10 @@ const users = {
                 })
                     .then(response => {
                         commit('SET_USERS', response.data.users)
-                        commit('SET_ALERT_MESSAGES', {
+                        commit('global/SET_ALERT_MESSAGES', {
                             type: 'success',
                             messages: ['User was updated successfully']
-                        });
+                        }, { root: true });
                     })
             } catch (error) {
                 let alertMessages = [];
@@ -79,10 +70,10 @@ const users = {
                         alertMessages.push(error.response.data.errors[key][0]);
                     }
                 }
-                commit('SET_ALERT_MESSAGES', {
+                commit('global/SET_ALERT_MESSAGES', {
                     type: 'error',
                     messages: alertMessages
-                });
+                }, { root: true });
             }
         },
         async userDelete({ commit, rootState }, userData) {
@@ -92,10 +83,10 @@ const users = {
                 })
                     .then(response => {
                         commit('SET_USERS', response.data.users)
-                        commit('SET_ALERT_MESSAGES', {
+                        commit('global/SET_ALERT_MESSAGES', {
                             type: 'success',
                             messages: ['User was deleted successfully']
-                        });
+                        }, { root: true });
                     })
             } catch (error) {
                 let alertMessages = [];
@@ -104,10 +95,10 @@ const users = {
                         alertMessages.push(error.response.data.errors[key][0]);
                     }
                 }
-                commit('SET_ALERT_MESSAGES', {
+                commit('global/SET_ALERT_MESSAGES', {
                     type: 'error',
                     messages: alertMessages
-                });
+                }, { root: true });
             }
         },
     },
@@ -115,9 +106,6 @@ const users = {
         getUsers(state) {
             return state.users
         },
-        getAlertMessage(state) {
-            return state.alertMessages
-        }
     }
 
 }

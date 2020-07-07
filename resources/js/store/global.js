@@ -30,7 +30,11 @@ const auth = {
                 link: "/about",
                 class: "order-3"
             }
-        ]
+        ],
+        alertMessages: {
+            type: null,
+            messages: []
+        }
     },
     mutations: {
         TOGGLE_DRAWER(state) {
@@ -44,6 +48,12 @@ const auth = {
         },
         SET_USER_NAME(state, userData) {
             state.userName = userData.name
+        },
+        SET_ALERT_MESSAGES(state, alertMessages) {
+            state.alertMessages = alertMessages;
+        },
+        CLEAR_ALERT_MESSAGES(state) {
+            state.alertMessages.messages = [];
         }
     },
     actions: {
@@ -63,6 +73,9 @@ const auth = {
         },
         getUserName(state) {
             return state.userName
+        },
+        getAlertMessage(state) {
+            return state.alertMessages
         }
     }
 }
