@@ -110,22 +110,6 @@ export default {
       page: "products/getCurrentPage",
       length: "products/getLastPage"
     }),
-    // page: {
-    //   get(val) {
-    //     return this.getPaginatedProducts.paginate.current_page;
-    //   },
-    //   set(val) {
-    //     return;
-    //   }
-    // },
-    // itemsPerPage: {
-    //   get(val) {
-    //     return this.getPaginatedProducts.paginate.per_page;
-    //   },
-    //   set(val) {
-    //     return;
-    //   }
-    // },
     products: {
       get(val) {
         return this.getPaginatedProducts.products;
@@ -157,7 +141,7 @@ export default {
       initialize: "products/asyncGetProducts",
       productCreate: "products/productCreate",
       productEdit: "products/productEdit",
-      userDelete: "users/userDelete",
+      productDelete: "products/productDelete",
       changePage: "products/asyncChangePage"
     }),
     next(page) {
@@ -173,7 +157,7 @@ export default {
 
     deleteItem(item) {
       confirm("Are you sure you want to delete this item?") &&
-        this.userDelete({ id: item.id });
+        this.productDelete({ id: item.id });
     },
 
     close() {

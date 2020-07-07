@@ -67,7 +67,7 @@ class ProductController extends Controller
     {
         try {
             $product = Product::find($request->id);
-          
+
             if ($product->slug === $request->slug) {
                 $product->update($request->except(['id', 'slug']));
             } else {
@@ -78,14 +78,14 @@ class ProductController extends Controller
             return response()->json(['error' => $th->getMessage()], 400);
         }
     }
-    // public function delete($id)
-    // {
-    //     try {
-    //         $user = User::find($id);
-    //         $user->delete();
-    //         return $this->index();
-    //     } catch (\Throwable $th) {
-    //         return response()->json(['errors' => $th->getMessage()], 400);
-    //     }
-    // }
+    public function delete($id)
+    {
+        try {
+            $product = Product::find($id);
+            $product->delete();
+            return $this->sendFirstPage();
+        } catch (\Throwable $th) {
+            return response()->json(['errors' => $th->getMessage()], 400);
+        }
+    }
 }
