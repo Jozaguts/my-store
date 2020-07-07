@@ -34,7 +34,7 @@ export default {
   computed: {
     ...mapGetters({
       isAuthenticated: "auth/getAuthenticateStatus",
-      getAlertMessage: "users/getAlertMessage"
+      getAlertMessage: "global/getAlertMessage"
     }),
     typeOfAlert() {
       return this.getAlertMessage.type;
@@ -51,7 +51,7 @@ export default {
   methods: {
     ...mapMutations({
       toggleAdminDrawer: "global/TOGGLE_ADMIN_DRAWER",
-      clearAlert: "users/CLEAR_ALERT_MESSAGES"
+      clearAlert: "global/CLEAR_ALERT_MESSAGES"
     })
   }
 };
