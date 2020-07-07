@@ -22,37 +22,69 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New product</v-btn>
             </template>
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field :value="slug" readonly label="slug"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="12" md="12">
-                      <v-textarea v-model="editedItem.description" label="description"></v-textarea>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field type="price" v-model="editedItem.price " label="Price "></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-switch v-model="editedItem.status" label="Status"></v-switch>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
+            <ValidationObserver v-slot="{valid}">
+              <v-card>
+                <v-card-title>
+                  <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="6">
+                        <ValidationProvider v-slot="{errors}" name="Name" rules="required">
+                          <v-text-field
+                            v-model="editedItem.name"
+                            label="Name"
+                            :error-messages="errors"
+                          ></v-text-field>
+                        </ValidationProvider>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="6">
+                        <ValidationProvider v-slot="{errors}" name="Slug" rules="required">
+                          <v-text-field
+                            :value="slug"
+                            readonly
+                            label="slug"
+                            :error-messages="errors"
+                          ></v-text-field>
+                        </ValidationProvider>
+                      </v-col>
+                      <v-col cols="12" sm="12" md="12">
+                        <ValidationProvider v-slot="{errors}" name="Description" rules="required">
+                          <v-textarea
+                            v-model="editedItem.description"
+                            label="description"
+                            :error-messages="errors"
+                          ></v-textarea>
+                        </ValidationProvider>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <ValidationProvider
+                          v-slot="{errors}"
+                          name="Price"
+                          rules="required|decimal:2"
+                        >
+                          <v-text-field
+                            type="price"
+                            v-model="editedItem.price "
+                            label="Price "
+                            :error-messages="errors"
+                          ></v-text-field>
+                        </ValidationProvider>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-switch v-model="editedItem.status" label="Status"></v-switch>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                  <v-btn color="blue darken-1" text @click="save" :disabled="!valid">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </ValidationObserver>
           </v-dialog>
         </v-toolbar>
       </template>

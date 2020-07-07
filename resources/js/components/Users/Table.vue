@@ -9,38 +9,66 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New User</v-btn>
           </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="Full Name"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field type="password" v-model="editedItem.password" label="Password"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      type="password"
-                      v-model="editedItem.password_confirmation "
-                      label="Confirm Password "
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-            </v-card-actions>
-          </v-card>
+          <ValidationObserver v-slot="{valid}">
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <ValidationProvider v-slot="{errors}" name="Full name" rules="required">
+                        <v-text-field
+                          v-model="editedItem.name"
+                          label="Full Name"
+                          :error-messages="errors"
+                        ></v-text-field>
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <ValidationProvider v-slot="{errors}" name="Email" rules="required|email">
+                        <v-text-field
+                          v-model="editedItem.email"
+                          label="Email"
+                          :error-messages="errors"
+                        ></v-text-field>
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <ValidationProvider
+                        v-slot="{errors}"
+                        name="Password"
+                        rules="confirmed:confirmation"
+                      >
+                        <v-text-field
+                          :error-messages="errors"
+                          type="password"
+                          v-model="editedItem.password"
+                          label="Password"
+                        ></v-text-field>
+                      </ValidationProvider>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <ValidationProvider v-slot="{ errors }" vid="confirmation">
+                        <v-text-field
+                          type="password"
+                          v-model="editedItem.password_confirmation "
+                          label="Confirm Password "
+                          :error-messages="errors"
+                        ></v-text-field>
+                      </ValidationProvider>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="save" :disabled="!valid">Save</v-btn>
+              </v-card-actions>
+            </v-card>
+          </ValidationObserver>
         </v-dialog>
       </v-toolbar>
     </template>
