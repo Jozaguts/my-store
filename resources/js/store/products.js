@@ -71,7 +71,6 @@ const products = {
                     }
                 })
                     .then(response => {
-                        console.log(response.data)
                         commit('SET_PRODUCTS', response.data)
                         commit('global/SET_ALERT_MESSAGES', {
                             type: 'success',

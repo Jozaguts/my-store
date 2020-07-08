@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-img :src="image" min-width="300" min-height="300" contain></v-img>
+    <v-img :src="image" width="300" height="300" contain></v-img>
     <v-card-title v-text="name"></v-card-title>
     <v-card-subtitle class="text-uppercase">{{price|money }}</v-card-subtitle>
     <v-card-actions>

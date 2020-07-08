@@ -5,6 +5,7 @@
       :items="products"
       sort-by="calories"
       class="elevation-1"
+      item-key="slug"
       :page.sync="page"
       :items-per-page="9"
     >
@@ -150,7 +151,8 @@ export default {
       description: "",
       price: "",
       status: 1
-    }
+    },
+    products: []
   }),
 
   computed: {
@@ -159,14 +161,6 @@ export default {
       page: "products/getCurrentPage",
       length: "products/getLastPage"
     }),
-    products: {
-      get(val) {
-        return this.getPaginatedProducts.products;
-      },
-      set(val) {
-        return;
-      }
-    },
     slug() {
       return (this.editedItem.slug = this.editedItem.name.replace(/\s/g, "-"));
     },
@@ -178,6 +172,13 @@ export default {
   watch: {
     dialog(val) {
       val || this.close();
+    },
+    getPaginatedProducts(oldValue, newValue) {
+      this.products = [];
+      oldValue.products.forEach(product => {
+        this.products.push(product);
+      });
+      return this.products;
     }
   },
 
@@ -223,7 +224,7 @@ export default {
       formData.append("description", this.editedItem.description);
       formData.append("slug", this.editedItem.slug);
       formData.append("price", this.editedItem.price);
-      formData.append("status", parseInt(this.editedItem.status));
+      formData.append("status", this.editedItem.status ? 1 : 0);
       formData.append("image", this.image);
       if (this.editedIndex > -1) {
         formData.append("_method", "PUT");

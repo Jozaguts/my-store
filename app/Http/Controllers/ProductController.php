@@ -81,7 +81,9 @@ class ProductController extends Controller
         try {
             $product = Product::find($id);
             $mediaItems = $product->getMedia();
-            $mediaItems[0]->delete();
+            if (count($mediaItems) > 0) {
+                $mediaItems[0]->delete();
+            }
             $product->addMedia($request->image)->toMediaCollection();
             if ($product->slug === $request->slug) {
                 $product->update($request->except(['id', 'slug']));
