@@ -12,7 +12,6 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-
         try {
             $products = Product::paginate(9, ['id', 'name', 'slug', 'description', 'price', 'status'], 'page', $request->page);
 
@@ -26,8 +25,10 @@ class ProductController extends Controller
         foreach ($model as $product) {
             $newsItem = Product::find($product->id);
             $mediaItems = $newsItem->getMedia();
-            $publicUrl = $mediaItems[0]->getFullUrl();
-            $product['publicUrl'] = $publicUrl;
+            if (count($mediaItems) > 0) {
+                $publicUrl = $mediaItems[0]->getFullUrl();
+                $product['publicUrl'] = $publicUrl;
+            }
         }
         return response()->json(
             [
@@ -75,11 +76,13 @@ class ProductController extends Controller
             return response()->json(['error' => $th->getMessage()], 400);
         }
     }
-    public function update(UpdateProduct $request)
+    public function update(UpdateProduct $request, $id)
     {
         try {
-            $product = Product::find($request->id);
-
+            $product = Product::find($id);
+            $mediaItems = $product->getMedia();
+            $mediaItems[0]->delete();
+            $product->addMedia($request->image)->toMediaCollection();
             if ($product->slug === $request->slug) {
                 $product->update($request->except(['id', 'slug']));
             } else {

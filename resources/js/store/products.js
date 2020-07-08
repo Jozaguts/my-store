@@ -38,7 +38,7 @@ const products = {
     },
     actions: {
         async asyncGetProducts({ commit }) {
-            // if (!state.productsPaginated.products.length && state.productsPaginated.paginate.currentPage != 1) {
+
             try {
 
                 await axios.get('/api/products?page=1')
@@ -49,7 +49,7 @@ const products = {
             } catch (error) {
                 console.error(error)
             }
-            // }
+
         },
         async asyncChangePage({ commit, dispatch }, pageNumber) {
             try {
@@ -93,10 +93,9 @@ const products = {
         },
         async productEdit({ commit, rootState }, userData) {
             try {
-                await axios.put('/api/products', userData, {
+                await axios.post(`/api/products/update/${userData.get('id')}`, userData, {
                     headers: {
                         Authorization: "Bearer " + rootState.auth.access_token,
-                        'Content-Type': 'multipart/form-data'
                     },
 
                 })

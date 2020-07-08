@@ -135,6 +135,7 @@ export default {
     ],
     editedIndex: -1,
     editedItem: {
+      id: "",
       name: "",
       slug: "",
       description: "",
@@ -143,6 +144,7 @@ export default {
     },
     image: null,
     defaultItem: {
+      id: "",
       name: "",
       slug: "",
       description: "",
@@ -224,6 +226,8 @@ export default {
       formData.append("status", parseInt(this.editedItem.status));
       formData.append("image", this.image);
       if (this.editedIndex > -1) {
+        formData.append("_method", "PUT");
+        formData.append("id", this.editedItem.id);
         this.productEdit(formData);
       } else {
         this.productCreate(formData);
