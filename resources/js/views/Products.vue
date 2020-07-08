@@ -17,7 +17,7 @@
           :description="product.description"
           :status="product.status"
           :id="product.id"
-          image="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          :image="product.publicUrl"
         ></products-card>
       </v-col>
     </v-row>
