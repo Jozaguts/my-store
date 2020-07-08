@@ -13,7 +13,8 @@ const products = {
                 slug: '',
                 description: '',
                 price: '',
-                status: 0
+                status: 0,
+                publicUrl: ''
             }
         }
         ,
@@ -36,18 +37,19 @@ const products = {
         }
     },
     actions: {
-        async asyncGetProducts({ commit, state }) {
-            if (!state.productsPaginated.products.length && state.productsPaginated.paginate.currentPage != 1) {
-                try {
+        async asyncGetProducts({ commit }) {
+            // if (!state.productsPaginated.products.length && state.productsPaginated.paginate.currentPage != 1) {
+            try {
 
-                    await axios.get('/api/products?page=1')
-                        .then((response) => {
-                            commit('SET_PRODUCTS', response.data)
-                        })
-                } catch (error) {
-                    console.error(error)
-                }
+                await axios.get('/api/products?page=1')
+                    .then((response) => {
+
+                        commit('SET_PRODUCTS', response.data)
+                    })
+            } catch (error) {
+                console.error(error)
             }
+            // }
         },
         async asyncChangePage({ commit, dispatch }, pageNumber) {
             try {
@@ -64,9 +66,12 @@ const products = {
         async productCreate({ commit, rootState }, userData) {
             try {
                 await axios.post('/api/products', userData, {
-                    headers: { Authorization: "Bearer " + rootState.auth.access_token }
+                    headers: {
+                        Authorization: "Bearer " + rootState.auth.access_token,
+                    }
                 })
                     .then(response => {
+                        console.log(response.data)
                         commit('SET_PRODUCTS', response.data)
                         commit('global/SET_ALERT_MESSAGES', {
                             type: 'success',
@@ -89,7 +94,11 @@ const products = {
         async productEdit({ commit, rootState }, userData) {
             try {
                 await axios.put('/api/products', userData, {
-                    headers: { Authorization: "Bearer " + rootState.auth.access_token }
+                    headers: {
+                        Authorization: "Bearer " + rootState.auth.access_token,
+                        'Content-Type': 'multipart/form-data'
+                    },
+
                 })
                     .then(response => {
 

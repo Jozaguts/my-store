@@ -13,6 +13,9 @@
         <span v-if="item.status == 1" class="green--text">Active</span>
         <span v-else class="red--text">Disabled</span>
       </template>
+      <template v-slot:item.publicUrl="{ item }">
+        <v-img contain max-width="100" max-height="80" :src="item.publicUrl"></v-img>
+      </template>
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-toolbar-title>PRODUCTS</v-toolbar-title>
@@ -49,13 +52,23 @@
                           ></v-text-field>
                         </ValidationProvider>
                       </v-col>
-                      <v-col cols="12" sm="12" md="12">
+                      <v-col cols="12" sm="6" md="4">
                         <ValidationProvider v-slot="{errors}" name="Description" rules="required">
                           <v-textarea
                             v-model="editedItem.description"
                             label="description"
                             :error-messages="errors"
                           ></v-textarea>
+                        </ValidationProvider>
+                      </v-col>
+                      <v-col cols="2" sm="6" md="4">
+                        <ValidationProvider v-slot="{errors}" name="Image" rules="required">
+                          <v-file-input
+                            label="Image Input"
+                            accept="image/png, image/jpeg, image/bmp"
+                            v-model="image"
+                            :error-messages="errors"
+                          ></v-file-input>
                         </ValidationProvider>
                       </v-col>
                       <v-col cols="12" sm="6" md="4">
@@ -117,6 +130,7 @@ export default {
       { text: "Description", value: "description", sortable: false },
       { text: "Price", value: "price", sortable: true },
       { text: "Status", value: "status", sortable: true },
+      { text: "Media", value: "publicUrl", sortable: true },
       { text: "Actions", value: "actions", sortable: false }
     ],
     editedIndex: -1,
@@ -127,6 +141,7 @@ export default {
       price: "",
       status: 1
     },
+    image: null,
     defaultItem: {
       name: "",
       slug: "",
@@ -201,10 +216,17 @@ export default {
     },
 
     save() {
+      const formData = new FormData();
+      formData.append("name", this.editedItem.name);
+      formData.append("description", this.editedItem.description);
+      formData.append("slug", this.editedItem.slug);
+      formData.append("price", this.editedItem.price);
+      formData.append("status", parseInt(this.editedItem.status));
+      formData.append("image", this.image);
       if (this.editedIndex > -1) {
-        this.productEdit(this.editedItem);
+        this.productEdit(formData);
       } else {
-        this.productCreate(this.editedItem);
+        this.productCreate(formData);
       }
       this.close();
       this.editedItem = Object.assign({}, this.defaultItem);
