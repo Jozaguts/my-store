@@ -1,66 +1,24 @@
 const products = {
     namespaced: true,
     state: {
-        productsPaginated:
-        {
-            paginate: {
-                current_page: 1,
-                last_page: 10,
-            },
-            products: {
-                id: '',
-                name: '',
-                slug: '',
-                description: '',
-                price: '',
-                status: 0,
-                publicUrl: ''
-            }
-        }
+        productsData: null
         ,
     },
     mutations: {
-        SET_PRODUCTS(state, currentProductsData) {
-            const { current_page, last_page } = currentProductsData.paginate;
-            const _productsPaginated =
-            {
-                paginate: {
-                    current_page,
-                    last_page
-                },
-                products: currentProductsData.products.data
-            }
-            state.productsPaginated = _productsPaginated
+        SET_PRODUCTS(state, productsData) {
+            state.productsData = productsData
         },
-        SET_CURRENT_PAGE(state, currentPage) {
-            state.productsPaginated.paginate.current_page = currentPage
-        }
     },
     actions: {
-        async asyncGetProducts({ commit }) {
-
+        async asyncGetProducts({ commit }, page) {
             try {
-
-                await axios.get('/api/products?page=1')
+                await axios.get(`/api/products?page=${page}`)
                     .then((response) => {
-
                         commit('SET_PRODUCTS', response.data)
                     })
             } catch (error) {
                 console.error(error)
             }
-
-        },
-        async asyncChangePage({ commit }, pageNumber) {
-            try {
-                await axios.get(`/api/products?page=${pageNumber}`)
-                    .then((response) => {
-                        commit('SET_PRODUCTS', response.data)
-                    })
-            } catch (error) {
-                console.log(error)
-            }
-
 
         },
         async productCreate({ commit, rootState }, userData) {
@@ -148,17 +106,11 @@ const products = {
 
     },
     getters: {
-        getPaginatedProducts(state) {
-            return state.productsPaginated
-        },
-        getCurrentPage(state) {
-            return state.productsPaginated.paginate.current_page
-        },
-        getLastPage(state) {
-            return state.productsPaginated.paginate.last_page
+        getProductsData(state) {
+            return state.productsData
         },
         getProductDetails: (state) => (slug) => {
-            const products = Array.from(state.productsPaginated.products).find(product => product.slug === slug)
+            const products = Array.from(state.productsData.products.data).find(product => product.slug === slug)
             return products
         }
     }

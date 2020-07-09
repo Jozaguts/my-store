@@ -106,11 +106,11 @@
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
-      </template>
+      <!-- <template v-slot:no-data>
+        <v-btn color="primary" @click="getProductsData">Reset</v-btn>
+      </template>-->
     </v-data-table>
-    <v-pagination :value="page" :length="length" @input="next"></v-pagination>
+    <v-pagination :value="page" :length="length" @input="next" total-visible="10"></v-pagination>
   </div>
 </template>
 
@@ -151,16 +151,20 @@ export default {
       description: "",
       price: "",
       status: 1
-    },
-    products: []
+    }
   }),
 
   computed: {
-    ...mapGetters({
-      getPaginatedProducts: "products/getPaginatedProducts",
-      page: "products/getCurrentPage",
-      length: "products/getLastPage"
-    }),
+    products() {
+      return this.$store.getters["products/getProductsData"].products.data;
+    },
+    page() {
+      return this.$store.getters["products/getProductsData"].paginate
+        .current_page;
+    },
+    length() {
+      return this.$store.getters["products/getProductsData"].paginate.last_page;
+    },
     slug() {
       return (this.editedItem.slug = this.editedItem.name.replace(/\s/g, "-"));
     },
@@ -168,35 +172,27 @@ export default {
       return this.editedIndex === -1 ? "New product" : "Edit product";
     }
   },
-
   watch: {
     dialog(val) {
       val || this.close();
-    },
-    getPaginatedProducts(oldValue, newValue) {
-      this.products = [];
-      oldValue.products.forEach(product => {
-        this.products.push(product);
-      });
-      return this.products;
     }
   },
 
   created() {
-    this.initialize();
+    this.init();
   },
 
   methods: {
+    init() {
+      this.$store.dispatch("products/asyncGetProducts", this.page);
+    },
     ...mapActions({
-      initialize: "products/asyncGetProducts",
       productCreate: "products/productCreate",
       productEdit: "products/productEdit",
-      productDelete: "products/productDelete",
-      changePage: "products/asyncChangePage"
+      productDelete: "products/productDelete"
     }),
     next(page) {
-      this.$store.commit("products/SET_CURRENT_PAGE", page);
-      this.changePage(page);
+      this.$store.dispatch("products/asyncGetProducts", page);
     },
 
     editItem(item) {

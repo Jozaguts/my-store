@@ -13,8 +13,8 @@
             <v-icon size="24px">{{ button.icon }}</v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="12">
-          <p class="white--text pt-0">Ths platform was created with the follwing technologies.</p>
+        <v-col cols="12" align="center">
+          <p class="white--text pt-0">This platform was created with the following technologies.</p>
         </v-col>
       </v-row>
       <v-row align="center">
