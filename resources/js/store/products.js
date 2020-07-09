@@ -51,7 +51,7 @@ const products = {
             }
 
         },
-        async asyncChangePage({ commit, dispatch }, pageNumber) {
+        async asyncChangePage({ commit }, pageNumber) {
             try {
                 await axios.get(`/api/products?page=${pageNumber}`)
                     .then((response) => {

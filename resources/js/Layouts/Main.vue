@@ -9,16 +9,18 @@
         <router-view></router-view>
       </v-container>
     </v-main>
-    <v-footer app>este es el footer</v-footer>
+    <FooterComponent />
   </v-app>
 </template>
 <script>
-import NabBar from "../components/NabBar.vue";
-import Banner from "../components/Banner.vue";
-import NavigationLeft from "../components/NavigationLeft.vue";
-import NavigationRight from "../components/NavigationRight.vue";
 export default {
-  components: { NabBar, Banner, NavigationLeft, NavigationRight }
+  components: {
+    FooterComponent: () => import("../components/Footer.vue"),
+    NabBar: () => import("../components/NabBar.vue"),
+    Banner: () => import("../components/Banner.vue"),
+    NavigationLeft: () => import("../components/NavigationLeft.vue"),
+    NavigationRight: () => import("../components/NavigationRight.vue")
+  }
 };
 </script>
 
