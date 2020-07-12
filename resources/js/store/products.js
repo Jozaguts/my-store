@@ -1,8 +1,13 @@
 const products = {
     namespaced: true,
     state: {
-        productsData: null
-        ,
+        productsData: {
+            paginate: {
+                current_page: 1,
+                last_page: 1,
+            },
+            products: []
+        }
     },
     mutations: {
         SET_PRODUCTS(state, productsData) {
@@ -101,6 +106,17 @@ const products = {
                     messages: alertMessages
                 }, { root: true });
             }
+        },
+        async asyncGetLastThreeProducts({ commit }, page) {
+            try {
+                await axios.get(`/api/products/created-at`)
+                    .then((response) => {
+                        commit('SET_PRODUCTS', response.data)
+                    })
+            } catch (error) {
+                console.error(error)
+            }
+
         },
 
 

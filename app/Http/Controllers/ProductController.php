@@ -105,4 +105,16 @@ class ProductController extends Controller
             return response()->json(['errors' => $th->getMessage()], 400);
         }
     }
+
+    public function byCreatedAt()
+    {
+       
+        try {
+            $products = Product::orderBy('created_at', 'desc')->paginate(3, ['id', 'name', 'slug', 'description', 'price', 'status'], 'page', '1');
+           
+            return $this->getMedia($products);
+        } catch (\Throwable $th) {
+            return response()->json(['error', $th->getMessage()], 400);
+        }
+    }
 }
