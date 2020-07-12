@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :temporary="true" :value="show" :right="true" width="400px" app>
+  <v-navigation-drawer :temporary="true" v-model="showDrawer" :right="true" width="400px" app>
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -30,7 +30,7 @@
       </template>
     </v-simple-table>
     <section class="d-flex flex-column align-center justify-center">
-      <v-btn color="primary" class="text-capitalize mt-4" v-show="(totalAmount>0)">
+      <v-btn color="primary" class="text-capitalize mt-4" to="/checkout" v-show="(totalAmount>0)">
         <v-icon left>mdi-check</v-icon>Check Out
       </v-btn>
       <v-btn class="text-capitalize mt-4" color="secondary" text @click="closeSidebar">
@@ -43,13 +43,21 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 export default {
+  data: () => ({
+    showDrawer: false
+  }),
   computed: {
     ...mapGetters({
-      show: "cart/getToggleShow",
+      getStatusDrawer: "cart/getToggleShow",
       cartItems: "cart/getCartItems",
       totalQuantity: "cart/getTotalQuantity",
       totalAmount: "cart/getTotalAmount"
     })
+  },
+  watch: {
+    getStatusDrawer() {
+      this.showDrawer = !this.showDrawer;
+    }
   },
   methods: {
     ...mapMutations({

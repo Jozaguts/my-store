@@ -11,6 +11,14 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Product::class, 100)->create();
+        $products = factory(App\Product::class, 200)->create();
+
+        foreach ($products as $key => $product) {
+
+            $url = 'http://placemorty.us/' . random_int(200, 500) . '/' . random_int(300, 500);
+            $product
+                ->addMediaFromUrl($url)
+                ->toMediaCollection();
+        }
     }
 }

@@ -1,13 +1,13 @@
 <template>
   <v-card>
-    <v-img :src="image"></v-img>
+    <v-img :src="image" width="300" height="300" contain></v-img>
     <v-card-title v-text="name"></v-card-title>
     <v-card-subtitle class="text-uppercase">{{price|money }}</v-card-subtitle>
     <v-card-actions>
       <v-btn
         color="primary"
         classe="text-capitalize"
-        :disabled="status ? true: false"
+        :disabled="!status"
         tile
         @click="addToCart"
       >add to cart</v-btn>
@@ -37,7 +37,7 @@ export default {
       show: false
     };
   },
- 
+
   methods: {
     addToCart() {
       const cartItem = {

@@ -2,12 +2,8 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="6" lg="6">
-        <v-card class="mx-auto" max-width="400">
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
+        <v-card class="mx-auto" max-width="300" cover>
+          <v-img class="white--text align-end" :src="productDetails.publicUrl">
             <v-card-title>{{productDetails.name}}</v-card-title>
           </v-img>
           <v-card-actions>
@@ -15,8 +11,9 @@
               color="primary"
               class="text-uppercase"
               :disabled="!productDetails.status"
+              @click="addToCart"
             >add to cart</v-btn>
-            <v-btn color="secondary" class="text-uppercase">checkout</v-btn>
+            <v-btn color="secondary" class="text-uppercase" to="/checkout">checkout</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -49,6 +46,18 @@ export default {
   computed: {
     productDetails() {
       return this.$store.getters["products/getProductDetails"](this.slug);
+    }
+  },
+  methods: {
+    addToCart() {
+      const cartItem = {
+        id: this.productDetails.id,
+        name: this.productDetails.name,
+        price: this.productDetails.price,
+        publicUrl: this.productDetails.publicUrl,
+        quantity: 1
+      };
+      this.$store.dispatch("cart/addToCart", cartItem);
     }
   },
   mounted() {

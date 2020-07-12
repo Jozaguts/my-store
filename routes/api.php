@@ -13,4 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('products/{page?}', 'ProductController@index');
+Route::group(['prefix' => '/products'], function () {
+    Route::post('/', 'ProductController@create')->middleware('auth:api');
+    Route::put('/update/{id}', 'ProductController@update')->middleware('auth:api');
+    Route::delete('/delete/{id}', 'ProductController@delete')->middleware('auth:api');
+    Route::get('/created-at', 'ProductController@byCreatedAt');
+    Route::get('/{page?}', 'ProductController@index');
+});
+Route::group(['prefix' => '/users'], function () {
+    Route::get('/', 'UserController@index')->middleware('auth:api');
+    Route::post('/', 'UserController@create')->middleware('auth:api');
+    Route::put('/', 'UserController@update')->middleware('auth:api');
+    Route::delete('/delete/{id}', 'UserController@delete')->middleware('auth:api');
+});
