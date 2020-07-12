@@ -23,7 +23,7 @@
       <v-col cols="12">
         <v-pagination :value="page" :length="length" @input="next" total-visible="10"></v-pagination>
       </v-col>
-    </v-row> -->
+    </v-row>-->
   </v-container>
 </template>
 
@@ -36,10 +36,10 @@ export default {
     products() {
       return this.$store.getters["products/getProductsData"].products.data;
     },
-    page() {
-      return this.$store.getters["products/getProductsData"].paginate
-        .current_page;
-    },
+    // page() {
+    //   return this.$store.getters["products/getProductsData"].paginate
+    //     .current_page;
+    // },
     length() {
       return this.$store.getters["products/getProductsData"].paginate.last_page;
     }
