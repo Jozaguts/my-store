@@ -177,7 +177,6 @@ export default {
       val || this.close();
     }
   },
-
   created() {
     this.init();
   },
@@ -236,6 +235,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-</style>>
-
