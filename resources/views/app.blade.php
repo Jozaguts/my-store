@@ -15,7 +15,7 @@
 
 <body>
     <div id="app"></div>
-    <script src="{{secure_assets('js/app.js')}}"></script>
+    <script src="{{secure_url('js/app.js')}}"></script>
 </body>
 
 </html>
