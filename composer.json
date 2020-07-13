@@ -53,9 +53,9 @@
     "scripts": {
         "post-install-cmd": [
             "php artisan clear-compiled",
+            "php artisan config:cache",
             "php artisan optimize",
-            "chmod -R 777 storage",
-            "php artisan passport:keys"
+            "chmod -R 777 storage"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
