@@ -53,6 +53,7 @@
     "scripts": {
         "post-install-cmd": [
             "php artisan clear-compiled",
+            "php artisan config:cache",
             "php artisan optimize",
             "chmod -R 777 storage"
         ],
