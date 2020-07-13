@@ -19,6 +19,7 @@ const products = {
             try {
                 await axios.get(`/api/products?page=${page}`)
                     .then((response) => {
+                        
                         commit('SET_PRODUCTS', response.data)
                     })
             } catch (error) {
@@ -28,7 +29,7 @@ const products = {
         },
         async productCreate({ commit, rootState }, userData) {
             try {
-                await axios.post('/api/products', userData, {
+                await axios.post('/api/products/create', userData, {
                     headers: {
                         Authorization: "Bearer " + rootState.auth.access_token,
                     }

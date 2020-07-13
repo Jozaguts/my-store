@@ -99,6 +99,10 @@ class ProductController extends Controller
     {
         try {
             $product = Product::find($id);
+            $mediaItems = $product->getMedia();
+            if (count($mediaItems) > 0) {
+                $mediaItems[0]->delete();
+            }
             $product->delete();
             return $this->sendFirstPage();
         } catch (\Throwable $th) {
@@ -108,10 +112,10 @@ class ProductController extends Controller
 
     public function byCreatedAt()
     {
-       
+
         try {
             $products = Product::orderBy('created_at', 'desc')->paginate(3, ['id', 'name', 'slug', 'description', 'price', 'status'], 'page', '1');
-           
+
             return $this->getMedia($products);
         } catch (\Throwable $th) {
             return response()->json(['error', $th->getMessage()], 400);
