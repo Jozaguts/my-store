@@ -13,6 +13,13 @@
 
 
 // Auth::routes();
+
+Route::get('/clear-cache', function () {
+    $exitCode = Artisan::call('config:cache');
+    return 'DONE'; //Return anything
+});
+
+
 Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout');
 
