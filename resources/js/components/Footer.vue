@@ -18,41 +18,52 @@
         </v-col>
       </v-row>
       <v-row align="center">
-        <v-col>
+        <v-col cols="2">
           <v-img
-            src="https://seeklogo.com/images/V/vuetify-logo-3BCF73C928-seeklogo.com.png"
-            max-height="100"
-            max-width="100"
-            class="mx-auto"
+            :src="require('../assets/img/vuetify.png')"
+            max-width="200"
             alt="Vuetify"
             name="Vuetify"
-          ></v-img>
-        </v-col>
-        <v-col class="d-flex">
-          <v-img
-            src="https://cdn.glitch.com/project-avatar/001fabdc-d95c-4523-a793-1e3114a62699.png"
-            max-height="100"
-            max-width="100"
-            class="mx-auto"
-          ></v-img>
-          <v-img
-            src="https://user-images.githubusercontent.com/7110136/29002858-a09570d2-7ab4-11e7-8faa-5dd6d4458b0d.png"
-            max-height="100"
-            max-width="100"
-            class="mx-auto"
-          ></v-img>
-          <v-img
-            src="https://secure.meetupstatic.com/photos/event/8/9/a/d/600_480095245.jpeg"
-            max-height="100"
-            max-width="100"
             class="mx-auto"
           ></v-img>
         </v-col>
-        <v-col>
+        <v-col cols="2">
           <v-img
-            src="https://desarrolloweb.com/storage/tag_images/actual/7sY8a8whbcQcFvkV3nQGiCjXYITUgdLALYqlFzmM.png"
-            max-height="150"
-            max-width="150"
+              :src="require('../assets/img/vuejs.png')"
+              max-width="200"
+               aspect-ratio="1" contain
+            class="mx-auto"
+          ></v-img>
+        </v-col>
+          <v-col cols="2">
+          <v-img
+              :src="require('../assets/img/vue-router.png')"
+              max-width="200"
+               aspect-ratio="1" contain
+            class="mx-auto"
+          ></v-img>
+        </v-col>
+          <v-col cols="2">
+          <v-img
+              :src="require('../assets/img/vuex.png')"
+              max-width="200"
+               aspect-ratio="1" contain
+            class="mx-auto"
+          ></v-img>
+        </v-col>
+          <v-col cols="2">
+          <v-img
+              :src="require('../assets/img/laravel.png')"
+              max-width="200"
+               aspect-ratio="1" contain
+            class="mx-auto"
+          ></v-img>
+        </v-col>
+          <v-col cols="2">
+          <v-img
+              :src="require('../assets/img/S3.png')"
+              max-width="200"
+               aspect-ratio="1" contain
             class="mx-auto"
           ></v-img>
         </v-col>

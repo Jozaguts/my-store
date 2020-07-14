@@ -1,5 +1,5 @@
 <template>
-  <v-parallax dark :src="require('../assets/img/t-shirts.jpg')">
+  <v-parallax dark :src="require('../assets/img/banner.jpg')">
     <v-row align="center" justify="center">
       <v-col class="text-center" cols="12">
         <h1 class="display-1 white--text">{{title}}</h1>

@@ -81,6 +81,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -169,14 +180,13 @@ var render = function() {
             [
               _c(
                 "v-col",
+                { attrs: { cols: "2" } },
                 [
                   _c("v-img", {
                     staticClass: "mx-auto",
                     attrs: {
-                      src:
-                        "https://seeklogo.com/images/V/vuetify-logo-3BCF73C928-seeklogo.com.png",
-                      "max-height": "100",
-                      "max-width": "100",
+                      src: __webpack_require__(/*! ../assets/img/vuetify.png */ "./resources/js/assets/img/vuetify.png"),
+                      "max-width": "200",
                       alt: "Vuetify",
                       name: "Vuetify"
                     }
@@ -187,35 +197,15 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-col",
-                { staticClass: "d-flex" },
+                { attrs: { cols: "2" } },
                 [
                   _c("v-img", {
                     staticClass: "mx-auto",
                     attrs: {
-                      src:
-                        "https://cdn.glitch.com/project-avatar/001fabdc-d95c-4523-a793-1e3114a62699.png",
-                      "max-height": "100",
-                      "max-width": "100"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("v-img", {
-                    staticClass: "mx-auto",
-                    attrs: {
-                      src:
-                        "https://user-images.githubusercontent.com/7110136/29002858-a09570d2-7ab4-11e7-8faa-5dd6d4458b0d.png",
-                      "max-height": "100",
-                      "max-width": "100"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("v-img", {
-                    staticClass: "mx-auto",
-                    attrs: {
-                      src:
-                        "https://secure.meetupstatic.com/photos/event/8/9/a/d/600_480095245.jpeg",
-                      "max-height": "100",
-                      "max-width": "100"
+                      src: __webpack_require__(/*! ../assets/img/vuejs.png */ "./resources/js/assets/img/vuejs.png"),
+                      "max-width": "200",
+                      "aspect-ratio": "1",
+                      contain: ""
                     }
                   })
                 ],
@@ -224,14 +214,66 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-col",
+                { attrs: { cols: "2" } },
                 [
                   _c("v-img", {
                     staticClass: "mx-auto",
                     attrs: {
-                      src:
-                        "https://desarrolloweb.com/storage/tag_images/actual/7sY8a8whbcQcFvkV3nQGiCjXYITUgdLALYqlFzmM.png",
-                      "max-height": "150",
-                      "max-width": "150"
+                      src: __webpack_require__(/*! ../assets/img/vue-router.png */ "./resources/js/assets/img/vue-router.png"),
+                      "max-width": "200",
+                      "aspect-ratio": "1",
+                      contain: ""
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "2" } },
+                [
+                  _c("v-img", {
+                    staticClass: "mx-auto",
+                    attrs: {
+                      src: __webpack_require__(/*! ../assets/img/vuex.png */ "./resources/js/assets/img/vuex.png"),
+                      "max-width": "200",
+                      "aspect-ratio": "1",
+                      contain: ""
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "2" } },
+                [
+                  _c("v-img", {
+                    staticClass: "mx-auto",
+                    attrs: {
+                      src: __webpack_require__(/*! ../assets/img/laravel.png */ "./resources/js/assets/img/laravel.png"),
+                      "max-width": "200",
+                      "aspect-ratio": "1",
+                      contain: ""
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "2" } },
+                [
+                  _c("v-img", {
+                    staticClass: "mx-auto",
+                    attrs: {
+                      src: __webpack_require__(/*! ../assets/img/S3.png */ "./resources/js/assets/img/S3.png"),
+                      "max-width": "200",
+                      "aspect-ratio": "1",
+                      contain: ""
                     }
                   })
                 ],
@@ -276,6 +318,72 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/S3.png":
+/*!****************************************!*\
+  !*** ./resources/js/assets/img/S3.png ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/S3.png?2ced04acafdeda74781e12e4af2d1f9b";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/laravel.png":
+/*!*********************************************!*\
+  !*** ./resources/js/assets/img/laravel.png ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/laravel.png?9b2988e66bbc62ceea4f3b28c0295237";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/vue-router.png":
+/*!************************************************!*\
+  !*** ./resources/js/assets/img/vue-router.png ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/vue-router.png?bc780e6a98d4edd433665b9abac0a57e";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/vuejs.png":
+/*!*******************************************!*\
+  !*** ./resources/js/assets/img/vuejs.png ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/vuejs.png?ab8615a14e0c913d0b9d951c3480a943";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/vuetify.png":
+/*!*********************************************!*\
+  !*** ./resources/js/assets/img/vuetify.png ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/vuetify.png?73ff51f649d22eb349175ba9fd7b9631";
+
+/***/ }),
+
+/***/ "./resources/js/assets/img/vuex.png":
+/*!******************************************!*\
+  !*** ./resources/js/assets/img/vuex.png ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/vuex.png?3ec7a538a9b50e121496e0408c1ab7d0";
 
 /***/ }),
 
