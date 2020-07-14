@@ -4,13 +4,22 @@ import 'vuetify/dist/vuetify.min.css'
 
 import '@mdi/font/css/materialdesignicons.css'
 import colors from 'vuetify/lib/util/colors'
-
+import TShirtIcon from '../components/CustomIcons/T-shirt.vue'
+import BlouseIcon from '../components/CustomIcons/Blouse.vue'
 Vue.use(Vuetify)
 
 
 const opts = {
     icons: {
         iconfont: 'mdi', // default - only for display purposes
+        values:{
+            tshirt:{
+                component: TShirtIcon
+            },
+            blouse:{
+                component: BlouseIcon
+            }
+        }
     },
     breakpoint: {
         thresholds: {
@@ -33,7 +42,7 @@ const opts = {
                 primary: colors.cyan.darken3,
             },
         },
-    },
+    }
 }
 
 export default new Vuetify(opts)

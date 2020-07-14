@@ -62,16 +62,13 @@ var render = function() {
     [
       _c(
         "v-row",
-        { attrs: { align: "center", justify: "center" } },
         [
-          _c("v-col", { staticClass: "text-center", attrs: { cols: "12" } }, [
-            _c("h1", { staticClass: "display-1 white--text" }, [
-              _vm._v(_vm._s(_vm.title))
-            ]),
-            _vm._v(" "),
-            _c("h4", { staticClass: "subheading primary--text" }, [
-              _vm._v("Build your application today!")
-            ])
+          _c("v-col", { staticClass: "d-flex", attrs: { cols: "12" } }, [
+            _c(
+              "h1",
+              { staticClass: "display-1 secondary--text text-capitalize" },
+              [_vm._v(_vm._s(_vm.title))]
+            )
           ])
         ],
         1

@@ -13,14 +13,14 @@ const auth = {
                 class: "order-first mr-auto"
             },
             {
-                title: "products",
-                icon: "mdi-bow-tie",
+                title: "t-shirts",
+                icon: "$tshirt",
                 link: "/products",
                 class: "order-2"
             },
             {
-                title: "contact",
-                icon: "mdi-account-box",
+                title: "blouses",
+                icon: "$blouse",
                 link: "/contact",
                 class: "order-4"
             },

@@ -1,9 +1,9 @@
 <template>
   <v-parallax dark :src="require('../assets/img/banner.jpg')">
-    <v-row align="center" justify="center">
-      <v-col class="text-center" cols="12">
-        <h1 class="display-1 white--text">{{title}}</h1>
-        <h4 class="subheading primary--text">Build your application today!</h4>
+    <v-row >
+      <v-col class="d-flex" cols="12">
+        <h1 class="display-1 secondary--text text-capitalize">{{title}}</h1>
+<!--        <h4 class="subheading primary&#45;&#45;text">Build your application today!</h4>-->
       </v-col>
     </v-row>
   </v-parallax>
