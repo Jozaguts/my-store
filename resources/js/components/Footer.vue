@@ -61,7 +61,7 @@
         </v-col>
           <v-col cols="2">
           <v-img
-              :src="require('../assets/img/s3.png')"
+              :src="require('../assets/img/S3.png')"
               max-width="200"
                aspect-ratio="1" contain
             class="mx-auto"

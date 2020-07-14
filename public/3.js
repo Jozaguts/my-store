@@ -270,7 +270,7 @@ var render = function() {
                   _c("v-img", {
                     staticClass: "mx-auto",
                     attrs: {
-                      src: __webpack_require__(/*! ../assets/img/s3.png */ "./resources/js/assets/img/s3.png"),
+                      src: __webpack_require__(/*! ../assets/img/S3.png */ "./resources/js/assets/img/S3.png"),
                       "max-width": "200",
                       "aspect-ratio": "1",
                       contain: ""
@@ -321,6 +321,17 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./resources/js/assets/img/S3.png":
+/*!****************************************!*\
+  !*** ./resources/js/assets/img/S3.png ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/S3.png?2ced04acafdeda74781e12e4af2d1f9b";
+
+/***/ }),
+
 /***/ "./resources/js/assets/img/laravel.png":
 /*!*********************************************!*\
   !*** ./resources/js/assets/img/laravel.png ***!
@@ -329,17 +340,6 @@ render._withStripped = true
 /***/ (function(module, exports) {
 
 module.exports = "/images/laravel.png?9b2988e66bbc62ceea4f3b28c0295237";
-
-/***/ }),
-
-/***/ "./resources/js/assets/img/s3.png":
-/*!****************************************!*\
-  !*** ./resources/js/assets/img/s3.png ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/s3.png?2ced04acafdeda74781e12e4af2d1f9b";
 
 /***/ }),
 
