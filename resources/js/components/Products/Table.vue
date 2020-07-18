@@ -79,13 +79,28 @@
                           rules="required|decimal:2"
                         >
                           <v-text-field
-                            type="price"
+                            type="text"
                             v-model="editedItem.price "
                             label="Price "
                             :error-messages="errors"
                           ></v-text-field>
                         </ValidationProvider>
                       </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                            <ValidationProvider
+                                v-slot="{errors}"
+                                name="Stock"
+                                rules="required|numeric"
+                            >
+                                <v-text-field
+                                    type="text"
+                                    v-model="editedItem.stock "
+                                    label="Stock "
+                                    :error-messages="errors"
+                                ></v-text-field>
+                            </ValidationProvider>
+                        </v-col>
+
                       <v-col cols="12" sm="6" md="4">
                         <v-switch v-model="editedItem.status" label="Status"></v-switch>
                       </v-col>
@@ -132,6 +147,7 @@ export default {
       { text: "Price", value: "price", sortable: true },
       { text: "Status", value: "status", sortable: true },
       { text: "Media", value: "publicUrl", sortable: true },
+      { text: "Stock", value: "stock", sortable: true },
       { text: "Actions", value: "actions", sortable: false }
     ],
     editedIndex: -1,
@@ -141,7 +157,8 @@ export default {
       slug: "",
       description: "",
       price: "",
-      status: 1
+      status: 1,
+      stock: ''
     },
     image: null,
     defaultItem: {
@@ -150,7 +167,8 @@ export default {
       slug: "",
       description: "",
       price: "",
-      status: 1
+      status: 1,
+      stock: ''
     }
   }),
 
@@ -219,6 +237,7 @@ export default {
       formData.append("description", this.editedItem.description);
       formData.append("slug", this.editedItem.slug);
       formData.append("price", this.editedItem.price);
+      formData.append("stock", this.editedItem.stock);
       formData.append("status", this.editedItem.status ? 1 : 0);
       formData.append("image", this.image);
       if (this.editedIndex > -1) {

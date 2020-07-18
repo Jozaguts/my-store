@@ -19,7 +19,7 @@ const products = {
             try {
                 await axios.get(`/api/products?page=${page}`)
                     .then((response) => {
-                        
+
                         commit('SET_PRODUCTS', response.data)
                     })
             } catch (error) {
@@ -27,7 +27,7 @@ const products = {
             }
 
         },
-        async productCreate({ commit, rootState }, userData) {
+        async productCreate({ commit,dispatch, rootState }, userData) {
             try {
                 await axios.post('/api/products/create', userData, {
                     headers: {
@@ -36,7 +36,7 @@ const products = {
                 })
                     .then(response => {
                         commit('SET_PRODUCTS', response.data)
-                        commit('global/SET_ALERT_MESSAGES', {
+                        dispatch('global/setAndClearAlert', {
                             type: 'success',
                             messages: ['Product was created successfully']
                         }, { root: true });
@@ -48,7 +48,7 @@ const products = {
                         alertMessages.push(error.response.data.errors[key][0]);
                     }
                 }
-                commit('global/SET_ALERT_MESSAGES', {
+                dispatch('global/setAndClearAlert', {
                     type: 'error',
                     messages: alertMessages
                 }, { root: true });

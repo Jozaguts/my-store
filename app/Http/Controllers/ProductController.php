@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         try {
-            $products = Product::paginate(9, ['id', 'name', 'slug', 'description', 'price', 'status'], 'page', $request->page);
+            $products = Product::paginate(9, ['id', 'name', 'slug', 'description', 'price', 'status', 'stock'], 'page', $request->page);
 
             return  $this->getMedia($products);
         } catch (\Throwable $th) {
@@ -45,15 +45,12 @@ class ProductController extends Controller
             200
         );
 
-
-
-
         return $model;
     }
     public function sendFirstPage()
     {
         try {
-            $products = Product::paginate(9, ['id', 'name', 'slug', 'description', 'price', 'status'], 'page', '1');
+            $products = Product::paginate(9, ['id', 'name', 'slug', 'description', 'price', 'status', 'stock'], 'page', '1');
             return  $this->getMedia($products);
         } catch (\Throwable $th) {
             return response()->json(['error', $th->getMessage()], 400);
@@ -61,7 +58,6 @@ class ProductController extends Controller
     }
     public function create(CreateProduct $request)
     {
-
         try {
            $product = Product::create($request->except(['image']));
 
