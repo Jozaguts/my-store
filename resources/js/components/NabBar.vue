@@ -15,7 +15,7 @@
     </v-btn>
     <v-btn class="order-last ml-auto d-none d-sm-flex" @click="TOGGLE_SHOW_CART" text>
       <v-badge content="6" :inline="true"></v-badge>
-      <v-icon left>mdi-cart</v-icon>checkout
+      <v-icon left>$shoppingCart</v-icon>checkout
     </v-btn>
     <v-alert
       class="alert"

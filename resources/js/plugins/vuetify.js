@@ -6,6 +6,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import colors from 'vuetify/lib/util/colors'
 import TShirtIcon from '../components/CustomIcons/T-shirt.vue'
 import BlouseIcon from '../components/CustomIcons/Blouse.vue'
+import ShoppingCart from "../components/CustomIcons/ShoppingCart";
 Vue.use(Vuetify)
 
 
@@ -18,6 +19,9 @@ const opts = {
             },
             blouse:{
                 component: BlouseIcon
+            },
+            shoppingCart:{
+                component: ShoppingCart
             }
         }
     },

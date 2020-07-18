@@ -165,7 +165,7 @@ var render = function() {
         [
           _c("v-badge", { attrs: { content: "6", inline: true } }),
           _vm._v(" "),
-          _c("v-icon", { attrs: { left: "" } }, [_vm._v("mdi-cart")]),
+          _c("v-icon", { attrs: { left: "" } }, [_vm._v("$shoppingCart")]),
           _vm._v("checkout\n  ")
         ],
         1

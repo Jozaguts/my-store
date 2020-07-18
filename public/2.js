@@ -25,11 +25,14 @@ __webpack_require__.r(__webpack_exports__);
     title: function title() {
       switch (this.$route.name) {
         case "home":
-          return "My T-shirts store";
+          return "My clothes store";
           break;
 
-        case "products":
-          return "all  T-shirts";
+        case "t-shirts":
+          return "All t-shirts";
+
+        case "blouses":
+          return "All blouses";
 
         default:
           return this.$route.name;

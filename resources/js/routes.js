@@ -45,16 +45,19 @@ const router = new VueRouter({
 
         },
         {
-            path: '/products',
-            name: 'products',
+            path: '/t-shirts',
+            name: 't-shirts',
             component: Products
-
+        },
+        {
+            path: '/blouses',
+            name: 'blouses',
+            component: Products
         },
         {
             path: '/products/:slug',
             name: 'productsDetails',
             component: ProductDetails
-
         },
         {
             path: '/checkout',

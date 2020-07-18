@@ -186,7 +186,7 @@ var render = function() {
                     staticClass: "mx-auto",
                     attrs: {
                       src: __webpack_require__(/*! ../assets/img/vuetify.png */ "./resources/js/assets/img/vuetify.png"),
-                      "max-width": "200",
+                      "max-width": "100",
                       alt: "Vuetify",
                       name: "Vuetify"
                     }
@@ -203,7 +203,7 @@ var render = function() {
                     staticClass: "mx-auto",
                     attrs: {
                       src: __webpack_require__(/*! ../assets/img/vuejs.png */ "./resources/js/assets/img/vuejs.png"),
-                      "max-width": "200",
+                      "max-width": "100",
                       "aspect-ratio": "1",
                       contain: ""
                     }
@@ -220,7 +220,7 @@ var render = function() {
                     staticClass: "mx-auto",
                     attrs: {
                       src: __webpack_require__(/*! ../assets/img/vue-router.png */ "./resources/js/assets/img/vue-router.png"),
-                      "max-width": "200",
+                      "max-width": "100",
                       "aspect-ratio": "1",
                       contain: ""
                     }
@@ -237,7 +237,7 @@ var render = function() {
                     staticClass: "mx-auto",
                     attrs: {
                       src: __webpack_require__(/*! ../assets/img/vuex.png */ "./resources/js/assets/img/vuex.png"),
-                      "max-width": "200",
+                      "max-width": "100",
                       "aspect-ratio": "1",
                       contain: ""
                     }
@@ -254,7 +254,7 @@ var render = function() {
                     staticClass: "mx-auto",
                     attrs: {
                       src: __webpack_require__(/*! ../assets/img/laravel.png */ "./resources/js/assets/img/laravel.png"),
-                      "max-width": "200",
+                      "max-width": "100",
                       "aspect-ratio": "1",
                       contain: ""
                     }
@@ -271,7 +271,7 @@ var render = function() {
                     staticClass: "mx-auto",
                     attrs: {
                       src: __webpack_require__(/*! ../assets/img/S3.png */ "./resources/js/assets/img/S3.png"),
-                      "max-width": "200",
+                      "max-width": "100",
                       "aspect-ratio": "1",
                       contain: ""
                     }

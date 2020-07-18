@@ -63,12 +63,7 @@ class ProductController extends Controller
     {
 
         try {
-            DB::table('products')
-                ->insert($request->except(['image']));
-
-            $productId = DB::getPdo()->lastInsertId();
-
-            $product = Product::find($productId);
+           $product = Product::create($request->except(['image']));
 
             $product->addMedia($request->image)->toMediaCollection();
             return $this->sendFirstPage();

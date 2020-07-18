@@ -15,21 +15,21 @@ const auth = {
             {
                 title: "t-shirts",
                 icon: "$tshirt",
-                link: "/products",
+                link: "/t-shirts",
                 class: "order-2"
             },
             {
                 title: "blouses",
                 icon: "$blouse",
-                link: "/contact",
+                link: "/blouses",
                 class: "order-4"
             },
-            {
-                title: "About Us",
-                icon: "mdi-information",
-                link: "/about",
-                class: "order-3"
-            }
+            // {
+            //     title: "About Us",
+            //     icon: "mdi-information",
+            //     link: "/about",
+            //     class: "order-3"
+            // }
         ],
         alertMessages: {
             type: null,

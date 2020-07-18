@@ -12,6 +12,7 @@ class Product extends Model implements HasMedia
     use SoftDeletes, HasMediaTrait;
 
     protected $table = "products";
+    public $timestamps = true;
 
-    protected $fillable = ['name', 'slug', 'description', 'price', 'status'];
+    protected $fillable = ['name', 'slug', 'description', 'price', 'status','created_at'];
 }

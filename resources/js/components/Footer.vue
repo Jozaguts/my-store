@@ -21,7 +21,7 @@
         <v-col cols="2">
           <v-img
             :src="require('../assets/img/vuetify.png')"
-            max-width="200"
+            max-width="100"
             alt="Vuetify"
             name="Vuetify"
             class="mx-auto"
@@ -30,7 +30,7 @@
         <v-col cols="2">
           <v-img
               :src="require('../assets/img/vuejs.png')"
-              max-width="200"
+              max-width="100"
                aspect-ratio="1" contain
             class="mx-auto"
           ></v-img>
@@ -38,7 +38,7 @@
           <v-col cols="2">
           <v-img
               :src="require('../assets/img/vue-router.png')"
-              max-width="200"
+              max-width="100"
                aspect-ratio="1" contain
             class="mx-auto"
           ></v-img>
@@ -46,7 +46,7 @@
           <v-col cols="2">
           <v-img
               :src="require('../assets/img/vuex.png')"
-              max-width="200"
+              max-width="100"
                aspect-ratio="1" contain
             class="mx-auto"
           ></v-img>
@@ -54,7 +54,7 @@
           <v-col cols="2">
           <v-img
               :src="require('../assets/img/laravel.png')"
-              max-width="200"
+              max-width="100"
                aspect-ratio="1" contain
             class="mx-auto"
           ></v-img>
@@ -62,7 +62,7 @@
           <v-col cols="2">
           <v-img
               :src="require('../assets/img/S3.png')"
-              max-width="200"
+              max-width="100"
                aspect-ratio="1" contain
             class="mx-auto"
           ></v-img>
