@@ -23,13 +23,15 @@ class CreateProduct extends FormRequest
      */
     public function rules()
     {
-    
+
         return [
             'name' => ['required'],
             'slug' => ['required', 'unique:products'],
             'description' => ['required'],
             'price' => ['required'],
-            'status' => ['required', 'boolean']
+            'status' => ['required', 'boolean'],
+            'stock' => ['required'],
+
         ];
     }
 }

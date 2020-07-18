@@ -59,6 +59,12 @@ const auth = {
     actions: {
         setUserName(context) {
             console.log(context)
+        },
+       async setAndClearAlert(context, alert) {
+            await context.commit('SET_ALERT_MESSAGES', alert)
+            await setTimeout(()=>{
+                context.commit('CLEAR_ALERT_MESSAGES')
+            },3000)
         }
     },
     getters: {

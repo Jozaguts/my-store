@@ -14,5 +14,5 @@ class Product extends Model implements HasMedia
     protected $table = "products";
     public $timestamps = true;
 
-    protected $fillable = ['name', 'slug', 'description', 'price', 'status','created_at'];
+    protected $fillable = ['barcode','stock','name', 'slug', 'description', 'price', 'status'];
 }
