@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->decimal('price', 8, 2);
             $table->boolean('status');
+            $table->string('bar_code');
+            $table->integer('stock' );
             $table->softDeletes();
             $table->timestamps();
         });
