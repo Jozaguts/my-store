@@ -55,7 +55,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     drawer: "global/getDrawerStatus",
     menu: "global/getMenu",
-    showAlert: "cart/getCartChanged"
+    showAlert: "cart/getCartChanged",
+    totalQuantity: "cart/getTotalQuantity"
   }))
 });
 
@@ -163,7 +164,17 @@ var render = function() {
           on: { click: _vm.TOGGLE_SHOW_CART }
         },
         [
-          _c("v-badge", { attrs: { content: "6", inline: true } }),
+          _c("v-badge", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.totalQuantity,
+                expression: "totalQuantity"
+              }
+            ],
+            attrs: { content: _vm.totalQuantity, color: "green", inline: true }
+          }),
           _vm._v(" "),
           _c("v-icon", { attrs: { left: "" } }, [_vm._v("$shoppingCart")]),
           _vm._v("checkout\n  ")

@@ -14,7 +14,7 @@
       {{btn.title}}
     </v-btn>
     <v-btn class="order-last ml-auto d-none d-sm-flex" @click="TOGGLE_SHOW_CART" text>
-      <v-badge content="6" :inline="true"></v-badge>
+      <v-badge v-show="totalQuantity" :content="totalQuantity" color="green" :inline="true"></v-badge>
       <v-icon left>$shoppingCart</v-icon>checkout
     </v-btn>
     <v-alert
@@ -41,7 +41,8 @@ export default {
     ...mapGetters({
       drawer: "global/getDrawerStatus",
       menu: "global/getMenu",
-      showAlert: "cart/getCartChanged"
+      showAlert: "cart/getCartChanged",
+        totalQuantity: "cart/getTotalQuantity",
     })
   }
 };
