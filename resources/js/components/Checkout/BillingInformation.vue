@@ -1,5 +1,5 @@
 <template>
-  <v-stepper-content step="2">
+  <v-stepper-content :step="!this.$vuetify.breakpoint.mobile ? 1 : 2 ">
     <header>
       <h2 class="text-bold text-capitalize primary--text">Billing Information</h2>
     </header>
