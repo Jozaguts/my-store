@@ -1,41 +1,64 @@
 <template>
-  <v-stepper :value="steps">
-    <v-stepper-header>
-      <v-stepper-step step="1" :editable="true" :complete="steps >1">Items in Your Cart</v-stepper-step>
+    <v-container>
+        <v-row class="d-flex align-start justify-center">
+            <v-col cols="12" md="6" lg="6">
+                <v-card>
+                    <v-stepper :value="stepper">
+                        <v-stepper-header>
 
-      <v-divider></v-divider>
+                            <v-stepper-step v-if="this.$vuetify.breakpoint.mobile" step="1" :editable="true"
+                                            :complete="stepper >1">Items in Your Cart
 
-      <v-stepper-step step="2" :editable="true" :complete="steps >2">Billing Information</v-stepper-step>
+                            </v-stepper-step>
 
-      <v-divider></v-divider>
+                            <v-divider></v-divider>
 
-      <v-stepper-step step="3" :editable="true" :complete="steps >2">Payment Information</v-stepper-step>
-    </v-stepper-header>
-    <v-stepper-items>
-      <ItemsInfo @change-step="changeStep($event)" />
-      <BillingInformation @change-step="changeStep($event)" />
-      <PaymentInformation @change-step="changeStep($event)" />
-    </v-stepper-items>
-  </v-stepper>
+                            <v-stepper-step :step="this.$vuetify.breakpoint.mobile ? 2: 1" :editable="true" >Billing Information
+                            </v-stepper-step>
+
+                            <v-divider></v-divider>
+
+                            <v-stepper-step :step="this.$vuetify.breakpoint.mobile ? 3: 2" :editable="true" >Payment Information
+                            </v-stepper-step>
+                            <v-divider></v-divider>
+                        </v-stepper-header>
+                        <v-stepper-items>
+                            <v-stepper-content v-if="this.$vuetify.breakpoint.mobile" step="1" >
+                                <ItemsInfo @change-step=" changeStep($event)"/>
+                            </v-stepper-content>
+                            <BillingInformation @change-step="changeStep($event)"/>
+                            <PaymentInformation @change-step="changeStep($event)"/>
+                        </v-stepper-items>
+                    </v-stepper>
+                </v-card>
+            </v-col>
+            <v-col cols="12" md="5" lg="5">
+                <v-card>
+                    <ItemsInfo v-if="!this.$vuetify.breakpoint.mobile" @change-step=" changeStep($event)"/>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
-import ItemsInfo from "../components/Checkout/ItemsInfo";
-import BillingInformation from "../components/Checkout/BillingInformation";
-import PaymentInformation from "../components/Checkout/PaymentInformation";
-export default {
-  components: { ItemsInfo, BillingInformation, PaymentInformation },
-  data() {
-    return {
-      steps: 1
+    import ItemsInfo from "../components/Checkout/ItemsInfo";
+    import BillingInformation from "../components/Checkout/BillingInformation";
+    import PaymentInformation from "../components/Checkout/PaymentInformation";
+
+    export default {
+        components: {ItemsInfo, BillingInformation, PaymentInformation},
+        data() {
+            return {
+                stepper: 1
+            };
+        },
+        methods: {
+            changeStep(step) {
+                return (this.stepper = step);
+            }
+        }
     };
-  },
-  methods: {
-    changeStep(step) {
-      return (this.steps = step);
-    }
-  }
-};
 </script>
 
 

@@ -20,12 +20,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     title: function title() {
       switch (this.$route.name) {
         case "home":
           return "My clothes store";
+          break;
+
+        case "productsDetails":
+          return "Product details";
           break;
 
         case "t-shirts":
@@ -59,26 +64,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-parallax",
-    { attrs: { dark: "", src: __webpack_require__(/*! ../assets/img/banner.jpg */ "./resources/js/assets/img/banner.jpg") } },
-    [
-      _c(
-        "v-row",
+  return this.$route.name != "checkout"
+    ? _c(
+        "v-parallax",
+        { attrs: { dark: "", src: __webpack_require__(/*! ../assets/img/banner.jpg */ "./resources/js/assets/img/banner.jpg") } },
         [
-          _c("v-col", { staticClass: "d-flex", attrs: { cols: "12" } }, [
-            _c(
-              "h1",
-              { staticClass: "display-1 secondary--text text-capitalize" },
-              [_vm._v(_vm._s(_vm.title))]
-            )
-          ])
+          _c(
+            "v-row",
+            [
+              _c("v-col", { staticClass: "d-flex", attrs: { cols: "12" } }, [
+                _c(
+                  "h1",
+                  { staticClass: "display-1 secondary--text text-capitalize" },
+                  [_vm._v(_vm._s(_vm.title))]
+                )
+              ])
+            ],
+            1
+          )
         ],
         1
       )
-    ],
-    1
-  )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
