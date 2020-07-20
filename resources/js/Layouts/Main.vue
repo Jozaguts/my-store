@@ -1,27 +1,33 @@
 <template>
-  <v-app>
-    <NabBar />
-    <navigationLeft />
-    <navigationRight />
-    <v-main>
-      <v-container fluid>
-        <Banner />
-        <router-view></router-view>
-      </v-container>
-    </v-main>
-    <FooterComponent />
-  </v-app>
+    <v-app>
+        <NabBar/>
+        <navigationLeft/>
+        <navigationRight/>
+        <v-main>
+            <v-container fluid>
+                <Banner/>
+                <router-view></router-view>
+            </v-container>
+        </v-main>
+        <FooterComponent/>
+    </v-app>
 </template>
 <script>
-export default {
-  components: {
-    FooterComponent: () => import("../components/Footer.vue"),
-    NabBar: () => import("../components/NabBar.vue"),
-    Banner: () => import("../components/Banner.vue"),
-    NavigationLeft: () => import("../components/NavigationLeft.vue"),
-    NavigationRight: () => import("../components/NavigationRight.vue")
-  }
-};
+    import FooterComponent from '../components/Footer';
+    import NabBar from "../components/NabBar";
+    import Banner from "../components/Banner";
+    import NavigationLeft from "../components/NavigationLeft";
+    import NavigationRight from "../components/NavigationRight";
+
+    export default {
+        components: {
+            FooterComponent,
+            NabBar,
+            Banner,
+            NavigationLeft,
+            NavigationRight
+        }
+    };
 </script>
 
 <style>

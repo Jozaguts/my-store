@@ -13,21 +13,27 @@
 
                             <v-divider></v-divider>
 
-                            <v-stepper-step :step="this.$vuetify.breakpoint.mobile ? 2: 1" :editable="true" >Billing Information
+                            <v-stepper-step :step="this.$vuetify.breakpoint.mobile ? 2: 1" :editable="true">Billing
+                                Information
                             </v-stepper-step>
 
                             <v-divider></v-divider>
 
-                            <v-stepper-step :step="this.$vuetify.breakpoint.mobile ? 3: 2" :editable="true" >Payment Information
+                            <v-stepper-step :step="this.$vuetify.breakpoint.mobile ? 3: 2" :editable="true">Payment
+                                Information
                             </v-stepper-step>
                             <v-divider></v-divider>
                         </v-stepper-header>
                         <v-stepper-items>
-                            <v-stepper-content v-if="this.$vuetify.breakpoint.mobile" step="1" >
+                            <v-stepper-content v-if="this.$vuetify.breakpoint.mobile" step="1">
                                 <ItemsInfo @change-step=" changeStep($event)"/>
                             </v-stepper-content>
-                            <BillingInformation @change-step="changeStep($event)"/>
-                            <PaymentInformation @change-step="changeStep($event)"/>
+                            <v-stepper-content :step="this.$vuetify.breakpoint.mobile ? 2 : 1 ">
+                                <BillingInformation @change-step="changeStep($event)"/>
+                            </v-stepper-content>
+                            <v-stepper-content :step="this.$vuetify.breakpoint.mobile ? 3 : 2 ">
+                                <PaymentInformation @change-step="changeStep($event)"/>
+                            </v-stepper-content>
                         </v-stepper-items>
                     </v-stepper>
                 </v-card>
@@ -57,6 +63,9 @@
             changeStep(step) {
                 return (this.stepper = step);
             }
+        },
+        created() {
+            this.$store.commit("global/SET_LAYOUT", "MainLayout");
         }
     };
 </script>
