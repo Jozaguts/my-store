@@ -9,7 +9,7 @@
         </v-row>
         <v-row justify="center">
             <v-col cols="12" align="center">
-                <ValidationObserver v-slot="valid">
+                <ValidationObserver v-slot="{valid}">
                     <v-form>
                         <v-container>
                             <v-row>
