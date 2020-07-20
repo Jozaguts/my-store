@@ -16,6 +16,7 @@ const auth = {
     },
     actions: {
         async login({ commit, state }, credentials) {
+            commit('global/TOGGLE_LOADING', null, { root: true })
             try {
                 await axios.post('/login', { email: credentials.email, password: credentials.password })
                     .then(response => {
@@ -32,6 +33,9 @@ const auth = {
                     })
             } catch (error) {
                 console.error(error)
+            }
+            finally {
+                commit('global/TOGGLE_LOADING', null, { root: true })
             }
 
         },

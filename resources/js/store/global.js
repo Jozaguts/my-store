@@ -5,6 +5,7 @@ const auth = {
         drawer: false,
         adminDrawer: false,
         userName: null,
+        loading:false,
         menu: [
             {
                 title: "MyStore",
@@ -54,6 +55,9 @@ const auth = {
         },
         CLEAR_ALERT_MESSAGES(state) {
             state.alertMessages.messages = [];
+        },
+        TOGGLE_LOADING(state){
+            state.loading = !state.loading
         }
     },
     actions: {
@@ -82,6 +86,9 @@ const auth = {
         },
         getAlertMessage(state) {
             return state.alertMessages
+        },
+        getLoadingStatus(state){
+            return state.loading
         }
     }
 }

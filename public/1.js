@@ -74,7 +74,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.alert {\n  position: absolute;\n  top: 100%;\n  right: 0;\n}\n", ""]);
+exports.push([module.i, "\n.alert {\r\n  position: absolute;\r\n  top: 100%;\r\n  right: 0;\n}\r\n", ""]);
 
 // exports
 
