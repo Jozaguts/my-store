@@ -15,7 +15,7 @@ const products = {
         },
     },
     actions: {
-        async asyncGetProducts({ commit }, page) {
+        async asyncGetProducts({commit}, page) {
             try {
                 await axios.get(`/api/products?page=${page}`)
                     .then((response) => {
@@ -27,7 +27,8 @@ const products = {
             }
 
         },
-        async productCreate({ commit,dispatch, rootState }, userData) {
+        async productCreate({commit, dispatch, rootState}, userData) {
+            commit('global/TOGGLE_LOADING', null, {root: true})
             try {
                 await axios.post('/api/products/create', userData, {
                     headers: {
@@ -39,7 +40,7 @@ const products = {
                         dispatch('global/setAndClearAlert', {
                             type: 'success',
                             messages: ['Product was created successfully']
-                        }, { root: true });
+                        }, {root: true});
                     })
             } catch (error) {
                 let alertMessages = [];
@@ -51,10 +52,12 @@ const products = {
                 dispatch('global/setAndClearAlert', {
                     type: 'error',
                     messages: alertMessages
-                }, { root: true });
+                }, {root: true});
+            } finally {
+                commit('global/TOGGLE_LOADING', null, {root: true})
             }
         },
-        async productEdit({ commit, rootState }, userData) {
+        async productEdit({commit, dispatch, rootState}, userData) {
             try {
                 await axios.post(`/api/products/update/${userData.get('id')}`, userData, {
                     headers: {
@@ -63,12 +66,11 @@ const products = {
 
                 })
                     .then(response => {
-
                         commit('SET_PRODUCTS', response.data)
-                        commit('global/SET_ALERT_MESSAGES', {
+                        dispatch('global/setAndClearAlert', {
                             type: 'success',
                             messages: ['Product was updated successfully']
-                        }, { root: true });
+                        }, {root: true});
                     })
             } catch (error) {
                 let alertMessages = [];
@@ -77,23 +79,23 @@ const products = {
                         alertMessages.push(error.response.data.errors[key][0]);
                     }
                 }
-                commit('global/SET_ALERT_MESSAGES', {
+                dispatch('global/setAndClearAlert', {
                     type: 'error',
                     messages: alertMessages
-                }, { root: true });
+                }, {root: true});
             }
         },
-        async productDelete({ commit, rootState }, userData) {
+        async productDelete({commit, dispatch, rootState}, userData) {
             try {
                 await axios.delete(`/api/products/delete/${userData.id}`, {
-                    headers: { Authorization: "Bearer " + rootState.auth.access_token }
+                    headers: {Authorization: "Bearer " + rootState.auth.access_token}
                 })
                     .then(response => {
                         commit('SET_PRODUCTS', response.data)
-                        commit('global/SET_ALERT_MESSAGES', {
+                        dispatch('global/setAndClearAlert', {
                             type: 'success',
                             messages: ['Product was deleted successfully']
-                        }, { root: true });
+                        }, {root: true});
                     })
             } catch (error) {
                 let alertMessages = [];
@@ -102,13 +104,13 @@ const products = {
                         alertMessages.push(error.response.data.errors[key][0]);
                     }
                 }
-                commit('global/SET_ALERT_MESSAGES', {
+                dispatch('global/setAndClearAlert', {
                     type: 'error',
                     messages: alertMessages
-                }, { root: true });
+                }, {root: true});
             }
         },
-        async asyncGetLastThreeProducts({ commit }, page) {
+        async asyncGetLastThreeProducts({commit}, page) {
             try {
                 await axios.get(`/api/products/created-at`)
                     .then((response) => {
@@ -119,8 +121,6 @@ const products = {
             }
 
         },
-
-
     },
     getters: {
         getProductsData(state) {

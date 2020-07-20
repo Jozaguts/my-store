@@ -9,7 +9,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New User</v-btn>
           </template>
-          <ValidationObserver v-slot="{valid}">
+          <ValidationObserver v-slot="{valid}" ref="form">
             <v-card>
               <v-card-title>
                 <span class="headline">{{ formTitle }}</span>
@@ -161,10 +161,14 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        this.userEdit(this.editedItem);
+        this.userEdit(this.editedItem).then(()=>{
+            this.$refs.form.reset()
+        })
         // Object.assign(this.users[this.editedIndex], this.editedItem);
       } else {
-        this.userCreate(this.editedItem);
+        this.userCreate(this.editedItem).then(()=>{
+            this.$refs.form.reset()
+        })
       }
       this.close();
       this.editedItem = Object.assign({}, this.defaultItem);
