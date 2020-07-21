@@ -10,6 +10,6 @@ class Sale extends Model
     use SoftDeletes;
     protected $table = 'sales';
     public $timestamps = true;
-    protected $fillable = ['product_id', 'client_id', 'amount', 'date', 'payment_type_id'];
+    protected $fillable = [ 'client_id', 'amount', 'date', 'payment_type_id'];
 
 }

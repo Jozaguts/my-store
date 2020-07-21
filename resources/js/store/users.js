@@ -13,7 +13,7 @@ const users = {
         async asyncUsers({commit, state, rootState}) {
             if (!state.users.length) {
                 try {
-                    await axios.get('/api/users', {
+                    await axios.get('/api/users/index', {
                         headers: {Authorization: "Bearer " + rootState.auth.access_token}
                     })
                         .then((response) => {
@@ -26,12 +26,11 @@ const users = {
         },
         async userCreate({commit,dispatch, rootState}, userData) {
             try {
-                await axios.post('/api/users', userData, {
+                await axios.post('/api/users/store', userData, {
                     headers: {Authorization: "Bearer " + rootState.auth.access_token}
                 })
                     .then(response => {
                         commit('SET_USERS', response.data.users)
-                        console.log(rootState.global);
                         dispatch('global/setAndClearAlert', {
                             type: 'success',
                             messages: ['User was created successfully']
@@ -53,7 +52,7 @@ const users = {
         },
         async userEdit({commit,dispatch, rootState}, userData) {
             try {
-                await axios.put('/api/users', userData, {
+                await axios.put('/api/users/update', userData, {
                     headers: {Authorization: "Bearer " + rootState.auth.access_token}
                 })
                     .then(response => {

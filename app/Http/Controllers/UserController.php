@@ -34,7 +34,7 @@ class UserController extends Controller
             throw new Exception($th->getMessage(), 400);
         }
     }
-    public function create(CreateUserRequest $request)
+    public function store(CreateUserRequest $request)
     {
         try {
             User::create($request->all())->save();

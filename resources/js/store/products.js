@@ -30,7 +30,7 @@ const products = {
         async productCreate({commit, dispatch, rootState}, userData) {
             commit('global/TOGGLE_LOADING', null, {root: true})
             try {
-                await axios.post('/api/products/create', userData, {
+                await axios.post('/api/products/store', userData, {
                     headers: {
                         Authorization: "Bearer " + rootState.auth.access_token,
                     }

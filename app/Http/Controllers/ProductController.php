@@ -56,7 +56,7 @@ class ProductController extends Controller
             return response()->json(['error', $th->getMessage()], 400);
         }
     }
-    public function create(CreateProduct $request)
+    public function store(CreateProduct $request)
     {
         try {
            $product = Product::create($request->except(['image']));
