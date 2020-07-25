@@ -17,8 +17,7 @@ Route::group(['prefix' => '/products'], function () {
     Route::post('/store', 'ProductController@store')->middleware('auth:api');
     Route::put('/update/{id}', 'ProductController@update')->middleware('auth:api');
     Route::delete('/delete/{id}', 'ProductController@delete')->middleware('auth:api');
-    Route::get('/created-at', 'ProductController@byCreatedAt');
-    Route::get('/{page?}', 'ProductController@index');
+    Route::get('/{page?}{items?}', 'ProductController@index');
 });
 
 Route::apiResources(['/sales' => 'SalesController']);

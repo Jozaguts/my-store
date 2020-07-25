@@ -21,7 +21,7 @@ class ProductController extends Controller
 
             $this->getImageOfEachItem($products);
 
-            return response()->json($products, 200);
+            return response()->json(['data' => $products], 200);
 
         } catch (\Throwable $th) {
 
@@ -63,7 +63,7 @@ class ProductController extends Controller
                 ->toMediaCollection();
             $products = $this->paginate(9, 1);
             $this->getImageOfEachItem($products);
-            return response()->json($products, 201);
+            return response()->json(['data' => $products], 201);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()], 400);
         }
@@ -83,7 +83,7 @@ class ProductController extends Controller
             $product->update($productData);
             $products = $this->paginate(9, 1);
             $this->getImageOfEachItem($products);
-            return response()->json($products, 200);
+            return response()->json(['data' => $products], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()], 400);
         }
@@ -96,7 +96,7 @@ class ProductController extends Controller
             $product->delete();
             $products = $this->paginate(9, 1);
             $this->getImageOfEachItem($products);
-            return response()->json($products, 200);
+            return response()->json(['data' => $products], 200);
         } catch (\Throwable $th) {
             return response()->json(['errors' => $th->getMessage()], 400);
         }
