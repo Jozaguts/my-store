@@ -64,7 +64,7 @@
                                                 </ValidationProvider>
                                             </v-col>
                                             <v-col cols="2" sm="6" md="4">
-                                                <ValidationProvider v-slot="{errors}" name="Image" rules="required">
+                                                <ValidationProvider v-slot="{errors}" name="Image" rules="required_if:editedIndex,>-1">
                                                     <v-file-input
                                                         label="Image Input"
                                                         accept="image/png, image/jpeg, image/bmp"
@@ -177,14 +177,13 @@
 
         computed: {
             products() {
-                return this.$store.getters["products/getProductsData"].products.data;
+                return this.$store.getters["products/getProductsData"].data;
             },
             page() {
-                return this.$store.getters["products/getProductsData"].paginate
-                    .current_page;
+                return this.$store.getters["products/getProductsData"].current_page;
             },
             length() {
-                return this.$store.getters["products/getProductsData"].paginate.last_page;
+                return this.$store.getters["products/getProductsData"].last_page;
             },
             slug() {
                 return (this.editedItem.slug = this.editedItem.name.replace(/\s/g, "-"));
@@ -207,7 +206,7 @@
 
         methods: {
             init() {
-                this.$store.dispatch("products/asyncGetProducts", this.page);
+                this.$store.dispatch("products/asyncGetProducts", {page: this.page, items:9});
             },
             ...mapActions({
                 productCreate: "products/productCreate",
@@ -248,8 +247,7 @@
                 formData.append("image", this.image);
                 if (this.editedIndex > -1) {
                     formData.append("_method", "PUT");
-                    formData.append("id", this.editedItem.id);
-                    this.productEdit(formData).then(()=>{
+                    this.productEdit({data: formData, id: this.editedItem.id}).then(()=>{
                         this.$refs.form.reset()
                         this.image=null
                     })

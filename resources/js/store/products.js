@@ -1,13 +1,9 @@
+
+
 const products = {
     namespaced: true,
     state: {
-        productsData: {
-            paginate: {
-                current_page: 1,
-                last_page: 1,
-            },
-            products: []
-        }
+        productsData: []
     },
     mutations: {
         SET_PRODUCTS(state, productsData) {
@@ -15,13 +11,13 @@ const products = {
         },
     },
     actions: {
-        async asyncGetProducts({commit}, page) {
+        async asyncGetProducts({commit}, {page, items}) {
             try {
-                await axios.get(`/api/products?page=${page}`)
+                await axios.get(`/api/products?page=${!page ? 1 : page}&items=${items}`)
                     .then((response) => {
-
                         commit('SET_PRODUCTS', response.data)
                     })
+
             } catch (error) {
                 console.error(error)
             }
@@ -57,13 +53,12 @@ const products = {
                 commit('global/TOGGLE_LOADING', null, {root: true})
             }
         },
-        async productEdit({commit, dispatch, rootState}, userData) {
+        async productEdit({commit, dispatch, rootState}, {data,id}) {
             try {
-                await axios.post(`/api/products/update/${userData.get('id')}`, userData, {
+                await axios.post(`/api/products/update/${id}`, data,{
                     headers: {
                         Authorization: "Bearer " + rootState.auth.access_token,
                     },
-
                 })
                     .then(response => {
                         commit('SET_PRODUCTS', response.data)
@@ -109,17 +104,6 @@ const products = {
                     messages: alertMessages
                 }, {root: true});
             }
-        },
-        async asyncGetLastThreeProducts({commit}, page) {
-            try {
-                await axios.get(`/api/products/created-at`)
-                    .then((response) => {
-                        commit('SET_PRODUCTS', response.data)
-                    })
-            } catch (error) {
-                console.error(error)
-            }
-
         },
     },
     getters: {

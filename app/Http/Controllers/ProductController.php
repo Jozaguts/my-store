@@ -6,110 +6,101 @@ use App\Http\Requests\CreateProduct;
 use App\Http\Requests\UpdateProduct;
 use Illuminate\Http\Request;
 use App\Product;
-use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        try {
-            $products = Product::paginate(9, ['id', 'name', 'slug', 'description', 'price', 'status', 'stock'], 'page', $request->page);
+        $items = $request->get('items');
+        $page = $request->get('page');
 
-            return  $this->getMedia($products);
+        try {
+
+            $products = $this->paginate($items, $page);
+
+            $this->getImageOfEachItem($products);
+
+            return response()->json($products, 200);
+
         } catch (\Throwable $th) {
+
             return response()->json(['error', $th->getMessage()], 400);
+
         }
     }
-    public function getMedia($model)
+
+    public function getImageOfEachItem($items)
     {
-        foreach ($model as $product) {
-            $newsItem = Product::find($product->id);
-            $mediaItems = $newsItem->getMedia();
+        foreach ($items as $item) {
+            $productItem = Product::find($item->id);
+            $mediaItems = $productItem->getMedia();
             if (count($mediaItems) > 0) {
-                $publicUrl = $mediaItems[0]->getFullUrl();
-                $product['publicUrl'] = $publicUrl;
+                $item['publicUrl'] = $mediaItems[0]->getFullUrl();
             }
         }
-        return response()->json(
-            [
-                'paginate' => [
-                    'total' => $model->total(),
-                    'current_page' => $model->currentPage(),
-                    'per_page' => $model->perPage(),
-                    'last_page' => $model->lastPage(),
-                    'from' => $model->firstItem(),
-                    'to' => $model->lastPage(),
-                ],
-                'products' => $model,
-            ],
-            200
-        );
 
-        return $model;
+        return $items;
+
     }
-    public function sendFirstPage()
+
+    public function paginate($items, $page)
     {
         try {
-            $products = Product::paginate(9, ['id', 'name', 'slug', 'description', 'price', 'status', 'stock'], 'page', '1');
-            return  $this->getMedia($products);
+            return Product::paginate($items, ['id', 'name', 'slug', 'description', 'price', 'status', 'stock'], 'page', $page);
         } catch (\Throwable $th) {
             return response()->json(['error', $th->getMessage()], 400);
         }
     }
+
     public function store(CreateProduct $request)
     {
+        $productData = $request->except(['image']);
+        $image = $request->file('image');
         try {
-           $product = Product::create($request->except(['image']));
-
-            $product->addMedia($request->image)->toMediaCollection();
-            return $this->sendFirstPage();
+            Product::create($productData)
+                ->addMedia($image)
+                ->toMediaCollection();
+            $products = $this->paginate(9, 1);
+            $this->getImageOfEachItem($products);
+            return response()->json($products, 201);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()], 400);
         }
     }
+
     public function update(UpdateProduct $request, $id)
     {
+        $productData = $request->except(['_method', 'image']);
+        $image = $request->file('image');
         try {
             $product = Product::find($id);
-            $mediaItems = $product->getMedia();
-            if (count($mediaItems) > 0) {
+            if ($image) {
+                $mediaItems = $product->getMedia();
                 $mediaItems[0]->delete();
+                $product->addMedia($image)->toMediaCollection();
             }
-            $product->addMedia($request->image)->toMediaCollection();
-            if ($product->slug === $request->slug) {
-                $product->update($request->except(['id', 'slug']));
-            } else {
-                $product->update($request->except(['id']));
-            }
-            return $this->sendFirstPage();
+            $product->update($productData);
+            $products = $this->paginate(9, 1);
+            $this->getImageOfEachItem($products);
+            return response()->json($products, 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()], 400);
         }
     }
+
     public function delete($id)
     {
         try {
             $product = Product::find($id);
-            $mediaItems = $product->getMedia();
-            if (count($mediaItems) > 0) {
-                $mediaItems[0]->delete();
-            }
             $product->delete();
-            return $this->sendFirstPage();
+            $products = $this->paginate(9, 1);
+            $this->getImageOfEachItem($products);
+            return response()->json($products, 200);
         } catch (\Throwable $th) {
             return response()->json(['errors' => $th->getMessage()], 400);
         }
     }
 
-    public function byCreatedAt()
-    {
 
-        try {
-            $products = Product::orderBy('created_at', 'desc')->paginate(3, ['id', 'name', 'slug', 'description', 'price', 'status'], 'page', '1');
-
-            return $this->getMedia($products);
-        } catch (\Throwable $th) {
-            return response()->json(['error', $th->getMessage()], 400);
-        }
-    }
 }

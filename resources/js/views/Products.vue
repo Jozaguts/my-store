@@ -29,14 +29,14 @@ export default {
   components: { ProductsCard },
   computed: {
     products() {
-      return this.$store.getters["products/getProductsData"].products.data;
+      return this.$store.getters["products/getProductsData"].data;
     },
     page() {
-      return this.$store.getters["products/getProductsData"].paginate
+      return this.$store.getters["products/getProductsData"]
         .current_page;
     },
     length() {
-      return this.$store.getters["products/getProductsData"].paginate.last_page;
+      return this.$store.getters["products/getProductsData"].last_page;
     }
   },
   methods: {
@@ -48,7 +48,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("products/asyncGetProducts", this.page);
+    this.$store.dispatch("products/asyncGetProducts", {page: this.page, items: 9});
     this.$store.commit("global/SET_LAYOUT", "MainLayout");
   }
 };
