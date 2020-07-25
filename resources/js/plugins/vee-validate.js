@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { required, email, digits, min, confirmed, numeric } from 'vee-validate/dist/rules';
+import { required, email, digits, min, confirmed, numeric,required_if } from 'vee-validate/dist/rules';
 
 // Add a rule.
 extend('required', required);
@@ -9,6 +9,7 @@ extend('digits', digits);
 extend('min', min);
 extend('confirmed', confirmed);
 extend('numeric', numeric);
+extend('required_if', required_if);
 
 extend("decimal", {
     validate: (value, { decimals = '*', separator = '.' } = {}) => {

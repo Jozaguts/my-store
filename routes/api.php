@@ -14,15 +14,18 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => '/products'], function () {
-    Route::post('/create', 'ProductController@create')->middleware('auth:api');
+    Route::post('/store', 'ProductController@store')->middleware('auth:api');
     Route::put('/update/{id}', 'ProductController@update')->middleware('auth:api');
     Route::delete('/delete/{id}', 'ProductController@delete')->middleware('auth:api');
     Route::get('/created-at', 'ProductController@byCreatedAt');
     Route::get('/{page?}', 'ProductController@index');
 });
+
+Route::apiResources(['/sales' => 'SalesController']);
+
 Route::group(['prefix' => '/users'], function () {
-    Route::get('/', 'UserController@index')->middleware('auth:api');
-    Route::post('/', 'UserController@create')->middleware('auth:api');
-    Route::put('/', 'UserController@update')->middleware('auth:api');
+    Route::get('/index', 'UserController@index')->middleware('auth:api');
+    Route::post('/store', 'UserController@store')->middleware('auth:api');
+    Route::put('/update', 'UserController@update')->middleware('auth:api');
     Route::delete('/delete/{id}', 'UserController@delete')->middleware('auth:api');
 });
