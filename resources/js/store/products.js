@@ -15,7 +15,7 @@ const products = {
             try {
                 await axios.get(`/api/products?page=${!page ? 1 : page}&items=${items}`)
                     .then((response) => {
-                        commit('SET_PRODUCTS', response.data)
+                        commit('SET_PRODUCTS', response.data.data)
                     })
 
             } catch (error) {
@@ -32,7 +32,7 @@ const products = {
                     }
                 })
                     .then(response => {
-                        commit('SET_PRODUCTS', response.data)
+                        commit('SET_PRODUCTS', response.data.data)
                         dispatch('global/setAndClearAlert', {
                             type: 'success',
                             messages: ['Product was created successfully']
@@ -61,7 +61,7 @@ const products = {
                     },
                 })
                     .then(response => {
-                        commit('SET_PRODUCTS', response.data)
+                        commit('SET_PRODUCTS', response.data.data)
                         dispatch('global/setAndClearAlert', {
                             type: 'success',
                             messages: ['Product was updated successfully']
@@ -86,7 +86,7 @@ const products = {
                     headers: {Authorization: "Bearer " + rootState.auth.access_token}
                 })
                     .then(response => {
-                        commit('SET_PRODUCTS', response.data)
+                        commit('SET_PRODUCTS', response.data.data)
                         dispatch('global/setAndClearAlert', {
                             type: 'success',
                             messages: ['Product was deleted successfully']
@@ -111,7 +111,7 @@ const products = {
             return state.productsData
         },
         getProductDetails: (state) => (slug) => {
-            const products = Array.from(state.productsData.products.data).find(product => product.slug === slug)
+            const products = Array.from(state.productsData.data).find(product => product.slug === slug)
             return products
         }
     }

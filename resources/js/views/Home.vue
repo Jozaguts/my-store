@@ -34,14 +34,10 @@ export default {
   components: { ProductsCard },
   computed: {
     products() {
-      return this.$store.getters["products/getProductsData"].products.data;
+      return this.$store.getters["products/getProductsData"].data;
     },
-    // page() {
-    //   return this.$store.getters["products/getProductsData"].paginate
-    //     .current_page;
-    // },
     length() {
-      return this.$store.getters["products/getProductsData"].paginate.last_page;
+      return this.$store.getters["products/getProductsData"].last_page;
     }
   },
   methods: {
@@ -51,11 +47,12 @@ export default {
 
     init() {
       this.$store
-        .dispatch("products/asyncGetLastThreeProducts")
+        .dispatch("products/asyncGetProducts",  {page: "1", items: "3"})
         .then(() => this.$store.commit("global/SET_LAYOUT", "MainLayout"))
         .catch(error => console.error(error));
     }
   },
+
   mounted() {
     this.init();
   }

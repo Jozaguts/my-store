@@ -25,7 +25,7 @@
         <section class="d-flex flex-column">
           <h3 class="text-bold text-capitalize">stock</h3>
           <p v-if="productDetails.status" class="green--text text-h4 text-capitalize">in stock</p>
-          <p v-else class="grey--text text-h4 text-capitalize text-bold">unstocked</p>
+          <p v-else class="grey--text text-h4 text-capitalize text-bold">unStocked</p>
         </section>
         <section class="d-flex flex-column">
           <h3 class="text-bold text-capitalize">price</h3>
