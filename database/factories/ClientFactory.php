@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use app\Client;
+use App\Client;
 use Faker\Generator as Faker;
 
 $factory->define(Client::class, function (Faker $faker) {
@@ -10,8 +10,8 @@ $factory->define(Client::class, function (Faker $faker) {
         'first_name' => $faker->name,
         'last_name' => $faker->lastName,
         'email' => $faker->email,
-        'phone' => $faker->phoneNumber,
-        'address' => $faker->address,
+        'phone' => $faker->e164PhoneNumber,
+        'address' => $faker->streetAddress,
         'country' => $faker->country,
         'state' => $faker->state,
         'city' => $faker->city,

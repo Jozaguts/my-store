@@ -23,7 +23,7 @@ class CreateClientsTable extends Migration
             $table->string('country', 30);
             $table->string('state', 30);
             $table->string('city', 30);
-            $table->string('zip_code', 6);
+            $table->string('zip_code', 20);
 
             $table->timestamps();
         });
