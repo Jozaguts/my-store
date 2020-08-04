@@ -2,101 +2,102 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\ProductDTO;
 use App\Http\Requests\CreateProduct;
 use App\Http\Requests\UpdateProduct;
+use App\Repositories\Products\RepositoryInterface;
+use App\Services\Product\DeleteProduct;
+use App\Services\Product\StoreProduct;
+use App\Services\Product\UpdateProductService;
 use Illuminate\Http\Request;
-use App\Product;
+
 
 
 class ProductController extends Controller
 {
+    private $repository;
+    const DEFAULT_PAGE = 1;
+    const DEFAULT_ITEMS = 9;
+
+    public function __construct(RepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function index(Request $request)
     {
-        $items = $request->get('items');
-        $page = $request->get('page');
-
         try {
-
-            $products = $this->paginate($items, $page);
-
-            $this->getImageOfEachItem($products);
-
+            $products = $this->repository
+                ->paginate(
+                    $request->input('items'),
+                    $request->input('page')
+                );
+            $this->repository
+                ->getImageOfEachItem($products);
             return response()->json(['data' => $products], 200);
-
-        } catch (\Throwable $th) {
-
-            return response()->json(['error', $th->getMessage()], 400);
-
-        }
-    }
-
-    public function getImageOfEachItem($items)
-    {
-        foreach ($items as $item) {
-            $productItem = Product::find($item->id);
-            $mediaItems = $productItem->getMedia();
-            if (count($mediaItems) > 0) {
-                $item['publicUrl'] = $mediaItems[0]->getFullUrl();
-            }
-        }
-
-        return $items;
-
-    }
-
-    public function paginate($items, $page)
-    {
-        try {
-            return Product::paginate($items, ['id', 'name', 'slug', 'description', 'price', 'status', 'stock'], 'page', $page);
         } catch (\Throwable $th) {
             return response()->json(['error', $th->getMessage()], 400);
         }
     }
 
-    public function store(CreateProduct $request)
+    public function store(CreateProduct $request, StoreProduct $storeProduct)
     {
-        $productData = $request->except(['image']);
-        $image = $request->file('image');
-        try {
-            Product::create($productData)
-                ->addMedia($image)
-                ->toMediaCollection();
-            $products = $this->paginate(9, 1);
-            $this->getImageOfEachItem($products);
-            return response()->json(['data' => $products], 201);
-        } catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()], 400);
-        }
-    }
+        $productsDto = new ProductDTO(
+            $request->input('name'),
+            $request->input('slug'),
+            $request->input('description'),
+            $request->input('price'),
+            $request->input('status'),
+            $request->input('stock'),
+            $request->file('image')
+        );
 
-    public function update(UpdateProduct $request, $id)
-    {
-        $productData = $request->except(['_method', 'image']);
-        $image = $request->file('image');
         try {
-            $product = Product::find($id);
-            if ($image) {
-                $mediaItems = $product->getMedia();
-                $mediaItems[0]->delete();
-                $product->addMedia($image)->toMediaCollection();
+            $created = $storeProduct->execute($productsDto);
+            if($created){
+                $products = $this->repository->paginate(self::DEFAULT_ITEMS, self::DEFAULT_PAGE);
+                $this->repository->getImageOfEachItem($products);
+                return response()->json(['data' => $products], 201);
             }
-            $product->update($productData);
-            $products = $this->paginate(9, 1);
-            $this->getImageOfEachItem($products);
-            return response()->json(['data' => $products], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()], 400);
         }
     }
 
-    public function delete($id)
+    public function update(UpdateProduct $request, UpdateProductService $updateProduct, $id)
     {
         try {
-            $product = Product::find($id);
-            $product->delete();
-            $products = $this->paginate(9, 1);
-            $this->getImageOfEachItem($products);
-            return response()->json(['data' => $products], 200);
+            $productsDto = new ProductDTO(
+                $request->input('name'),
+                $request->input('slug'),
+                $request->input('description'),
+                $request->input('price'),
+                $request->input('status'),
+                $request->input('stock'),
+                $request->file('image')
+            );
+            $updated = $updateProduct->execute($productsDto, $id);
+
+            if($updated){
+                $products = $this->repository->paginate(self::DEFAULT_ITEMS, self::DEFAULT_PAGE);
+                $this->repository->getImageOfEachItem($products);
+                return response()->json(['data' => $products], 200);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
+
+    public function delete(DeleteProduct $deleteProduct, $id)
+    {
+        try {
+           $deleted = $deleteProduct->execute($id);
+            if($deleted){
+                $products = $this->repository->paginate(self::DEFAULT_ITEMS, self::DEFAULT_PAGE);
+                $this->repository->getImageOfEachItem($products);
+                return response()->json(['data' => $products], 200);
+            }
+
         } catch (\Throwable $th) {
             return response()->json(['errors' => $th->getMessage()], 400);
         }

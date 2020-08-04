@@ -45,7 +45,7 @@
                                 </ValidationObserver>
                             </v-card>
                         </v-dialog>
-                        <v-btn text @click="login" class="accent&#45;&#45;text">
+                        <v-btn text @click="isGuest = true" class="accent&#45;&#45;text">
                             <v-icon>mdi-account</v-icon>
                            guest
                         </v-btn>
@@ -53,7 +53,7 @@
                 </header>
             </v-col>
         </v-row>
-        <v-row>
+        <v-row v-if="!isGuest">
             <v-col>
                 <ValidationObserver v-slot="{valid}">
                     <v-form>
@@ -189,6 +189,23 @@
                 </ValidationObserver>
             </v-col>
         </v-row>
+        <v-row v-else>
+            <v-col>
+                <ValidationObserver v-slot="{valid}" ref="form-guest" >
+                    <v-form>
+                        <ValidationProvider v-slot="{errors}" name="Email" rules="required|email">
+                            <v-text-field
+                            label="Email"
+                            :error-messages="errors"
+                            v-model="emailGuest"
+                            >
+
+                            </v-text-field>
+                        </ValidationProvider>
+                    </v-form>
+                </ValidationObserver>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -199,6 +216,8 @@
         data() {
             return {
                 dialog: false,
+                isGuest:false,
+                emailGuest:'',
                 credentials: {
                     email: '',
                     password: ''

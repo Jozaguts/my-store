@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -28,7 +27,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::all(['id', 'name', 'email']);
+            $users = User::all(['id', 'first_name', 'email']);
             return response()->json(['users' => $users]);
         } catch (\Throwable $th) {
             throw new Exception($th->getMessage(), 400);

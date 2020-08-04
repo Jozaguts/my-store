@@ -7,7 +7,8 @@
                         <v-stepper-header>
 
                             <v-stepper-step v-if="this.$vuetify.breakpoint.mobile" step="1" :editable="true"
-                                            :complete="stepper >1">Items in Your Cart
+                                            :complete="stepper >1">
+                                Items in Your Cart
 
                             </v-stepper-step>
 
