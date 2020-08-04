@@ -3,8 +3,8 @@ const auth = {
     namespaced: true,
     state: {
         isAuthenticated: false,
-        access_token: null
-
+        access_token: null,
+        isLogin: false
     },
     mutations: {
         AUTHENTICATE(state, payload) {
@@ -13,6 +13,9 @@ const auth = {
         SET_TOKEN(state, access_token) {
             state.access_token = access_token
         },
+        TOGGLE_IS_LOGIN(state){
+            state.isLogin = !state.isLogin
+        }
     },
     actions: {
         async login({ commit, state }, credentials) {
@@ -56,7 +59,9 @@ const auth = {
     getters: {
         getAuthenticateStatus(state) {
             return state.isAuthenticated
-        }
+        },
+        getIsLogin(state){return state.isLogin}
+
     }
 }
 export default auth

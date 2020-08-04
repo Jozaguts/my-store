@@ -2,12 +2,58 @@
     <v-container>
         <v-row>
             <v-col cols="12">
-                <header>
+                <header class="d-flex ">
                     <h2 class="text-bold text-capitalize primary--text">Billing Information</h2>
+                    <v-spacer></v-spacer>
+                    <div class="div">
+                        <v-dialog
+                            v-model="dialog"
+                            max-width="300"
+                        >
+                            <template v-slot:activator="{attrs}">
+                                <v-btn text :loading="isLogin" @click.stop="login" v-bind="attrs" class="accent--text">
+                                    <v-icon>mdi-account-check</v-icon>
+                                    sign-in
+                                </v-btn>
+                            </template>
+                            <v-card>
+                                <v-card-title>Login</v-card-title>
+                                <ValidationObserver v-slot="{valid}" ref="loginForm">
+                                    <v-card-text>
+                                        <v-form>
+                                            <ValidationProvider v-slot="{errors}" name="Email" rules="required|email">
+                                                <v-text-field
+                                                    :error-messages="errors"
+                                                    label="Email"
+                                                    v-model="credentials.email"
+                                                ></v-text-field>
+                                            </ValidationProvider>
+                                            <ValidationProvider v-slot="{errors}" name="Password" rules="required">
+                                                <v-text-field
+                                                    :error-messages="errors"
+                                                    label="Password"
+                                                    v-model="credentials.password"
+                                                ></v-text-field>
+                                            </ValidationProvider>
+                                        </v-form>
+                                        <v-card-actions>
+                                            <v-btn text :disabled="!valid" color="primary" @click="login">
+                                                sign-in
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-card-text>
+                                </ValidationObserver>
+                            </v-card>
+                        </v-dialog>
+                        <v-btn text @click="isGuest = true" class="accent&#45;&#45;text">
+                            <v-icon>mdi-account</v-icon>
+                           guest
+                        </v-btn>
+                    </div>
                 </header>
             </v-col>
         </v-row>
-        <v-row>
+        <v-row v-if="!isGuest">
             <v-col>
                 <ValidationObserver v-slot="{valid}">
                     <v-form>
@@ -143,6 +189,23 @@
                 </ValidationObserver>
             </v-col>
         </v-row>
+        <v-row v-else>
+            <v-col>
+                <ValidationObserver v-slot="{valid}" ref="form-guest" >
+                    <v-form>
+                        <ValidationProvider v-slot="{errors}" name="Email" rules="required|email">
+                            <v-text-field
+                            label="Email"
+                            :error-messages="errors"
+                            v-model="emailGuest"
+                            >
+
+                            </v-text-field>
+                        </ValidationProvider>
+                    </v-form>
+                </ValidationObserver>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -152,6 +215,13 @@
     export default {
         data() {
             return {
+                dialog: false,
+                isGuest:false,
+                emailGuest:'',
+                credentials: {
+                    email: '',
+                    password: ''
+                },
                 autocompleteRules: [value => !!value || "this field is required"],
                 billingInformation: {
                     firstName: null,
@@ -175,6 +245,9 @@
                     };
                 });
             },
+            isLogin() {
+                return this.$store.getters['auth/getIsLogin'];
+            },
             itemsState() {
                 return countries
                     .getStatesOfCountry(this.billingInformation.searchCountry)
@@ -189,6 +262,31 @@
                         return {text: elem.name, value: elem.id};
                     });
             }
+        },
+        methods: {
+            login() {
+                try {
+                    this.$store.commit('auth/TOGGLE_IS_LOGIN')
+                    if (this.$store.getters['auth/getAuthenticateStatus']) {
+                        //si esta autnteicado pido los datos
+                        console.log('autenticado SI')
+                        console.log(this.$store.getters('auth/getAuthenticateStatus'))
+                    } else {
+                        console.log('ento al esle no esta autenticado muestro el form de login')
+                        this.dialog = !this.dialog
+                    }
+
+                } catch (e) {
+                    console.error(e)
+                } finally {
+                    console.log('entor al fnaly')
+                    this.$store.commit('auth/TOGGLE_IS_LOGIN')
+                }
+
+            }
+        },
+        created() {
+
         }
     };
 </script>
