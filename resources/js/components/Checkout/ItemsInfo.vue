@@ -43,9 +43,8 @@
                         <v-btn
                             color="primary"
                             class="text-capitalize mt-4"
-                            @click="$emit('change-step',2)"
+                            @click="$emit('change-step','next')"
                             v-show="(totalAmount>0)&& $vuetify.breakpoint.mobile"
-
                         >
                             <v-icon left>mdi-check</v-icon>
                             Continue

@@ -2,10 +2,14 @@ const users = {
     namespaced: true,
     state: {
         users: [],
+        userInformation: '',
     },
     mutations: {
         SET_USERS(state, users) {
             state.users = users
+        },
+        SET_CURRENT_USER_INFORMATION(state, userInformation){
+            state.userInformation = userInformation
         }
 
     },
@@ -100,11 +104,26 @@ const users = {
                 }, {root: true});
             }
         },
+        async getUserInformation({commit,rootState}, userId){
+            try {
+                await axios.get(`/api/users/${userId}`, {
+                    headers: {Authorization: "Bearer " + rootState.auth.access_token}
+                })
+                    .then((response) => {
+                        commit('SET_CURRENT_USER_INFORMATION', response.data.userInformation)
+                    })
+            } catch (error) {
+                console.log(console.log(error));
+            }
+        }
     },
     getters: {
         getUsers(state) {
             return state.users
         },
+        getUserInformation(state) {
+                return state.userInformation
+        }
     }
 
 }

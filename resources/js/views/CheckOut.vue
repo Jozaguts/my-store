@@ -7,9 +7,7 @@
                         <v-stepper-header>
 
                             <v-stepper-step v-if="this.$vuetify.breakpoint.mobile" step="1" :editable="true"
-                                            :complete="stepper >1">
-                                Items in Your Cart
-
+                                            :complete="stepper >1">Items in Your Cart
                             </v-stepper-step>
 
                             <v-divider></v-divider>
@@ -49,26 +47,30 @@
 </template>
 
 <script>
-    import ItemsInfo from "../components/Checkout/ItemsInfo";
-    import BillingInformation from "../components/Checkout/BillingInformation";
-    import PaymentInformation from "../components/Checkout/PaymentInformation";
+import ItemsInfo from "../components/Checkout/ItemsInfo";
+import BillingInformation from "../components/Checkout/BillingInformation";
+import PaymentInformation from "../components/Checkout/PaymentInformation";
 
-    export default {
-        components: {ItemsInfo, BillingInformation, PaymentInformation},
-        data() {
-            return {
-                stepper: 1
-            };
-        },
-        methods: {
-            changeStep(step) {
-                return (this.stepper = step);
+export default {
+    components: {ItemsInfo, BillingInformation, PaymentInformation},
+    data() {
+        return {
+            stepper: 1
+        };
+    },
+    methods: {
+        changeStep(step) {
+            if (step === 'back') {
+                return this.stepper--
+            } else if (step === 'next') {
+                return this.stepper++
             }
-        },
-        created() {
-            this.$store.commit("global/SET_LAYOUT", "MainLayout");
         }
-    };
+    },
+    created() {
+        this.$store.commit("global/SET_LAYOUT", "MainLayout");
+    }
+};
 </script>
 
 
