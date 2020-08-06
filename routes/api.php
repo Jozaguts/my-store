@@ -27,4 +27,5 @@ Route::group(['prefix' => '/users'], function () {
     Route::post('/store', 'UserController@store')->middleware('auth:api');
     Route::put('/update', 'UserController@update')->middleware('auth:api');
     Route::delete('/delete/{id}', 'UserController@delete')->middleware('auth:api');
+    Route::get('/{id}', 'UserController@currentUser')->middleware('auth:api');
 });

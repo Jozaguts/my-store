@@ -65,4 +65,22 @@ class UserController extends Controller
             return response()->json(['errors' => $th->getMessage()], 400);
         }
     }
+    public function currentUser($id)
+    {
+        $user = User::find($id,[
+            'email',
+            'first_name',
+            'last_name',
+            'phone',
+            'address',
+            'country',
+            'state',
+            'city',
+            'zipcode',
+            'user_type_id',
+
+        ]);
+
+        return response()->json(['userInformation'=> $user],200);
+    }
 }

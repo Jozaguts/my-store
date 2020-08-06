@@ -24,7 +24,8 @@ const auth = {
                 await axios.post('/login', { email: credentials.email, password: credentials.password })
                     .then(response => {
                         if (response.data.access_token) {
-                            commit('global/SET_USER_NAME', response.data.user, { root: true })
+                            commit('global/SET_USER_NAME', response.data.user['first_name'], { root: true })
+                            commit('global/SET_USER_ID', response.data.user['id'], { root: true })
                             commit('SET_TOKEN', response.data.access_token)
                             commit('AUTHENTICATE', true)
                             if (state.access_token) {

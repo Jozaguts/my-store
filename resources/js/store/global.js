@@ -5,7 +5,8 @@ const auth = {
         drawer: false,
         adminDrawer: false,
         userName: null,
-        loading:false,
+        loading: false,
+        userId: null,
         menu: [
             {
                 title: "MyStore",
@@ -47,8 +48,12 @@ const auth = {
         SET_LAYOUT(state, newLayout) {
             state.layout = newLayout
         },
-        SET_USER_NAME(state, userData) {
-            state.userName = userData.name
+        SET_USER_NAME(state, userName) {
+
+            state.userName = userName
+        },
+        SET_USER_ID(state, userId) {
+            state.userId = userId
         },
         SET_ALERT_MESSAGES(state, alertMessages) {
             state.alertMessages = alertMessages;
@@ -56,7 +61,7 @@ const auth = {
         CLEAR_ALERT_MESSAGES(state) {
             state.alertMessages.messages = [];
         },
-        TOGGLE_LOADING(state){
+        TOGGLE_LOADING(state) {
             state.loading = !state.loading
         }
     },
@@ -64,11 +69,11 @@ const auth = {
         setUserName(context) {
             console.log(context)
         },
-       async setAndClearAlert(context, alert) {
+        async setAndClearAlert(context, alert) {
             await context.commit('SET_ALERT_MESSAGES', alert)
-            await setTimeout(()=>{
+            await setTimeout(() => {
                 context.commit('CLEAR_ALERT_MESSAGES')
-            },3000)
+            }, 3000)
         }
     },
     getters: {
@@ -87,8 +92,11 @@ const auth = {
         getAlertMessage(state) {
             return state.alertMessages
         },
-        getLoadingStatus(state){
+        getLoadingStatus(state) {
             return state.loading
+        },
+        getUserId(state) {
+            return state.userId
         }
     }
 }
