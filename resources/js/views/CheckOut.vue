@@ -47,6 +47,7 @@
 </template>
 
 <script>
+
 import ItemsInfo from "../components/Checkout/ItemsInfo";
 import BillingInformation from "../components/Checkout/BillingInformation";
 import PaymentInformation from "../components/Checkout/PaymentInformation";

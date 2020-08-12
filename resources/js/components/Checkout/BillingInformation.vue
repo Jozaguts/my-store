@@ -66,7 +66,7 @@
                                             type="text"
                                             label="Fist name"
                                             name="first_name"
-                                            v-model="billingInformation.first_name"
+                                            v-model="billingInformationDraft.first_name"
                                         ></v-text-field>
                                     </ValidationProvider>
                                 </v-col>
@@ -78,7 +78,7 @@
                                             name="last_name"
                                             :error-messages="errors"
                                             required
-                                            v-model="billingInformation.last_name"
+                                            v-model="billingInformationDraft.last_name"
                                         ></v-text-field>
                                     </ValidationProvider>
                                 </v-col>
@@ -90,7 +90,7 @@
                                             name="email"
                                             :error-messages="errors"
                                             required
-                                            v-model="billingInformation.email"
+                                            v-model="billingInformationDraft.email"
                                         ></v-text-field>
                                     </ValidationProvider>
                                 </v-col>
@@ -106,7 +106,7 @@
                                             label="Phone Number"
                                             name="phone_number"
                                             :error-messages="errors"
-                                            v-model="billingInformation.phone"
+                                            v-model="billingInformationDraft.phone"
                                         ></v-text-field>
                                     </ValidationProvider>
                                 </v-col>
@@ -117,7 +117,7 @@
                                             label="Street Address"
                                             name="street_address"
                                             :error-messages="errors"
-                                            v-model="billingInformation.address"
+                                            v-model="billingInformationDraft.address"
                                         ></v-text-field>
                                     </ValidationProvider>
                                 </v-col>
@@ -128,8 +128,8 @@
                                             label="Country"
                                             name="country"
                                             :error-messages="errors"
-                                            v-model="billingInformation.country"
-                                            :items="billingInformation.country==null ? itemsCountry:[billingInformation.country]"
+                                            v-model="billingInformationDraft.country"
+                                            :items="billingInformationDraft.country==null ? itemsCountry:[billingInformationDraft.country]"
                                         ></v-autocomplete>
                                     </ValidationProvider>
                                 </v-col>
@@ -140,8 +140,8 @@
                                             label="State"
                                             name="state"
                                             :error-messages="errors"
-                                            v-model="billingInformation.state"
-                                            :items="billingInformation.state==null?itemsState:[billingInformation.state]"
+                                            v-model="billingInformationDraft.state"
+                                            :items="billingInformationDraft.state==null?itemsState:[billingInformationDraft.state]"
                                         ></v-autocomplete>
                                     </ValidationProvider>
                                 </v-col>
@@ -151,8 +151,8 @@
                                             label="City"
                                             name="city"
                                             :error-messages="errors"
-                                            v-model="billingInformation.city"
-                                            :items="billingInformation.city==null?itemsCity:[billingInformation.city]"
+                                            v-model="billingInformationDraft.city"
+                                            :items="billingInformationDraft.city==null?itemsCity:[billingInformationDraft.city]"
                                         ></v-autocomplete>
                                     </ValidationProvider>
                                 </v-col>
@@ -165,7 +165,7 @@
                                             name="zipcode"
                                             counter="5"
                                             :error-messages="errors"
-                                            v-model="billingInformation.zipcode"
+                                            v-model="billingInformationDraft.zipcode"
                                         ></v-text-field>
                                     </ValidationProvider>
                                 </v-col>
@@ -213,6 +213,7 @@
 <script>
 import countries from "country-state-city";
 
+
 export default {
     data() {
         return {
@@ -224,7 +225,7 @@ export default {
                 password: ''
             },
             autocompleteRules: [value => !!value || "this field is required"],
-            billingInformation: {
+            billingInformationDraft: {
                 first_name: null,
                 last_name: null,
                 email: null,
@@ -238,11 +239,14 @@ export default {
         };
     },
     watch: {
-        phone: function (oldValue, newValue) {
-            if (oldValue != null || newValue != null) {
-                return this.billingInformation.phone = oldValue.replace(/\s/g, '')
-            }
+        billingInformationDraft(newValue, oldValue){
+            this.$store.commit('cart/SET_BILLING_INFORMATION',newValue)
         }
+        // phone: function (oldValue, newValue) {
+        //     if (oldValue != null || newValue != null) {
+        //         return this.billingInformation.phone = oldValue.replace(/\s/g, '')
+        //     }
+        // }
     },
     computed: {
         itemsCountry() {
@@ -253,12 +257,9 @@ export default {
                 };
             });
         },
-        updateBillingInformation() {
-            return this.billingInformation = this.$store.getters['users/getUserInformation']
-        },
-        phone() {
-            return this.billingInformation.phone
-        },
+        // phone() {
+        //     return this.billingInformation.phone
+        // },
         isLogin() {
             return this.$store.getters['auth/getIsLogin'];
         },
@@ -267,18 +268,18 @@ export default {
         },
         itemsState() {
             return countries
-                .getStatesOfCountry(this.billingInformation.country)
+                .getStatesOfCountry(this.billingInformationDraft.country)
                 .map(elem => {
                     return {text: elem.name, value: elem.id};
                 });
         },
         itemsCity() {
             return countries
-                .getCitiesOfState(this.billingInformation.state)
+                .getCitiesOfState(this.billingInformationDraft.state)
                 .map(elem => {
                     return {text: elem.name, value: elem.id};
                 });
-        }
+        },
     },
     methods: {
         login() {
@@ -301,15 +302,15 @@ export default {
                 this.$store.commit('auth/TOGGLE_IS_LOGIN')
             }
 
-        }
+        },
     },
-    created() {
+    created: function () {
         if (this.isAuthenticated) {
             try {
-                this.$store.dispatch('users/getUserInformation', this.$store.getters['global/getUserId'])
-                    .then(() => {
-                        this.updateBillingInformation
-                    })
+                this.$store.dispatch('users/getUserInformation')
+                .then(()=>{
+                    this.billingInformationDraft = this.$store.getters['cart/getBillingInformation']
+                })
             } catch (e) {
                 console.error(e)
             }

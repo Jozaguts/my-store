@@ -65,6 +65,7 @@
                             class="text-capitalize"
                             :x-large="true"
                             :disabled="!valid"
+                            @click="checkOut"
                         >Pay {{ totalAmount|money }}
                         </v-btn>
                     </section>
@@ -84,7 +85,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapGetters, mapActions} from "vuex";
 
 export default {
     data() {
@@ -100,6 +101,11 @@ export default {
     computed: {
         ...mapGetters({
             totalAmount: "cart/getTotalAmount"
+        })
+    },
+    methods:{
+        ...mapActions({
+            checkOut: 'cart/checkOut'
         })
     }
 };
