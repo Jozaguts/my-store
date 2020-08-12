@@ -104,12 +104,14 @@ const users = {
                 }, {root: true});
             }
         },
-        async getUserInformation({commit,rootState}, userId){
+        async getUserInformation({commit,rootState}){
             try {
+                const userId = rootState.global.userId
                 await axios.get(`/api/users/${userId}`, {
                     headers: {Authorization: "Bearer " + rootState.auth.access_token}
                 })
                     .then((response) => {
+                        commit('cart/SET_BILLING_INFORMATION', response.data.userInformation, {root:true })
                         commit('SET_CURRENT_USER_INFORMATION', response.data.userInformation)
                     })
             } catch (error) {
