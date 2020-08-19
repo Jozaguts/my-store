@@ -30,4 +30,5 @@ Route::group(['prefix' => '/users'], function () {
     Route::get('/{id}', 'UserController@currentUser')->middleware('auth:api');
 });
 
-Route::post('checkout', 'CheckOutController@checkOut');
+Route::post('/payment', 'CheckOutController@payment');
+Route::post('/client-intent', 'CheckOutController@clientIntent');
