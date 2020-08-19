@@ -1,5 +1,3 @@
-import router from "../routes";
-
 const cart = {
     namespaced: true,
     state: {
@@ -16,7 +14,8 @@ const cart = {
             state: '',
             city: '',
             zipcode: ''
-        }
+        },
+        isPaying: false
     },
     mutations: {
         TOGGLE_SHOW_CART(state) {
@@ -38,16 +37,13 @@ const cart = {
         },
         DELETE_ITEM(state, id) {
             const finned = state.cartItems.find(item => item.id == id)
-            if (finned && (finned.quantity > 0)) {
-                finned.quantity--
-                if(finned.quantity == 0){
-                        console.log('igual a cero')
-                        console.log(state.cartItems)
-                }
-            }
+            if (finned && (finned.quantity > 0)) finned.quantity--
         },
-        SET_BILLING_INFORMATION(state, payload){
+        SET_BILLING_INFORMATION(state, payload) {
             state.billingInformation = payload
+        },
+        TOGGLE_IS_PAYING(state) {
+            state.isPaying = !state.isPaying
         }
     },
     actions: {
@@ -64,19 +60,32 @@ const cart = {
             }
 
         },
-        async checkOut({commit, dispatch,state}) {
+        async payment({commit, dispatch, state}, setupIntent) {
             try {
                 const userInformation = state.billingInformation;
                 const cartItems = state.cartItems;
-
-                await axios.post('/api/checkout', {userInformation,cartItems})
+                await axios.post('/api/payment', {userInformation, cartItems, setupIntent})
                     .then((response) => {
-                        console.log(response)
+                        if (response.data.includes('succeeded')) {
+                            return new Promise((resolve, reject) => {
+                                let storage = JSON.parse(window.localStorage.getItem('vuex'))
+                                storage.cart.cartItems = [];
+                                window.localStorage.clear()
+                                window.localStorage.setItem('vuex', JSON.stringify(storage))
+                                resolve('success')
+                                reject('Problems when cleaning the shopping cart')
+                            })
+                                .then((data) => {
+                                    state.cartItems = []
+                                    state.cartChanged = false
+                                    console.log(data)
+                                })
+                        }
                     })
             } catch (e) {
                 console.log(e)
             }
-        },
+        }
     },
     getters: {
         getToggleShow(state) {
@@ -97,10 +106,15 @@ const cart = {
         getTotalAmount(state) {
             if (state.cartItems.length) {
                 return state.cartItems.reduce((acc, el) => acc + Math.floor(Number(el.price * el.quantity)), 0)
+            } else {
+                return 0;
             }
         },
-        getBillingInformation(state){
+        getBillingInformation(state) {
             return state.billingInformation
+        },
+        getIsPaying(state) {
+            return state.isPaying
         }
     }
 }

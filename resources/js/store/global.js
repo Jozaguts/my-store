@@ -26,12 +26,6 @@ const auth = {
                 link: "/blouses",
                 class: "order-4"
             },
-            // {
-            //     title: "About Us",
-            //     icon: "mdi-information",
-            //     link: "/about",
-            //     class: "order-3"
-            // }
         ],
         alertMessages: {
             type: null,

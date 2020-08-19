@@ -27,7 +27,7 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'user_type_id' =>$faker->numberBetween($min = 2, $max = 5),
 
-        'phone' => $faker->phoneNumber,
+        'phone' => $faker->e164PhoneNumber,
         'address' => $faker->streetAddress,
         'country' => substr($faker->country, 0, 30),
         'state' => $faker->state,
