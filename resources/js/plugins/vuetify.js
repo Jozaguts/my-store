@@ -7,6 +7,7 @@ import colors from 'vuetify/lib/util/colors'
 import TShirtIcon from '../components/CustomIcons/T-shirt.vue'
 import BlouseIcon from '../components/CustomIcons/Blouse.vue'
 import ShoppingCart from "../components/CustomIcons/ShoppingCart";
+import TShirtLogo from "../components/CustomIcons/TshirtLogo";
 Vue.use(Vuetify)
 
 
@@ -22,6 +23,9 @@ const opts = {
             },
             shoppingCart:{
                 component: ShoppingCart
+            },
+            tShirtLogo:{
+                component: TShirtLogo
             }
         }
     },
@@ -37,9 +41,10 @@ const opts = {
     theme: {
         themes: {
             light: {
-                primary: colors.cyan.accent4,
-                secondary: colors.grey.darken1,
-                accent: '#006276',
+                primary: '#5E8EC3',
+                secondary: '#2B5C94',
+                accent: '#162C5A',
+                info: '#7A83D2',
                 error: colors.red.accent3,
             },
             dark: {
