@@ -3,14 +3,13 @@
         <NabBar app/>
         <navigationLeft app/>
         <navigationRight app/>
-
-        <v-main class="accent">
-            <div class="pa-0 py-md-12">
-                <v-container fluid>
+        <v-main class="accent main-container">
+            <v-container fluid>
+                <div class="pa-0 pa-md-12">
                     <Banner/>
-                    <router-view></router-view>
-                </v-container>
-            </div>
+                </div>
+                <router-view></router-view>
+            </v-container>
         </v-main>
 
         <FooterComponent/>
@@ -34,5 +33,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="sass">
+.main-container
+    padding-top: 116px !important
+    min-height: 100vh
 </style>
