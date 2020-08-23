@@ -1,19 +1,14 @@
 <template>
-    <v-carousel hide-delimiters>
+    <v-carousel hide-delimiters height="auto" >
         <v-carousel-item
             reverse-transition="fade-transition"
             transition="fade-transition"
-            class="pa-6"
         >
-            <v-parallax dark :src="require('../assets/img/banner.jpg')" v-if="this.$route.name !='checkout'">
-                <v-row>
-                    <v-col class="d-flex" cols="12">
-                        <h1 class="display-1 secondary--text text-capitalize">{{title}}</h1>
-
-                        <!--        <h4 class="subheading primary&#45;&#45;text">Build your application today!</h4>-->
-                    </v-col>
-                </v-row>
-            </v-parallax>
+                <v-img  v-if="this.$vuetify.breakpoint.width >= 1024"  :src="require('../assets/img/desktopbanner.jpg')"></v-img>
+            <template v-else>
+                <v-img :src="require('../assets/img/mobilebanner2.jpg')"></v-img>
+                <v-img :src="require('../assets/img/mobilebanner.jpg')"></v-img>
+            </template>
         </v-carousel-item>
     </v-carousel>
 </template>
@@ -37,8 +32,9 @@ export default {
                     return this.$route.name;
                     break;
             }
-        }
-    }
+        },
+    },
+
 };
 </script>
 

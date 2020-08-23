@@ -1,5 +1,4 @@
 <template>
-  <v-container>
     <v-row>
       <v-col cols="12">
         <header>
@@ -24,7 +23,7 @@
         <v-pagination :value="page" :length="length" @input="next" total-visible="10"></v-pagination>
       </v-col>
     </v-row>-->
-  </v-container>
+
 </template>
 
 <script>
