@@ -5,13 +5,14 @@
         <navigationRight app/>
         <v-main class="accent main-container">
             <v-container fluid>
-                <div class="pa-0 pa-md-12">
-                    <Banner/>
-                </div>
+                <v-row>
+                    <v-col>
+                        <Banner/>
+                    </v-col>
+                </v-row>
                 <router-view></router-view>
             </v-container>
         </v-main>
-
         <FooterComponent/>
     </v-app>
 </template>
@@ -37,4 +38,7 @@ export default {
 .main-container
     padding-top: 116px !important
     min-height: 100vh
+
+.banner-container
+    max-height: 240px
 </style>

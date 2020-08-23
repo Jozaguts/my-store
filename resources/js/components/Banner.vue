@@ -1,12 +1,10 @@
 <template>
-    <v-carousel hide-delimiters height="200">
+    <v-carousel hide-delimiters height="auto" >
         <v-carousel-item
             reverse-transition="fade-transition"
             transition="fade-transition"
         >
-            <template v-if="this.$vuetify.breakpoint.width >= 1024 ">
-                <v-img :src="require('../assets/img/desktopbanner.jpg')"></v-img>
-            </template>
+                <v-img  v-if="this.$vuetify.breakpoint.width >= 1024"  :src="require('../assets/img/desktopbanner.jpg')"></v-img>
             <template v-else>
                 <v-img :src="require('../assets/img/mobilebanner2.jpg')"></v-img>
                 <v-img :src="require('../assets/img/mobilebanner.jpg')"></v-img>
