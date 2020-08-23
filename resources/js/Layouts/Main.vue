@@ -6,7 +6,7 @@
         <v-main class="accent main-container">
             <v-container fluid>
                 <v-row>
-                    <v-col>
+                    <v-col class="pa-6">
                         <Banner/>
                     </v-col>
                 </v-row>

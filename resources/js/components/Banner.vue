@@ -4,10 +4,10 @@
             reverse-transition="fade-transition"
             transition="fade-transition"
         >
-                <v-img  v-if="this.$vuetify.breakpoint.width >= 1024"  :src="require('../assets/img/desktopbanner.jpg')"></v-img>
+                <v-img  v-if="this.$vuetify.breakpoint.width >= 1024" contain :src="require('../assets/img/desktopbanner.jpg')"></v-img>
             <template v-else>
-                <v-img :src="require('../assets/img/mobilebanner2.jpg')"></v-img>
-                <v-img :src="require('../assets/img/mobilebanner.jpg')"></v-img>
+                <v-img width="340" contain :src="require('../assets/img/mobilebanner2.jpg')"></v-img>
+                <v-img width="340" contain :src="require('../assets/img/mobilebanner.jpg')"></v-img>
             </template>
         </v-carousel-item>
     </v-carousel>

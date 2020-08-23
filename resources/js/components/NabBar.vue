@@ -34,16 +34,17 @@
                     @click="TOGGLE_DRAWER">
                 </v-app-bar-nav-icon>
             </v-tabs>
+            <v-alert
+                class="alert"
+                type="success"
+                dismissible
+                dense
+                transition="scale-transition"
+                :value="showAlert"
+            >I'm a success alert.
+            </v-alert>
         </template>
-        <v-alert
-            class="alert"
-            type="success"
-            dismissible
-            dense
-            transition="scale-transition"
-            :value="showAlert"
-        >I'm a success alert.
-        </v-alert>
+
     </v-app-bar>
     <!--    <v-app-bar prominent app>-->
     <!--        &lt;!&ndash;        <v-app-bar-nav-icon @click="TOGGLE_DRAWER" class="d-flex d-sm-none"></v-app-bar-nav-icon>&ndash;&gt;-->
