@@ -3,10 +3,10 @@
         <NabBar app/>
         <navigationLeft app/>
         <navigationRight app/>
-        <v-main class="accent main-container">
-            <v-container fluid>
+        <v-main class=" main-container">
+            <v-container >
                 <v-row>
-                    <v-col class="pa-6">
+                    <v-col align="center" justify="center">
                         <Banner/>
                     </v-col>
                 </v-row>

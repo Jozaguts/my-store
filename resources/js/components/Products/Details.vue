@@ -1,19 +1,29 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="6" lg="6">
-        <v-card class="mx-auto" max-width="300" cover>
-          <v-img class="white--text align-end" :src="productDetails.publicUrl">
-            <v-card-title>{{productDetails.name}}</v-card-title>
+      <v-col cols="12" md="6" lg="6" class="d-flex">
+        <v-card  color="grey lighten-2" elevations="0" flat fab>
+            <v-card-title class="accent--text font-weight-bold">{{productDetails.name}}</v-card-title>
+          <v-img class="white--text align-end"  width="300"  height="300"  :src="productDetails.publicUrl">
           </v-img>
           <v-card-actions>
             <v-btn
-              color="primary"
+              color="accent"
               class="text-uppercase"
+              x-large
               :disabled="!productDetails.status"
               @click="addToCart"
-            >add to cart</v-btn>
-            <v-btn color="secondary" class="text-uppercase" to="/checkout">checkout</v-btn>
+            >
+                <v-icon>
+                    mdi-cart-plus
+                </v-icon>
+            </v-btn>
+              <v-spacer></v-spacer>
+            <v-btn color="secondary" class="text-uppercase" to="/checkout">
+                <v-icon>
+                    mdi-credit-card-check-outline
+                </v-icon>
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
