@@ -41,11 +41,11 @@ const opts = {
     theme: {
         themes: {
             light: {
-                primary: '#5E8EC3',
-                secondary: '#2B5C94',
-                accent: '#162C5A',
-                info: '#7A83D2',
-                error: colors.red.accent3,
+                primary: '#3E3940',
+                secondary: '#BFA473',
+                accent: '#F2913D',
+                error: '#F27141',
+                info: '#A65B4B',
             },
             dark: {
                 primary: colors.cyan.darken3,

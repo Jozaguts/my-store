@@ -1,58 +1,162 @@
 <template>
     <v-row>
-        <v-col cols="12" sm="12" md="4" lg="4">
+        <v-col cols="12" sm="12" md="4" lg="3">
             <header>
-                <h2 class="subheading primary--text text-uppercase">newly added</h2>
+                <h2 class=" pa-3 subheading primary--text text-capitalize">Agregados recientemente</h2>
             </header>
-            <v-carousel hide-delimiters height="auto">
+            <v-carousel
+                hide-delimiters
+                :continuous="true"
+                :cycle="false"
+                :show-arrows="true"
+                hide-delimiter-background
+                height="auto">
                 <v-carousel-item
                     v-for="(product, i) in products"
                     :key="i"
                 >
-
                     <v-row
-                        class="fill-height"
-                        align="center"
-                        justify="center"
                     >
-                        <products-card
-                            v-if="product.id"
-                            :name="product.name"
-                            :slug="product.slug"
-                            :price="product.price"
-                            :description="product.description"
-                            :status="product.status"
-                            :id="product.id"
-                            :image="product.publicUrl"
-                        >
+                        <v-col
+                            class="fill-height"
+                            align="center"
+                            justify="center">
+                            <products-card
 
-                        </products-card>
+                                v-if="product.id"
+                                :name="product.name"
+                                :slug="product.slug"
+                                :price="product.price"
+                                :description="product.description"
+                                :status="product.status"
+                                :id="product.id"
+                                :image="product.publicUrl"
+                            >
+                            </products-card>
+                        </v-col>
                     </v-row>
 
                 </v-carousel-item>
-                <!--                <v-carousel-item-->
-                <!--                    v-for="product in products" :key="product.id"-->
-                <!--                    class="d-flex justify-center align-center"-->
-                <!--                >-->
-                <!--                    <products-card-->
-                <!--                        v-if="product.id"-->
-                <!--                        :name="product.name"-->
-                <!--                        :slug="product.slug"-->
-                <!--                        :price="product.price"-->
-                <!--                        :description="product.description"-->
-                <!--                        :status="product.status"-->
-                <!--                        :id="product.id"-->
-                <!--                        :image="product.publicUrl"-->
-                <!--                    ></products-card>-->
-                <!--                </v-carousel-item>-->
+            </v-carousel>
+        </v-col>
+        <v-col cols="12" sm="12" md="4" lg="3">
+            <header>
+                <h2 class=" pa-3 subheading primary--text text-capitalize">Agregados recientemente</h2>
+            </header>
+            <v-carousel
+                hide-delimiters
+                :continuous="true"
+                :cycle="false"
+                :show-arrows="true"
+                hide-delimiter-background
+                height="auto">
+                <v-carousel-item
+                    v-for="(product, i) in products"
+                    :key="i"
+                >
+                    <v-row
+                    >
+                        <v-col
+                            class="fill-height"
+                            align="center"
+                            justify="center">
+                            <products-card
+
+                                v-if="product.id"
+                                :name="product.name"
+                                :slug="product.slug"
+                                :price="product.price"
+                                :description="product.description"
+                                :status="product.status"
+                                :id="product.id"
+                                :image="product.publicUrl"
+                            >
+                            </products-card>
+                        </v-col>
+                    </v-row>
+
+                </v-carousel-item>
+            </v-carousel>
+        </v-col>
+        <v-col cols="12" sm="12" md="4" lg="3">
+            <header>
+                <h2 class=" pa-3 subheading primary--text text-capitalize">Agregados recientemente</h2>
+            </header>
+            <v-carousel
+                hide-delimiters
+                :continuous="true"
+                :cycle="false"
+                :show-arrows="true"
+                hide-delimiter-background
+                height="auto">
+                <v-carousel-item
+                    v-for="(product, i) in products"
+                    :key="i"
+                >
+                    <v-row
+                    >
+                        <v-col
+                            class="fill-height"
+                            align="center"
+                            justify="center">
+                            <products-card
+
+                                v-if="product.id"
+                                :name="product.name"
+                                :slug="product.slug"
+                                :price="product.price"
+                                :description="product.description"
+                                :status="product.status"
+                                :id="product.id"
+                                :image="product.publicUrl"
+                            >
+                            </products-card>
+                        </v-col>
+                    </v-row>
+
+                </v-carousel-item>
+            </v-carousel>
+        </v-col>
+        <v-col cols="12" sm="12" md="4" lg="3">
+            <header>
+                <h2 class=" pa-3 subheading primary--text text-capitalize">Agregados recientemente</h2>
+            </header>
+            <v-carousel
+                hide-delimiters
+                :continuous="true"
+                :cycle="false"
+                :show-arrows="true"
+                hide-delimiter-background
+                height="auto">
+                <v-carousel-item
+                    v-for="(product, i) in products"
+                    :key="i"
+                >
+                    <v-row
+                    >
+                        <v-col
+                            class="fill-height"
+                            align="center"
+                            justify="center">
+                            <products-card
+
+                                v-if="product.id"
+                                :name="product.name"
+                                :slug="product.slug"
+                                :price="product.price"
+                                :description="product.description"
+                                :status="product.status"
+                                :id="product.id"
+                                :image="product.publicUrl"
+                            >
+                            </products-card>
+                        </v-col>
+                    </v-row>
+
+                </v-carousel-item>
             </v-carousel>
         </v-col>
     </v-row>
-    <!-- <v-row>
-      <v-col cols="12">
-        <v-pagination :value="page" :length="length" @input="next" total-visible="10"></v-pagination>
-      </v-col>
-    </v-row>-->
 
 </template>
 
@@ -106,6 +210,3 @@ export default {
     }
 };
 </script>
-
-<style>
-</style>
