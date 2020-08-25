@@ -36,7 +36,7 @@
                         <div id="card-errors" role="alert"></div>
                         <v-col>
                             <v-btn
-                                color="primary"
+                                color="accent"
                                 class="text-capitalize"
                                 :x-large="true"
                                 :loading="isPaying"

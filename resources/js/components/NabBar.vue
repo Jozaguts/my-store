@@ -15,7 +15,7 @@
             <v-spacer></v-spacer>
             <v-btn fab small color="accent" rounded ripple
                    @click="TOGGLE_SHOW_CART">
-                <v-badge v-show="totalQuantity" :content="totalQuantity" bordered color="accent" :left="true">
+                <v-badge v-show="totalQuantity>=0" :content="totalQuantity" bordered color="accent" :left="true">
                     <v-icon dark>$shoppingCart</v-icon>
                 </v-badge>
             </v-btn>
@@ -30,7 +30,7 @@
                 <v-app-bar-nav-icon
                     v-if="!mdAndUp"
                     color="white"
-                    class="secondary pl-8 d-flex d-md-none"
+                    class="secondary ml-4 d-flex d-md-none"
                     @click="TOGGLE_DRAWER">
                 </v-app-bar-nav-icon>
             </v-tabs>
@@ -41,7 +41,7 @@
                 dense
                 transition="scale-transition"
                 :value="showAlert"
-            >I'm a success alert.
+            >Producto agregado correctamente.
             </v-alert>
         </template>
 
@@ -131,6 +131,6 @@ export default {
     padding-bottom: 0
 
 .v-toolbar__extension
-    background-color: #2B5C94
+    background-color: #BFA473
 
 </style>
