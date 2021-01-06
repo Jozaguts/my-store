@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@mdi/font": "^5.3.45",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "browser-sync": "^2.26.10",
         "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^7.0",
